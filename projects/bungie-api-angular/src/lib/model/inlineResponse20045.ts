@@ -13,7 +13,7 @@ import { DestinyDestinyEquipItemResults } from './destinyDestinyEquipItemResults
 
 
 export interface InlineResponse20045 { 
-    Response?: DestinyDestinyEquipItemResults;
+    response?: DestinyDestinyEquipItemResults;
     message?: string;
     messageData?: { [key: string]: string; };
     errorStatus?: string;

@@ -13,7 +13,7 @@ import { ContentContentItemPublicContract } from './contentContentItemPublicCont
 
 
 export interface InlineResponse2009 { 
-    Response?: ContentContentItemPublicContract;
+    response?: ContentContentItemPublicContract;
     message?: string;
     messageData?: { [key: string]: string; };
     errorStatus?: string;

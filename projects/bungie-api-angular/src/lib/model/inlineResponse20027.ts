@@ -13,7 +13,7 @@ import { SearchResultOfGroupMemberApplication } from './searchResultOfGroupMembe
 
 
 export interface InlineResponse20027 { 
-    Response?: SearchResultOfGroupMemberApplication;
+    response?: SearchResultOfGroupMemberApplication;
     message?: string;
     messageData?: { [key: string]: string; };
     errorStatus?: string;

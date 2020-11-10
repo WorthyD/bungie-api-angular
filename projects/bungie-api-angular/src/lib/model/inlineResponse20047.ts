@@ -13,7 +13,7 @@ import { DestinyHistoricalStatsDestinyPostGameCarnageReportData } from './destin
 
 
 export interface InlineResponse20047 { 
-    Response?: DestinyHistoricalStatsDestinyPostGameCarnageReportData;
+    response?: DestinyHistoricalStatsDestinyPostGameCarnageReportData;
     message?: string;
     messageData?: { [key: string]: string; };
     errorStatus?: string;

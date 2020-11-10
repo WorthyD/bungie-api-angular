@@ -13,7 +13,7 @@ import { GroupsV2GroupResponse } from './groupsV2GroupResponse';
 
 
 export interface InlineResponse20021 { 
-    Response?: GroupsV2GroupResponse;
+    response?: GroupsV2GroupResponse;
     message?: string;
     messageData?: { [key: string]: string; };
     errorStatus?: string;

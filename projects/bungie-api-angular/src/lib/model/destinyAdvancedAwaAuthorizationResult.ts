@@ -16,9 +16,9 @@ export interface DestinyAdvancedAwaAuthorizationResult {
      * Indication of how the user responded to the request. If the value is \"Approved\" the actionToken will contain the token that can be presented when performing the advanced write action.
      */
     userSelection?: number;
-    ResponseReason?: number;
+    responseReason?: number;
     /**
-     * Message to the app developer to help understand the Response.
+     * Message to the app developer to help understand the response.
      */
     developerNote?: string;
     /**

@@ -13,7 +13,7 @@ import { SearchResultOfGroupBan } from './searchResultOfGroupBan';
 
 
 export interface InlineResponse20026 { 
-    Response?: SearchResultOfGroupBan;
+    response?: SearchResultOfGroupBan;
     message?: string;
     messageData?: { [key: string]: string; };
     errorStatus?: string;

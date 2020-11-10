@@ -13,7 +13,7 @@ import { TrendingTrendingCategories } from './trendingTrendingCategories';
 
 
 export interface InlineResponse20063 { 
-    Response?: TrendingTrendingCategories;
+    response?: TrendingTrendingCategories;
     message?: string;
     messageData?: { [key: string]: string; };
     errorStatus?: string;

@@ -13,7 +13,7 @@ import { DestinyResponsesDestinyItemResponse } from './destinyResponsesDestinyIt
 
 
 export interface InlineResponse20040 { 
-    Response?: DestinyResponsesDestinyItemResponse;
+    response?: DestinyResponsesDestinyItemResponse;
     message?: string;
     messageData?: { [key: string]: string; };
     errorStatus?: string;

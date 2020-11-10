@@ -13,7 +13,7 @@ import { UserGeneralUser } from './userGeneralUser';
 
 
 export interface InlineResponse2002 { 
-    Response?: UserGeneralUser;
+    response?: UserGeneralUser;
     message?: string;
     messageData?: { [key: string]: string; };
     errorStatus?: string;

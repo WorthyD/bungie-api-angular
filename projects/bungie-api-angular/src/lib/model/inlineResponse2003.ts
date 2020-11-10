@@ -13,7 +13,7 @@ import { UserGeneralUser } from './userGeneralUser';
 
 
 export interface InlineResponse2003 { 
-    Response?: Array<UserGeneralUser>;
+    response?: Array<UserGeneralUser>;
     message?: string;
     messageData?: { [key: string]: string; };
     errorStatus?: string;

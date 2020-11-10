@@ -13,7 +13,7 @@ import { GroupsV2GroupPotentialMembershipSearchResponse } from './groupsV2GroupP
 
 
 export interface InlineResponse20031 { 
-    Response?: GroupsV2GroupPotentialMembershipSearchResponse;
+    response?: GroupsV2GroupPotentialMembershipSearchResponse;
     message?: string;
     messageData?: { [key: string]: string; };
     errorStatus?: string;

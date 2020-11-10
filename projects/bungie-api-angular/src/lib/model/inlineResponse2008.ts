@@ -13,7 +13,7 @@ import { ContentModelsContentTypeDescription } from './contentModelsContentTypeD
 
 
 export interface InlineResponse2008 { 
-    Response?: ContentModelsContentTypeDescription;
+    response?: ContentModelsContentTypeDescription;
     message?: string;
     messageData?: { [key: string]: string; };
     errorStatus?: string;

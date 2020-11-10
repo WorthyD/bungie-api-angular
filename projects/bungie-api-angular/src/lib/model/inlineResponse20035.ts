@@ -13,7 +13,7 @@ import { UserUserInfoCard } from './userUserInfoCard';
 
 
 export interface InlineResponse20035 { 
-    Response?: Array<UserUserInfoCard>;
+    response?: Array<UserUserInfoCard>;
     message?: string;
     messageData?: { [key: string]: string; };
     errorStatus?: string;

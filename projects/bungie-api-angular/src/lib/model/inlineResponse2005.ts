@@ -13,7 +13,7 @@ import { UserUserMembershipData } from './userUserMembershipData';
 
 
 export interface InlineResponse2005 { 
-    Response?: UserUserMembershipData;
+    response?: UserUserMembershipData;
     message?: string;
     messageData?: { [key: string]: string; };
     errorStatus?: string;

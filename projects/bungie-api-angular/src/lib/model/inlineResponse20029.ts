@@ -13,7 +13,7 @@ import { GroupsV2GetGroupsForMemberResponse } from './groupsV2GetGroupsForMember
 
 
 export interface InlineResponse20029 { 
-    Response?: GroupsV2GetGroupsForMemberResponse;
+    response?: GroupsV2GetGroupsForMemberResponse;
     message?: string;
     messageData?: { [key: string]: string; };
     errorStatus?: string;

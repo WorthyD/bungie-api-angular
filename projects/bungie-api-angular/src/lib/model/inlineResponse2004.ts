@@ -13,7 +13,7 @@ import { ConfigUserTheme } from './configUserTheme';
 
 
 export interface InlineResponse2004 { 
-    Response?: Array<ConfigUserTheme>;
+    response?: Array<ConfigUserTheme>;
     message?: string;
     messageData?: { [key: string]: string; };
     errorStatus?: string;

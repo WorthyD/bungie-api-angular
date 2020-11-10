@@ -13,7 +13,7 @@ import { ForumForumRecruitmentDetail } from './forumForumRecruitmentDetail';
 
 
 export interface InlineResponse20015 { 
-    Response?: Array<ForumForumRecruitmentDetail>;
+    response?: Array<ForumForumRecruitmentDetail>;
     message?: string;
     messageData?: { [key: string]: string; };
     errorStatus?: string;

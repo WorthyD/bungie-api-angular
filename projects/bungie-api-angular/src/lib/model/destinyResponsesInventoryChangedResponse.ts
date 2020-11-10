@@ -13,7 +13,7 @@ import { DestinyEntitiesItemsDestinyItemComponent } from './destinyEntitiesItems
 
 
 /**
- * A Response containing all of the components for all requested vendors.
+ * A response containing all of the components for all requested vendors.
  */
 export interface DestinyResponsesInventoryChangedResponse { 
     /**

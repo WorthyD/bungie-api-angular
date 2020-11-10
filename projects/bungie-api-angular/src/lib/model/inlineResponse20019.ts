@@ -13,7 +13,7 @@ import { GroupsV2GroupV2Card } from './groupsV2GroupV2Card';
 
 
 export interface InlineResponse20019 { 
-    Response?: Array<GroupsV2GroupV2Card>;
+    response?: Array<GroupsV2GroupV2Card>;
     message?: string;
     messageData?: { [key: string]: string; };
     errorStatus?: string;

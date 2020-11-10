@@ -13,7 +13,7 @@ import { GroupsV2GroupMemberLeaveResult } from './groupsV2GroupMemberLeaveResult
 
 
 export interface InlineResponse20025 { 
-    Response?: GroupsV2GroupMemberLeaveResult;
+    response?: GroupsV2GroupMemberLeaveResult;
     message?: string;
     messageData?: { [key: string]: string; };
     errorStatus?: string;

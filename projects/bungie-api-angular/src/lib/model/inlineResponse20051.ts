@@ -13,7 +13,7 @@ import { DestinyDefinitionsDestinyEntitySearchResult } from './destinyDefinition
 
 
 export interface InlineResponse20051 { 
-    Response?: DestinyDefinitionsDestinyEntitySearchResult;
+    response?: DestinyDefinitionsDestinyEntitySearchResult;
     message?: string;
     messageData?: { [key: string]: string; };
     errorStatus?: string;

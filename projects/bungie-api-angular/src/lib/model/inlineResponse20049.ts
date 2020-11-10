@@ -13,7 +13,7 @@ import { DestinyHistoricalStatsDestinyLeaderboard } from './destinyHistoricalSta
 
 
 export interface InlineResponse20049 { 
-    Response?: { [key: string]: { [key: string]: DestinyHistoricalStatsDestinyLeaderboard; }; };
+    response?: { [key: string]: { [key: string]: DestinyHistoricalStatsDestinyLeaderboard; }; };
     message?: string;
     messageData?: { [key: string]: string; };
     errorStatus?: string;

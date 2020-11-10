@@ -13,7 +13,7 @@ import { FireteamFireteamResponse } from './fireteamFireteamResponse';
 
 
 export interface InlineResponse20068 { 
-    Response?: FireteamFireteamResponse;
+    response?: FireteamFireteamResponse;
     message?: string;
     messageData?: { [key: string]: string; };
     errorStatus?: string;

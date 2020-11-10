@@ -13,7 +13,7 @@ import { DestinyMilestonesDestinyPublicMilestone } from './destinyMilestonesDest
 
 
 export interface InlineResponse20058 { 
-    Response?: { [key: string]: DestinyMilestonesDestinyPublicMilestone; };
+    response?: { [key: string]: DestinyMilestonesDestinyPublicMilestone; };
     message?: string;
     messageData?: { [key: string]: string; };
     errorStatus?: string;

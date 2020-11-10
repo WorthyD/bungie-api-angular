@@ -13,7 +13,7 @@ import { TrendingTrendingDetail } from './trendingTrendingDetail';
 
 
 export interface InlineResponse20065 { 
-    Response?: TrendingTrendingDetail;
+    response?: TrendingTrendingDetail;
     message?: string;
     messageData?: { [key: string]: string; };
     errorStatus?: string;
