@@ -12,7 +12,7 @@
 import { DestinyHistoricalStatsDestinyClanAggregateStat } from './destinyHistoricalStatsDestinyClanAggregateStat';
 
 
-export interface InlineResponse20051 {
+export interface InlineResponse20051 { 
     Response?: Array<DestinyHistoricalStatsDestinyClanAggregateStat>;
     message?: string;
     messageData?: { [key: string]: string; };

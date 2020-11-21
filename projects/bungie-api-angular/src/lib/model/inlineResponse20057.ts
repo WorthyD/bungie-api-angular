@@ -12,7 +12,7 @@
 import { DestinyHistoricalStatsDestinyAggregateActivityResults } from './destinyHistoricalStatsDestinyAggregateActivityResults';
 
 
-export interface InlineResponse20057 {
+export interface InlineResponse20057 { 
     Response?: DestinyHistoricalStatsDestinyAggregateActivityResults;
     message?: string;
     messageData?: { [key: string]: string; };

@@ -12,7 +12,7 @@
 import { DestinyHistoricalStatsDefinitionsDestinyHistoricalStatsDefinition } from './destinyHistoricalStatsDefinitionsDestinyHistoricalStatsDefinition';
 
 
-export interface InlineResponse20049 {
+export interface InlineResponse20049 { 
     Response?: { [key: string]: DestinyHistoricalStatsDefinitionsDestinyHistoricalStatsDefinition; };
     message?: string;
     messageData?: { [key: string]: string; };

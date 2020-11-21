@@ -12,7 +12,7 @@
 import { TokensPartnerOfferSkuHistoryResponse } from './tokensPartnerOfferSkuHistoryResponse';
 
 
-export interface InlineResponse20033 {
+export interface InlineResponse20033 { 
     Response?: Array<TokensPartnerOfferSkuHistoryResponse>;
     message?: string;
     messageData?: { [key: string]: string; };
