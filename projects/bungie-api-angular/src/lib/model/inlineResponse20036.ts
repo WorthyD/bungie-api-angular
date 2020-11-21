@@ -12,7 +12,7 @@
 import { UserUserInfoCard } from './userUserInfoCard';
 
 
-export interface InlineResponse20036 { 
+export interface InlineResponse20036 {
     Response?: Array<UserUserInfoCard>;
     message?: string;
     messageData?: { [key: string]: string; };

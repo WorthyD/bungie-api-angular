@@ -12,7 +12,7 @@
 import { DestinyMilestonesDestinyPublicMilestone } from './destinyMilestonesDestinyPublicMilestone';
 
 
-export interface InlineResponse20059 { 
+export interface InlineResponse20059 {
     Response?: { [key: string]: DestinyMilestonesDestinyPublicMilestone; };
     message?: string;
     messageData?: { [key: string]: string; };

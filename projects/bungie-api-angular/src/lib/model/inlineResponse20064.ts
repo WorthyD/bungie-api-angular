@@ -12,7 +12,7 @@
 import { TrendingTrendingDetail } from './trendingTrendingDetail';
 
 
-export interface InlineResponse20064 { 
+export interface InlineResponse20064 {
     Response?: TrendingTrendingDetail;
     message?: string;
     messageData?: { [key: string]: string; };

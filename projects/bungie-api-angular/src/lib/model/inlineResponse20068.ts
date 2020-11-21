@@ -12,7 +12,7 @@
 import { CommonModelsCoreSettingsConfiguration } from './commonModelsCoreSettingsConfiguration';
 
 
-export interface InlineResponse20068 { 
+export interface InlineResponse20068 {
     Response?: CommonModelsCoreSettingsConfiguration;
     message?: string;
     messageData?: { [key: string]: string; };

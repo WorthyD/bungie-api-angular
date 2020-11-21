@@ -12,7 +12,7 @@
 import { DestinyAdvancedAwaAuthorizationResult } from './destinyAdvancedAwaAuthorizationResult';
 
 
-export interface InlineResponse20061 { 
+export interface InlineResponse20061 {
     Response?: DestinyAdvancedAwaAuthorizationResult;
     message?: string;
     messageData?: { [key: string]: string; };

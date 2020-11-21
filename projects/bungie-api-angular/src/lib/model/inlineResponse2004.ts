@@ -12,7 +12,7 @@
 import { UserModelsGetCredentialTypesForAccountResponse } from './userModelsGetCredentialTypesForAccountResponse';
 
 
-export interface InlineResponse2004 { 
+export interface InlineResponse2004 {
     Response?: Array<UserModelsGetCredentialTypesForAccountResponse>;
     message?: string;
     messageData?: { [key: string]: string; };

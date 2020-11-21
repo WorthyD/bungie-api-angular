@@ -12,7 +12,7 @@
 import { DestinyConfigDestinyManifest } from './destinyConfigDestinyManifest';
 
 
-export interface InlineResponse20034 { 
+export interface InlineResponse20034 {
     Response?: DestinyConfigDestinyManifest;
     message?: string;
     messageData?: { [key: string]: string; };

@@ -12,7 +12,7 @@
 import { UserUserMembershipData } from './userUserMembershipData';
 
 
-export interface InlineResponse2006 { 
+export interface InlineResponse2006 {
     Response?: UserUserMembershipData;
     message?: string;
     messageData?: { [key: string]: string; };

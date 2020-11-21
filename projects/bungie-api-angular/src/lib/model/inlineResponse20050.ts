@@ -12,7 +12,7 @@
 import { DestinyHistoricalStatsDestinyLeaderboard } from './destinyHistoricalStatsDestinyLeaderboard';
 
 
-export interface InlineResponse20050 { 
+export interface InlineResponse20050 {
     Response?: { [key: string]: { [key: string]: DestinyHistoricalStatsDestinyLeaderboard; }; };
     message?: string;
     messageData?: { [key: string]: string; };

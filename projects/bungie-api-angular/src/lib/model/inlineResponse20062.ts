@@ -12,7 +12,7 @@
 import { TrendingTrendingCategories } from './trendingTrendingCategories';
 
 
-export interface InlineResponse20062 { 
+export interface InlineResponse20062 {
     Response?: TrendingTrendingCategories;
     message?: string;
     messageData?: { [key: string]: string; };

@@ -12,7 +12,7 @@
 import { ConfigUserTheme } from './configUserTheme';
 
 
-export interface InlineResponse2005 { 
+export interface InlineResponse2005 {
     Response?: Array<ConfigUserTheme>;
     message?: string;
     messageData?: { [key: string]: string; };

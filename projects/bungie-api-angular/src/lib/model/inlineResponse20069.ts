@@ -12,7 +12,7 @@
 import { CommonModelsCoreSystem } from './commonModelsCoreSystem';
 
 
-export interface InlineResponse20069 { 
+export interface InlineResponse20069 {
     Response?: { [key: string]: CommonModelsCoreSystem; };
     message?: string;
     messageData?: { [key: string]: string; };
