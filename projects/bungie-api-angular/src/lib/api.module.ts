@@ -12,6 +12,7 @@ import { FireteamService } from './api/fireteam.service';
 import { ForumService } from './api/forum.service';
 import { GroupV2Service } from './api/groupV2.service';
 import { PreviewService } from './api/preview.service';
+import { TokensService } from './api/tokens.service';
 import { TrendingService } from './api/trending.service';
 import { UserService } from './api/user.service';
 
@@ -29,6 +30,7 @@ import { UserService } from './api/user.service';
     ForumService,
     GroupV2Service,
     PreviewService,
+    TokensService,
     TrendingService,
     UserService ]
 })
