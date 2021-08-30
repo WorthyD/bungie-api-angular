@@ -2,7 +2,6 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
-
 import { DefaultService } from './api/default.service';
 import { AppService } from './api/app.service';
 import { CommunityContentService } from './api/communityContent.service';
@@ -12,6 +11,7 @@ import { FireteamService } from './api/fireteam.service';
 import { ForumService } from './api/forum.service';
 import { GroupV2Service } from './api/groupV2.service';
 import { PreviewService } from './api/preview.service';
+import { SocialService } from './api/social.service';
 import { TokensService } from './api/tokens.service';
 import { TrendingService } from './api/trending.service';
 import { UserService } from './api/user.service';
@@ -20,19 +20,7 @@ import { UserService } from './api/user.service';
   imports:      [],
   declarations: [],
   exports:      [],
-  providers: [
-    DefaultService,
-    AppService,
-    CommunityContentService,
-    ContentService,
-    Destiny2Service,
-    FireteamService,
-    ForumService,
-    GroupV2Service,
-    PreviewService,
-    TokensService,
-    TrendingService,
-    UserService ]
+  providers: []
 })
 export class ApiModule {
     public static forRoot(configurationFactory: () => Configuration): ModuleWithProviders<ApiModule> {
