@@ -11,13 +11,11 @@
  */
 import { DestinyComponentsVendorsDestinyVendorGroupComponent } from './destinyComponentsVendorsDestinyVendorGroupComponent';
 
-
-export interface SingleComponentResponseOfDestinyVendorGroupComponent { 
-    data?: DestinyComponentsVendorsDestinyVendorGroupComponent;
-    privacy?: number;
-    /**
-     * If true, this component is disabled.
-     */
-    disabled?: boolean;
+export interface SingleComponentResponseOfDestinyVendorGroupComponent {
+  data?: DestinyComponentsVendorsDestinyVendorGroupComponent;
+  privacy?: number;
+  /**
+   * If true, this component is disabled.
+   */
+  disabled?: boolean;
 }
-

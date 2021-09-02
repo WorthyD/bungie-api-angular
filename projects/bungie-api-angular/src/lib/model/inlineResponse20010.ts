@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
-export interface InlineResponse20010 { 
-    Response?: object;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse20010 {
+  Response?: object;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

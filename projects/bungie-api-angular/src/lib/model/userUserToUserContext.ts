@@ -11,10 +11,8 @@
  */
 import { IgnoresIgnoreResponse } from './ignoresIgnoreResponse';
 
-
-export interface UserUserToUserContext { 
-    isFollowing?: boolean;
-    ignoreStatus?: IgnoresIgnoreResponse;
-    globalIgnoreEndDate?: string;
+export interface UserUserToUserContext {
+  isFollowing?: boolean;
+  ignoreStatus?: IgnoresIgnoreResponse;
+  globalIgnoreEndDate?: string;
 }
-

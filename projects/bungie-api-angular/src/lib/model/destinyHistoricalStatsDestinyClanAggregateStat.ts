@@ -11,19 +11,17 @@
  */
 import { DestinyHistoricalStatsDestinyHistoricalStatsValue } from './destinyHistoricalStatsDestinyHistoricalStatsValue';
 
-
-export interface DestinyHistoricalStatsDestinyClanAggregateStat { 
-    /**
-     * The id of the mode of stats (allPvp, allPvE, etc)
-     */
-    mode?: number;
-    /**
-     * The id of the stat
-     */
-    statId?: string;
-    /**
-     * Value of the stat for this player
-     */
-    value?: DestinyHistoricalStatsDestinyHistoricalStatsValue;
+export interface DestinyHistoricalStatsDestinyClanAggregateStat {
+  /**
+   * The id of the mode of stats (allPvp, allPvE, etc)
+   */
+  mode?: number;
+  /**
+   * The id of the stat
+   */
+  statId?: string;
+  /**
+   * Value of the stat for this player
+   */
+  value?: DestinyHistoricalStatsDestinyHistoricalStatsValue;
 }
-

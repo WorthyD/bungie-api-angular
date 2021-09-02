@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDefinitionsItemsDestinyParentItemOverride { 
-    additionalEquipRequirementsDisplayStrings?: Array<string>;
-    pipIcon?: string;
+export interface DestinyDefinitionsItemsDestinyParentItemOverride {
+  additionalEquipRequirementsDisplayStrings?: Array<string>;
+  pipIcon?: string;
 }
-

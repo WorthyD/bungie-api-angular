@@ -10,21 +10,19 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * Some items are \"sacks\" - they can be \"opened\" to produce other items. This is information related to its sack status, mostly UI strings. Engrams are an example of items that are considered to be \"Sacks\".
  */
-export interface DestinyDefinitionsDestinyItemSackBlockDefinition { 
-    /**
-     * A description of what will happen when you open the sack. As far as I can tell, this is blank currently. Unknown whether it will eventually be populated with useful info.
-     */
-    detailAction?: string;
-    /**
-     * The localized name of the action being performed when you open the sack.
-     */
-    openAction?: string;
-    selectItemCount?: number;
-    vendorSackType?: string;
-    openOnAcquire?: boolean;
+export interface DestinyDefinitionsDestinyItemSackBlockDefinition {
+  /**
+   * A description of what will happen when you open the sack. As far as I can tell, this is blank currently. Unknown whether it will eventually be populated with useful info.
+   */
+  detailAction?: string;
+  /**
+   * The localized name of the action being performed when you open the sack.
+   */
+  openAction?: string;
+  selectItemCount?: number;
+  vendorSackType?: string;
+  openOnAcquire?: boolean;
 }
-

@@ -10,12 +10,10 @@
  * Do not edit the class manually.
  */
 
-
 export type GroupsV2GroupPostPublicity = 0 | 1 | 2;
 
 export const GroupsV2GroupPostPublicity = {
-    NUMBER_0: 0 as GroupsV2GroupPostPublicity,
-    NUMBER_1: 1 as GroupsV2GroupPostPublicity,
-    NUMBER_2: 2 as GroupsV2GroupPostPublicity
+  NUMBER_0: 0 as GroupsV2GroupPostPublicity,
+  NUMBER_1: 1 as GroupsV2GroupPostPublicity,
+  NUMBER_2: 2 as GroupsV2GroupPostPublicity
 };
-

@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * Determines how items are sorted in an inventory bucket.
  */
 export type DestinyDestinyItemSortType = 0 | 1 | 2;
 
 export const DestinyDestinyItemSortType = {
-    NUMBER_0: 0 as DestinyDestinyItemSortType,
-    NUMBER_1: 1 as DestinyDestinyItemSortType,
-    NUMBER_2: 2 as DestinyDestinyItemSortType
+  NUMBER_0: 0 as DestinyDestinyItemSortType,
+  NUMBER_1: 1 as DestinyDestinyItemSortType,
+  NUMBER_2: 2 as DestinyDestinyItemSortType
 };
-

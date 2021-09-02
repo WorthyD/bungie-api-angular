@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * Used for setting the guided game permission level override (admins and founders can always host guided games).
  */
 export type GroupsV2HostGuidedGamesPermissionLevel = 0 | 1 | 2;
 
 export const GroupsV2HostGuidedGamesPermissionLevel = {
-    NUMBER_0: 0 as GroupsV2HostGuidedGamesPermissionLevel,
-    NUMBER_1: 1 as GroupsV2HostGuidedGamesPermissionLevel,
-    NUMBER_2: 2 as GroupsV2HostGuidedGamesPermissionLevel
+  NUMBER_0: 0 as GroupsV2HostGuidedGamesPermissionLevel,
+  NUMBER_1: 1 as GroupsV2HostGuidedGamesPermissionLevel,
+  NUMBER_2: 2 as GroupsV2HostGuidedGamesPermissionLevel
 };
-

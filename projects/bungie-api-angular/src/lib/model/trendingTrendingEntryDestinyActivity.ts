@@ -11,9 +11,7 @@
  */
 import { DestinyActivitiesDestinyPublicActivityStatus } from './destinyActivitiesDestinyPublicActivityStatus';
 
-
-export interface TrendingTrendingEntryDestinyActivity { 
-    activityHash?: number;
-    status?: DestinyActivitiesDestinyPublicActivityStatus;
+export interface TrendingTrendingEntryDestinyActivity {
+  activityHash?: number;
+  status?: DestinyActivitiesDestinyPublicActivityStatus;
 }
-

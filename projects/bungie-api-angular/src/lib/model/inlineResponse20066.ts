@@ -11,14 +11,12 @@
  */
 import { SearchResultOfFireteamResponse } from './searchResultOfFireteamResponse';
 
-
-export interface InlineResponse20066 { 
-    Response?: SearchResultOfFireteamResponse;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse20066 {
+  Response?: SearchResultOfFireteamResponse;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

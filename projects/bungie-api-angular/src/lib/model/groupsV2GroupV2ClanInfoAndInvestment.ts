@@ -12,13 +12,11 @@
 import { DestinyDestinyProgression } from './destinyDestinyProgression';
 import { GroupsV2ClanBanner } from './groupsV2ClanBanner';
 
-
 /**
  * The same as GroupV2ClanInfo, but includes any investment data.
  */
-export interface GroupsV2GroupV2ClanInfoAndInvestment { 
-    d2ClanProgressions?: { [key: string]: DestinyDestinyProgression; };
-    clanCallsign?: string;
-    clanBannerData?: GroupsV2ClanBanner;
+export interface GroupsV2GroupV2ClanInfoAndInvestment {
+  d2ClanProgressions?: { [key: string]: DestinyDestinyProgression };
+  clanCallsign?: string;
+  clanBannerData?: GroupsV2ClanBanner;
 }
-

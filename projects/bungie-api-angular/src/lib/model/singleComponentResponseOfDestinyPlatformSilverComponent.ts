@@ -11,13 +11,11 @@
  */
 import { DestinyComponentsInventoryDestinyPlatformSilverComponent } from './destinyComponentsInventoryDestinyPlatformSilverComponent';
 
-
-export interface SingleComponentResponseOfDestinyPlatformSilverComponent { 
-    data?: DestinyComponentsInventoryDestinyPlatformSilverComponent;
-    privacy?: number;
-    /**
-     * If true, this component is disabled.
-     */
-    disabled?: boolean;
+export interface SingleComponentResponseOfDestinyPlatformSilverComponent {
+  data?: DestinyComponentsInventoryDestinyPlatformSilverComponent;
+  privacy?: number;
+  /**
+   * If true, this component is disabled.
+   */
+  disabled?: boolean;
 }
-

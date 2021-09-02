@@ -11,11 +11,9 @@
  */
 import { DestinyArtifactsDestinyArtifactTierItem } from './destinyArtifactsDestinyArtifactTierItem';
 
-
-export interface DestinyArtifactsDestinyArtifactTier { 
-    tierHash?: number;
-    isUnlocked?: boolean;
-    pointsToUnlock?: number;
-    items?: Array<DestinyArtifactsDestinyArtifactTierItem>;
+export interface DestinyArtifactsDestinyArtifactTier {
+  tierHash?: number;
+  isUnlocked?: boolean;
+  pointsToUnlock?: number;
+  items?: Array<DestinyArtifactsDestinyArtifactTierItem>;
 }
-

@@ -11,11 +11,9 @@
  */
 import { DestinyDefinitionsCommonDestinyDisplayPropertiesDefinition } from './destinyDefinitionsCommonDestinyDisplayPropertiesDefinition';
 
-
 /**
  * Human readable data about the bubble. Combine with DestinyBubbleDefinition - see DestinyDestinationDefinition.bubbleSettings for more information.  DEPRECATED - Just use bubbles.
  */
-export interface DestinyDefinitionsDestinyDestinationBubbleSettingDefinition { 
-    displayProperties?: DestinyDefinitionsCommonDestinyDisplayPropertiesDefinition;
+export interface DestinyDefinitionsDestinyDestinationBubbleSettingDefinition {
+  displayProperties?: DestinyDefinitionsCommonDestinyDisplayPropertiesDefinition;
 }
-

@@ -11,14 +11,12 @@
  */
 import { ConfigGroupTheme } from './configGroupTheme';
 
-
-export interface InlineResponse20016 { 
-    Response?: Array<ConfigGroupTheme>;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse20016 {
+  Response?: Array<ConfigGroupTheme>;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

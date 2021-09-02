@@ -10,12 +10,10 @@
  * Do not edit the class manually.
  */
 
-
 export type DestinyDestinyGender = 0 | 1 | 2;
 
 export const DestinyDestinyGender = {
-    NUMBER_0: 0 as DestinyDestinyGender,
-    NUMBER_1: 1 as DestinyDestinyGender,
-    NUMBER_2: 2 as DestinyDestinyGender
+  NUMBER_0: 0 as DestinyDestinyGender,
+  NUMBER_1: 1 as DestinyDestinyGender,
+  NUMBER_2: 2 as DestinyDestinyGender
 };
-

@@ -10,22 +10,20 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * Information about a single inventory bucket in a vendor flyout UI and how it is shown.
  */
-export interface DestinyDefinitionsDestinyVendorInventoryFlyoutBucketDefinition { 
-    /**
-     * If true, the inventory bucket should be able to be collapsed visually.
-     */
-    collapsible?: boolean;
-    /**
-     * The inventory bucket whose contents should be shown.
-     */
-    inventoryBucketHash?: number;
-    /**
-     * The methodology to use for sorting items from the flyout.
-     */
-    sortItemsBy?: number;
+export interface DestinyDefinitionsDestinyVendorInventoryFlyoutBucketDefinition {
+  /**
+   * If true, the inventory bucket should be able to be collapsed visually.
+   */
+  collapsible?: boolean;
+  /**
+   * The inventory bucket whose contents should be shown.
+   */
+  inventoryBucketHash?: number;
+  /**
+   * The methodology to use for sorting items from the flyout.
+   */
+  sortItemsBy?: number;
 }
-

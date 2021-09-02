@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * A hint for the UI as to what display information ought to be shown. Defaults to showing the static MilestoneDefinition\'s display properties.   If for some reason the indicated property is not populated, fall back to the MilestoneDefinition.displayProperties.
  */
 export type DestinyDefinitionsMilestonesDestinyMilestoneDisplayPreference = 0 | 1 | 2;
 
 export const DestinyDefinitionsMilestonesDestinyMilestoneDisplayPreference = {
-    NUMBER_0: 0 as DestinyDefinitionsMilestonesDestinyMilestoneDisplayPreference,
-    NUMBER_1: 1 as DestinyDefinitionsMilestonesDestinyMilestoneDisplayPreference,
-    NUMBER_2: 2 as DestinyDefinitionsMilestonesDestinyMilestoneDisplayPreference
+  NUMBER_0: 0 as DestinyDefinitionsMilestonesDestinyMilestoneDisplayPreference,
+  NUMBER_1: 1 as DestinyDefinitionsMilestonesDestinyMilestoneDisplayPreference,
+  NUMBER_2: 2 as DestinyDefinitionsMilestonesDestinyMilestoneDisplayPreference
 };
-

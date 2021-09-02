@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface LinksHyperlinkReference { 
-    title?: string;
-    url?: string;
+export interface LinksHyperlinkReference {
+  title?: string;
+  url?: string;
 }
-

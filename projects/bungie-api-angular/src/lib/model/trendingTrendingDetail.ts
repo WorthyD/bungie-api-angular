@@ -16,15 +16,13 @@ import { TrendingTrendingEntryDestinyItem } from './trendingTrendingEntryDestiny
 import { TrendingTrendingEntryCommunityCreation } from './trendingTrendingEntryCommunityCreation';
 import { TrendingTrendingEntrySupportArticle } from './trendingTrendingEntrySupportArticle';
 
-
-export interface TrendingTrendingDetail { 
-    identifier?: string;
-    entityType?: number;
-    news?: TrendingTrendingEntryNews;
-    support?: TrendingTrendingEntrySupportArticle;
-    destinyItem?: TrendingTrendingEntryDestinyItem;
-    destinyActivity?: TrendingTrendingEntryDestinyActivity;
-    destinyRitual?: TrendingTrendingEntryDestinyRitual;
-    creation?: TrendingTrendingEntryCommunityCreation;
+export interface TrendingTrendingDetail {
+  identifier?: string;
+  entityType?: number;
+  news?: TrendingTrendingEntryNews;
+  support?: TrendingTrendingEntrySupportArticle;
+  destinyItem?: TrendingTrendingEntryDestinyItem;
+  destinyActivity?: TrendingTrendingEntryDestinyActivity;
+  destinyRitual?: TrendingTrendingEntryDestinyRitual;
+  creation?: TrendingTrendingEntryCommunityCreation;
 }
-

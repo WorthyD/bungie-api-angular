@@ -10,11 +10,9 @@
  * Do not edit the class manually.
  */
 
-
-export interface TrendingTrendingEntryCommunityStream { 
-    image?: string;
-    title?: string;
-    partnershipIdentifier?: string;
-    partnershipType?: number;
+export interface TrendingTrendingEntryCommunityStream {
+  image?: string;
+  title?: string;
+  partnershipIdentifier?: string;
+  partnershipType?: number;
 }
-

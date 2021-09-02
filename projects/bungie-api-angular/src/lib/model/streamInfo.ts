@@ -10,8 +10,6 @@
  * Do not edit the class manually.
  */
 
-
-export interface StreamInfo { 
-    ChannelName?: string;
+export interface StreamInfo {
+  ChannelName?: string;
 }
-

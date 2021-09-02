@@ -24,4 +24,18 @@ export * from './trending.service';
 import { TrendingService } from './trending.service';
 export * from './user.service';
 import { UserService } from './user.service';
-export const APIS = [DefaultService, AppService, CommunityContentService, ContentService, Destiny2Service, FireteamService, ForumService, GroupV2Service, PreviewService, SocialService, TokensService, TrendingService, UserService];
+export const APIS = [
+  DefaultService,
+  AppService,
+  CommunityContentService,
+  ContentService,
+  Destiny2Service,
+  FireteamService,
+  ForumService,
+  GroupV2Service,
+  PreviewService,
+  SocialService,
+  TokensService,
+  TrendingService,
+  UserService
+];

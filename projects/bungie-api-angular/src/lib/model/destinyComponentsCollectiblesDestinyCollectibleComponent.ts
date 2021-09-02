@@ -10,8 +10,6 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyComponentsCollectiblesDestinyCollectibleComponent { 
-    state?: number;
+export interface DestinyComponentsCollectiblesDestinyCollectibleComponent {
+  state?: number;
 }
-

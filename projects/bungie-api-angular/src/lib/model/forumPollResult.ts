@@ -10,12 +10,10 @@
  * Do not edit the class manually.
  */
 
-
-export interface ForumPollResult { 
-    answerText?: string;
-    answerSlot?: number;
-    lastVoteDate?: string;
-    votes?: number;
-    requestingUserVoted?: boolean;
+export interface ForumPollResult {
+  answerText?: string;
+  answerSlot?: number;
+  lastVoteDate?: string;
+  votes?: number;
+  requestingUserVoted?: boolean;
 }
-

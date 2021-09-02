@@ -11,9 +11,7 @@
  */
 import { DestinyDefinitionsPresentationDestinyPresentationNodeRequirementsBlock } from './destinyDefinitionsPresentationDestinyPresentationNodeRequirementsBlock';
 
-
-export interface DestinyDefinitionsCollectiblesDestinyCollectibleStateBlock { 
-    obscuredOverrideItemHash?: number;
-    requirements?: DestinyDefinitionsPresentationDestinyPresentationNodeRequirementsBlock;
+export interface DestinyDefinitionsCollectiblesDestinyCollectibleStateBlock {
+  obscuredOverrideItemHash?: number;
+  requirements?: DestinyDefinitionsPresentationDestinyPresentationNodeRequirementsBlock;
 }
-

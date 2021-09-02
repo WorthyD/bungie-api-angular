@@ -10,10 +10,8 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDefinitionsCommonDestinyPositionDefinition { 
-    x?: number;
-    y?: number;
-    z?: number;
+export interface DestinyDefinitionsCommonDestinyPositionDefinition {
+  x?: number;
+  y?: number;
+  z?: number;
 }
-

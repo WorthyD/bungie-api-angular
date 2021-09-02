@@ -10,13 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 export type DestinyDestinyClass = 0 | 1 | 2 | 3;
 
 export const DestinyDestinyClass = {
-    NUMBER_0: 0 as DestinyDestinyClass,
-    NUMBER_1: 1 as DestinyDestinyClass,
-    NUMBER_2: 2 as DestinyDestinyClass,
-    NUMBER_3: 3 as DestinyDestinyClass
+  NUMBER_0: 0 as DestinyDestinyClass,
+  NUMBER_1: 1 as DestinyDestinyClass,
+  NUMBER_2: 2 as DestinyDestinyClass,
+  NUMBER_3: 3 as DestinyDestinyClass
 };
-

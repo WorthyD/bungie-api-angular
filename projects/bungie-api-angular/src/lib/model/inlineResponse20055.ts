@@ -11,14 +11,12 @@
  */
 import { DestinyHistoricalStatsDestinyActivityHistoryResults } from './destinyHistoricalStatsDestinyActivityHistoryResults';
 
-
-export interface InlineResponse20055 { 
-    Response?: DestinyHistoricalStatsDestinyActivityHistoryResults;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse20055 {
+  Response?: DestinyHistoricalStatsDestinyActivityHistoryResults;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

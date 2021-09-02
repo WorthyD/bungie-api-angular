@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * If the plug has a specific custom style, this enumeration will represent that style/those styles.
  */
 export type DestinyPlugUiStyles = 0 | 1;
 
 export const DestinyPlugUiStyles = {
-    NUMBER_0: 0 as DestinyPlugUiStyles,
-    NUMBER_1: 1 as DestinyPlugUiStyles
+  NUMBER_0: 0 as DestinyPlugUiStyles,
+  NUMBER_1: 1 as DestinyPlugUiStyles
 };
-

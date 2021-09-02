@@ -10,8 +10,6 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDefinitionsPresentationDestinyPresentationNodeRecordChildEntry { 
-    recordHash?: number;
+export interface DestinyDefinitionsPresentationDestinyPresentationNodeRecordChildEntry {
+  recordHash?: number;
 }
-

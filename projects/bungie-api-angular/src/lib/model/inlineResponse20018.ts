@@ -11,14 +11,12 @@
  */
 import { GroupsV2GroupV2Card } from './groupsV2GroupV2Card';
 
-
-export interface InlineResponse20018 { 
-    Response?: Array<GroupsV2GroupV2Card>;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse20018 {
+  Response?: Array<GroupsV2GroupV2Card>;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

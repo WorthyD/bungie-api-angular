@@ -11,9 +11,7 @@
  */
 import { DestinyQuestsDestinyObjectiveProgress } from './destinyQuestsDestinyObjectiveProgress';
 
-
-export interface DestinyComponentsMetricsDestinyMetricComponent { 
-    invisible?: boolean;
-    objectiveProgress?: DestinyQuestsDestinyObjectiveProgress;
+export interface DestinyComponentsMetricsDestinyMetricComponent {
+  invisible?: boolean;
+  objectiveProgress?: DestinyQuestsDestinyObjectiveProgress;
 }
-

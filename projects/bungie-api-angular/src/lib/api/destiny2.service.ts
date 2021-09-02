@@ -11,11 +11,10 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams,
-         HttpResponse, HttpEvent, HttpParameterCodec }       from '@angular/common/http';
-import { CustomHttpParameterCodec }                          from '../encoder';
-import { Observable }                                        from 'rxjs';
+import { Inject, Injectable, Optional } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse, HttpEvent, HttpParameterCodec } from '@angular/common/http';
+import { CustomHttpParameterCodec } from '../encoder';
+import { Observable } from 'rxjs';
 
 import { InlineResponse20022 } from '../model/models';
 import { InlineResponse20033 } from '../model/models';
@@ -48,2112 +47,3026 @@ import { InlineResponse20059 } from '../model/models';
 import { InlineResponse20060 } from '../model/models';
 import { InlineResponse20061 } from '../model/models';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
-
-
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
+import { Configuration } from '../configuration';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Destiny2Service {
+  protected basePath = 'https://www.bungie.net/Platform';
+  public defaultHeaders = new HttpHeaders();
+  public configuration = new Configuration();
+  public encoder: HttpParameterCodec;
 
-    protected basePath = 'https://www.bungie.net/Platform';
-    public defaultHeaders = new HttpHeaders();
-    public configuration = new Configuration();
-    public encoder: HttpParameterCodec;
+  constructor(
+    protected httpClient: HttpClient,
+    @Optional() @Inject(BASE_PATH) basePath: string,
+    @Optional() configuration: Configuration
+  ) {
+    if (configuration) {
+      this.configuration = configuration;
+    }
+    if (typeof this.configuration.basePath !== 'string') {
+      if (typeof basePath !== 'string') {
+        basePath = this.basePath;
+      }
+      this.configuration.basePath = basePath;
+    }
+    this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
+  }
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
-        if (configuration) {
-            this.configuration = configuration;
-        }
-        if (typeof this.configuration.basePath !== 'string') {
-            if (typeof basePath !== 'string') {
-                basePath = this.basePath;
-            }
-            this.configuration.basePath = basePath;
-        }
-        this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
+  private addToHttpParams(httpParams: HttpParams, value: any, key?: string): HttpParams {
+    if (typeof value === 'object' && value instanceof Date === false) {
+      httpParams = this.addToHttpParamsRecursive(httpParams, value);
+    } else {
+      httpParams = this.addToHttpParamsRecursive(httpParams, value, key);
+    }
+    return httpParams;
+  }
+
+  private addToHttpParamsRecursive(httpParams: HttpParams, value?: any, key?: string): HttpParams {
+    if (value == null) {
+      return httpParams;
     }
 
-
-    private addToHttpParams(httpParams: HttpParams, value: any, key?: string): HttpParams {
-        if (typeof value === "object" && value instanceof Date === false) {
-            httpParams = this.addToHttpParamsRecursive(httpParams, value);
+    if (typeof value === 'object') {
+      if (Array.isArray(value)) {
+        (value as any[]).forEach((elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key)));
+      } else if (value instanceof Date) {
+        if (key != null) {
+          httpParams = httpParams.append(key, (value as Date).toISOString().substr(0, 10));
         } else {
-            httpParams = this.addToHttpParamsRecursive(httpParams, value, key);
+          throw Error('key may not be null if value is Date');
         }
-        return httpParams;
-    }
-
-    private addToHttpParamsRecursive(httpParams: HttpParams, value?: any, key?: string): HttpParams {
-        if (value == null) {
-            return httpParams;
-        }
-
-        if (typeof value === "object") {
-            if (Array.isArray(value)) {
-                (value as any[]).forEach( elem => httpParams = this.addToHttpParamsRecursive(httpParams, elem, key));
-            } else if (value instanceof Date) {
-                if (key != null) {
-                    httpParams = httpParams.append(key,
-                        (value as Date).toISOString().substr(0, 10));
-                } else {
-                   throw Error("key may not be null if value is Date");
-                }
-            } else {
-                Object.keys(value).forEach( k => httpParams = this.addToHttpParamsRecursive(
-                    httpParams, value[k], key != null ? `${key}.${k}` : k));
-            }
-        } else if (key != null) {
-            httpParams = httpParams.append(key, value);
-        } else {
-            throw Error("key may not be null if value is not object or array");
-        }
-        return httpParams;
-    }
-
-    /**
-     * Returns the action token if user approves the request.
-     * @param correlationId The identifier for the advanced write action request.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2AwaGetActionToken(correlationId: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20061>;
-    public destiny2AwaGetActionToken(correlationId: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20061>>;
-    public destiny2AwaGetActionToken(correlationId: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20061>>;
-    public destiny2AwaGetActionToken(correlationId: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-        if (correlationId === null || correlationId === undefined) {
-            throw new Error('Required parameter correlationId was null or undefined when calling destiny2AwaGetActionToken.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let credential: string | undefined;
-        // authentication (oauth2) required
-        credential = this.configuration.lookupCredential('oauth2');
-        if (credential) {
-            headers = headers.set('Authorization', 'Bearer ' + credential);
-        }
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20061>(`${this.configuration.basePath}/Destiny2/Awa/GetActionToken/${encodeURIComponent(String(correlationId))}/`,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
+      } else {
+        Object.keys(value).forEach(
+          (k) => (httpParams = this.addToHttpParamsRecursive(httpParams, value[k], key != null ? `${key}.${k}` : k))
         );
+      }
+    } else if (key != null) {
+      httpParams = httpParams.append(key, value);
+    } else {
+      throw Error('key may not be null if value is not object or array');
+    }
+    return httpParams;
+  }
+
+  /**
+   * Returns the action token if user approves the request.
+   * @param correlationId The identifier for the advanced write action request.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2AwaGetActionToken(
+    correlationId: string,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20061>;
+  public destiny2AwaGetActionToken(
+    correlationId: string,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20061>>;
+  public destiny2AwaGetActionToken(
+    correlationId: string,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20061>>;
+  public destiny2AwaGetActionToken(
+    correlationId: string,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    if (correlationId === null || correlationId === undefined) {
+      throw new Error('Required parameter correlationId was null or undefined when calling destiny2AwaGetActionToken.');
     }
 
-    /**
-     * Initialize a request to perform an advanced write action.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2AwaInitializeRequest(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20060>;
-    public destiny2AwaInitializeRequest(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20060>>;
-    public destiny2AwaInitializeRequest(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20060>>;
-    public destiny2AwaInitializeRequest(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
+    let headers = this.defaultHeaders;
 
-        let headers = this.defaultHeaders;
-
-        let credential: string | undefined;
-        // authentication (oauth2) required
-        credential = this.configuration.lookupCredential('oauth2');
-        if (credential) {
-            headers = headers.set('Authorization', 'Bearer ' + credential);
-        }
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.post<InlineResponse20060>(`${this.configuration.basePath}/Destiny2/Awa/Initialize/`,
-            null,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let credential: string | undefined;
+    // authentication (oauth2) required
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    /**
-     * Provide the result of the user interaction. Called by the Bungie Destiny App to approve or reject a request.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2AwaProvideAuthorizationResult(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20022>;
-    public destiny2AwaProvideAuthorizationResult(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20022>>;
-    public destiny2AwaProvideAuthorizationResult(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20022>>;
-    public destiny2AwaProvideAuthorizationResult(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.post<InlineResponse20022>(`${this.configuration.basePath}/Destiny2/Awa/AwaProvideAuthorizationResult/`,
-            null,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Equip an item. You must have a valid Destiny Account, and either be in a social space, in orbit, or offline.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2EquipItem(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20022>;
-    public destiny2EquipItem(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20022>>;
-    public destiny2EquipItem(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20022>>;
-    public destiny2EquipItem(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        let credential: string | undefined;
-        // authentication (oauth2) required
-        credential = this.configuration.lookupCredential('oauth2');
-        if (credential) {
-            headers = headers.set('Authorization', 'Bearer ' + credential);
-        }
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.post<InlineResponse20022>(`${this.configuration.basePath}/Destiny2/Actions/Items/EquipItem/`,
-            null,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    /**
-     * Equip a list of items by itemInstanceIds. You must have a valid Destiny Account, and either be in a social space, in orbit, or offline. Any items not found on your character will be ignored.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2EquipItems(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20046>;
-    public destiny2EquipItems(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20046>>;
-    public destiny2EquipItems(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20046>>;
-    public destiny2EquipItems(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
+    return this.httpClient.get<InlineResponse20061>(
+      `${this.configuration.basePath}/Destiny2/Awa/GetActionToken/${encodeURIComponent(String(correlationId))}/`,
+      {
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
 
-        let headers = this.defaultHeaders;
+  /**
+   * Initialize a request to perform an advanced write action.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2AwaInitializeRequest(
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20060>;
+  public destiny2AwaInitializeRequest(
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20060>>;
+  public destiny2AwaInitializeRequest(
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20060>>;
+  public destiny2AwaInitializeRequest(
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
 
-        let credential: string | undefined;
-        // authentication (oauth2) required
-        credential = this.configuration.lookupCredential('oauth2');
-        if (credential) {
-            headers = headers.set('Authorization', 'Bearer ' + credential);
-        }
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.post<InlineResponse20046>(`${this.configuration.basePath}/Destiny2/Actions/Items/EquipItems/`,
-            null,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let credential: string | undefined;
+    // authentication (oauth2) required
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    /**
-     * Gets activity history stats for indicated character.
-     * @param characterId The id of the character to retrieve.
-     * @param destinyMembershipId The Destiny membershipId of the user to retrieve.
-     * @param membershipType A valid non-BungieNet membership type.
-     * @param count Number of rows to return
-     * @param mode A filter for the activity mode to be returned. None returns all activities. See the documentation for DestinyActivityModeType for valid values, and pass in string representation.
-     * @param page Page number to return, starting with 0.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2GetActivityHistory(characterId: number, destinyMembershipId: number, membershipType: number, count?: number, mode?: number, page?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20055>;
-    public destiny2GetActivityHistory(characterId: number, destinyMembershipId: number, membershipType: number, count?: number, mode?: number, page?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20055>>;
-    public destiny2GetActivityHistory(characterId: number, destinyMembershipId: number, membershipType: number, count?: number, mode?: number, page?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20055>>;
-    public destiny2GetActivityHistory(characterId: number, destinyMembershipId: number, membershipType: number, count?: number, mode?: number, page?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-        if (characterId === null || characterId === undefined) {
-            throw new Error('Required parameter characterId was null or undefined when calling destiny2GetActivityHistory.');
-        }
-        if (destinyMembershipId === null || destinyMembershipId === undefined) {
-            throw new Error('Required parameter destinyMembershipId was null or undefined when calling destiny2GetActivityHistory.');
-        }
-        if (membershipType === null || membershipType === undefined) {
-            throw new Error('Required parameter membershipType was null or undefined when calling destiny2GetActivityHistory.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (count !== undefined && count !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>count, 'count');
-        }
-        if (mode !== undefined && mode !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>mode, 'mode');
-        }
-        if (page !== undefined && page !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>page, 'page');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20055>(`${this.configuration.basePath}/Destiny2/${encodeURIComponent(String(membershipType))}/Account/${encodeURIComponent(String(destinyMembershipId))}/Character/${encodeURIComponent(String(characterId))}/Stats/Activities/`,
-            {
-                params: queryParameters,
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Returns character information for the supplied character.
-     * @param characterId ID of the character.
-     * @param destinyMembershipId Destiny membership ID.
-     * @param membershipType A valid non-BungieNet membership type.
-     * @param components A comma separated list of components to return (as strings or numeric values). See the DestinyComponentType enum for valid components to request. You must request at least one component to receive results.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2GetCharacter(characterId: number, destinyMembershipId: number, membershipType: number, components?: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20038>;
-    public destiny2GetCharacter(characterId: number, destinyMembershipId: number, membershipType: number, components?: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20038>>;
-    public destiny2GetCharacter(characterId: number, destinyMembershipId: number, membershipType: number, components?: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20038>>;
-    public destiny2GetCharacter(characterId: number, destinyMembershipId: number, membershipType: number, components?: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-        if (characterId === null || characterId === undefined) {
-            throw new Error('Required parameter characterId was null or undefined when calling destiny2GetCharacter.');
-        }
-        if (destinyMembershipId === null || destinyMembershipId === undefined) {
-            throw new Error('Required parameter destinyMembershipId was null or undefined when calling destiny2GetCharacter.');
-        }
-        if (membershipType === null || membershipType === undefined) {
-            throw new Error('Required parameter membershipType was null or undefined when calling destiny2GetCharacter.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (components) {
-            queryParameters = this.addToHttpParams(queryParameters,
-                components.join(COLLECTION_FORMATS['csv']), 'components');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20038>(`${this.configuration.basePath}/Destiny2/${encodeURIComponent(String(membershipType))}/Profile/${encodeURIComponent(String(destinyMembershipId))}/Character/${encodeURIComponent(String(characterId))}/`,
-            {
-                params: queryParameters,
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    /**
-     * Gets aggregated stats for a clan using the same categories as the clan leaderboards. PREVIEW: This endpoint is still in beta, and may experience rough edges. The schema is in final form, but there may be bugs that prevent desirable operation.
-     * @param groupId Group ID of the clan whose leaderboards you wish to fetch.
-     * @param modes List of game modes for which to get leaderboards. See the documentation for DestinyActivityModeType for valid values, and pass in string representation, comma delimited.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2GetClanAggregateStats(groupId: number, modes?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20051>;
-    public destiny2GetClanAggregateStats(groupId: number, modes?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20051>>;
-    public destiny2GetClanAggregateStats(groupId: number, modes?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20051>>;
-    public destiny2GetClanAggregateStats(groupId: number, modes?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-        if (groupId === null || groupId === undefined) {
-            throw new Error('Required parameter groupId was null or undefined when calling destiny2GetClanAggregateStats.');
-        }
+    return this.httpClient.post<InlineResponse20060>(`${this.configuration.basePath}/Destiny2/Awa/Initialize/`, null, {
+      responseType: <any>responseType,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+      observe: observe,
+      reportProgress: reportProgress
+    });
+  }
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (modes !== undefined && modes !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>modes, 'modes');
-        }
+  /**
+   * Provide the result of the user interaction. Called by the Bungie Destiny App to approve or reject a request.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2AwaProvideAuthorizationResult(
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20022>;
+  public destiny2AwaProvideAuthorizationResult(
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20022>>;
+  public destiny2AwaProvideAuthorizationResult(
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20022>>;
+  public destiny2AwaProvideAuthorizationResult(
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
 
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20051>(`${this.configuration.basePath}/Destiny2/Stats/AggregateClanStats/${encodeURIComponent(String(groupId))}/`,
-            {
-                params: queryParameters,
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Returns the dictionary of values for the Clan Banner
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2GetClanBannerSource(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20040>;
-    public destiny2GetClanBannerSource(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20040>>;
-    public destiny2GetClanBannerSource(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20040>>;
-    public destiny2GetClanBannerSource(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20040>(`${this.configuration.basePath}/Destiny2/Clan/ClanBannerDictionary/`,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    /**
-     * Gets leaderboards with the signed in user\&#39;s friends and the supplied destinyMembershipId as the focus. PREVIEW: This endpoint is still in beta, and may experience rough edges. The schema is in final form, but there may be bugs that prevent desirable operation.
-     * @param groupId Group ID of the clan whose leaderboards you wish to fetch.
-     * @param maxtop Maximum number of top players to return. Use a large number to get entire leaderboard.
-     * @param modes List of game modes for which to get leaderboards. See the documentation for DestinyActivityModeType for valid values, and pass in string representation, comma delimited.
-     * @param statid ID of stat to return rather than returning all Leaderboard stats.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2GetClanLeaderboards(groupId: number, maxtop?: number, modes?: string, statid?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20050>;
-    public destiny2GetClanLeaderboards(groupId: number, maxtop?: number, modes?: string, statid?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20050>>;
-    public destiny2GetClanLeaderboards(groupId: number, maxtop?: number, modes?: string, statid?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20050>>;
-    public destiny2GetClanLeaderboards(groupId: number, maxtop?: number, modes?: string, statid?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-        if (groupId === null || groupId === undefined) {
-            throw new Error('Required parameter groupId was null or undefined when calling destiny2GetClanLeaderboards.');
-        }
+    return this.httpClient.post<InlineResponse20022>(
+      `${this.configuration.basePath}/Destiny2/Awa/AwaProvideAuthorizationResult/`,
+      null,
+      {
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (maxtop !== undefined && maxtop !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>maxtop, 'maxtop');
-        }
-        if (modes !== undefined && modes !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>modes, 'modes');
-        }
-        if (statid !== undefined && statid !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>statid, 'statid');
-        }
+  /**
+   * Equip an item. You must have a valid Destiny Account, and either be in a social space, in orbit, or offline.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2EquipItem(
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20022>;
+  public destiny2EquipItem(
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20022>>;
+  public destiny2EquipItem(
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20022>>;
+  public destiny2EquipItem(
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
 
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20050>(`${this.configuration.basePath}/Destiny2/Stats/Leaderboards/Clans/${encodeURIComponent(String(groupId))}/`,
-            {
-                params: queryParameters,
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let credential: string | undefined;
+    // authentication (oauth2) required
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    /**
-     * Returns information on the weekly clan rewards and if the clan has earned them or not. Note that this will always report rewards as not redeemed.
-     * @param groupId A valid group id of clan.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2GetClanWeeklyRewardState(groupId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20039>;
-    public destiny2GetClanWeeklyRewardState(groupId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20039>>;
-    public destiny2GetClanWeeklyRewardState(groupId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20039>>;
-    public destiny2GetClanWeeklyRewardState(groupId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-        if (groupId === null || groupId === undefined) {
-            throw new Error('Required parameter groupId was null or undefined when calling destiny2GetClanWeeklyRewardState.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20039>(`${this.configuration.basePath}/Destiny2/Clan/${encodeURIComponent(String(groupId))}/WeeklyRewardState/`,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Given a Presentation Node that has Collectibles as direct descendants, this will return item details about those descendants in the context of the requesting character.
-     * @param characterId The Destiny Character ID of the character for whom we\&#39;re getting collectible detail info.
-     * @param collectiblePresentationNodeHash The hash identifier of the Presentation Node for whom we should return collectible details. Details will only be returned for collectibles that are direct descendants of this node.
-     * @param destinyMembershipId Destiny membership ID of another user. You may be denied.
-     * @param membershipType A valid non-BungieNet membership type.
-     * @param components A comma separated list of components to return (as strings or numeric values). See the DestinyComponentType enum for valid components to request. You must request at least one component to receive results.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2GetCollectibleNodeDetails(characterId: number, collectiblePresentationNodeHash: number, destinyMembershipId: number, membershipType: number, components?: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20045>;
-    public destiny2GetCollectibleNodeDetails(characterId: number, collectiblePresentationNodeHash: number, destinyMembershipId: number, membershipType: number, components?: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20045>>;
-    public destiny2GetCollectibleNodeDetails(characterId: number, collectiblePresentationNodeHash: number, destinyMembershipId: number, membershipType: number, components?: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20045>>;
-    public destiny2GetCollectibleNodeDetails(characterId: number, collectiblePresentationNodeHash: number, destinyMembershipId: number, membershipType: number, components?: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-        if (characterId === null || characterId === undefined) {
-            throw new Error('Required parameter characterId was null or undefined when calling destiny2GetCollectibleNodeDetails.');
-        }
-        if (collectiblePresentationNodeHash === null || collectiblePresentationNodeHash === undefined) {
-            throw new Error('Required parameter collectiblePresentationNodeHash was null or undefined when calling destiny2GetCollectibleNodeDetails.');
-        }
-        if (destinyMembershipId === null || destinyMembershipId === undefined) {
-            throw new Error('Required parameter destinyMembershipId was null or undefined when calling destiny2GetCollectibleNodeDetails.');
-        }
-        if (membershipType === null || membershipType === undefined) {
-            throw new Error('Required parameter membershipType was null or undefined when calling destiny2GetCollectibleNodeDetails.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (components) {
-            queryParameters = this.addToHttpParams(queryParameters,
-                components.join(COLLECTION_FORMATS['csv']), 'components');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20045>(`${this.configuration.basePath}/Destiny2/${encodeURIComponent(String(membershipType))}/Profile/${encodeURIComponent(String(destinyMembershipId))}/Character/${encodeURIComponent(String(characterId))}/Collectibles/${encodeURIComponent(String(collectiblePresentationNodeHash))}/`,
-            {
-                params: queryParameters,
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    /**
-     * Gets all activities the character has participated in together with aggregate statistics for those activities.
-     * @param characterId The specific character whose activities should be returned.
-     * @param destinyMembershipId The Destiny membershipId of the user to retrieve.
-     * @param membershipType A valid non-BungieNet membership type.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2GetDestinyAggregateActivityStats(characterId: number, destinyMembershipId: number, membershipType: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20057>;
-    public destiny2GetDestinyAggregateActivityStats(characterId: number, destinyMembershipId: number, membershipType: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20057>>;
-    public destiny2GetDestinyAggregateActivityStats(characterId: number, destinyMembershipId: number, membershipType: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20057>>;
-    public destiny2GetDestinyAggregateActivityStats(characterId: number, destinyMembershipId: number, membershipType: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-        if (characterId === null || characterId === undefined) {
-            throw new Error('Required parameter characterId was null or undefined when calling destiny2GetDestinyAggregateActivityStats.');
-        }
-        if (destinyMembershipId === null || destinyMembershipId === undefined) {
-            throw new Error('Required parameter destinyMembershipId was null or undefined when calling destiny2GetDestinyAggregateActivityStats.');
-        }
-        if (membershipType === null || membershipType === undefined) {
-            throw new Error('Required parameter membershipType was null or undefined when calling destiny2GetDestinyAggregateActivityStats.');
-        }
+    return this.httpClient.post<InlineResponse20022>(
+      `${this.configuration.basePath}/Destiny2/Actions/Items/EquipItem/`,
+      null,
+      {
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
 
-        let headers = this.defaultHeaders;
+  /**
+   * Equip a list of items by itemInstanceIds. You must have a valid Destiny Account, and either be in a social space, in orbit, or offline. Any items not found on your character will be ignored.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2EquipItems(
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20046>;
+  public destiny2EquipItems(
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20046>>;
+  public destiny2EquipItems(
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20046>>;
+  public destiny2EquipItems(
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
 
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20057>(`${this.configuration.basePath}/Destiny2/${encodeURIComponent(String(membershipType))}/Account/${encodeURIComponent(String(destinyMembershipId))}/Character/${encodeURIComponent(String(characterId))}/Stats/AggregateActivityStats/`,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let credential: string | undefined;
+    // authentication (oauth2) required
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    /**
-     * Returns the static definition of an entity of the given Type and hash identifier. Examine the API Documentation for the Type Names of entities that have their own definitions. Note that the return type will always *inherit from* DestinyDefinition, but the specific type returned will be the requested entity type if it can be found. Please don\&#39;t use this as a chatty alternative to the Manifest database if you require large sets of data, but for simple and one-off accesses this should be handy.
-     * @param entityType The type of entity for whom you would like results. These correspond to the entity\&#39;s definition contract name. For instance, if you are looking for items, this property should be \&#39;DestinyInventoryItemDefinition\&#39;. PREVIEW: This endpoint is still in beta, and may experience rough edges. The schema is tentatively in final form, but there may be bugs that prevent desirable operation.
-     * @param hashIdentifier The hash identifier for the specific Entity you want returned.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2GetDestinyEntityDefinition(entityType: string, hashIdentifier: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20034>;
-    public destiny2GetDestinyEntityDefinition(entityType: string, hashIdentifier: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20034>>;
-    public destiny2GetDestinyEntityDefinition(entityType: string, hashIdentifier: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20034>>;
-    public destiny2GetDestinyEntityDefinition(entityType: string, hashIdentifier: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-        if (entityType === null || entityType === undefined) {
-            throw new Error('Required parameter entityType was null or undefined when calling destiny2GetDestinyEntityDefinition.');
-        }
-        if (hashIdentifier === null || hashIdentifier === undefined) {
-            throw new Error('Required parameter hashIdentifier was null or undefined when calling destiny2GetDestinyEntityDefinition.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20034>(`${this.configuration.basePath}/Destiny2/Manifest/${encodeURIComponent(String(entityType))}/${encodeURIComponent(String(hashIdentifier))}/`,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Returns the current version of the manifest as a json object.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2GetDestinyManifest(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20033>;
-    public destiny2GetDestinyManifest(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20033>>;
-    public destiny2GetDestinyManifest(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20033>>;
-    public destiny2GetDestinyManifest(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20033>(`${this.configuration.basePath}/Destiny2/Manifest/`,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    /**
-     * Gets historical stats for indicated character.
-     * @param characterId The id of the character to retrieve. You can omit this character ID or set it to 0 to get aggregate stats across all characters.
-     * @param destinyMembershipId The Destiny membershipId of the user to retrieve.
-     * @param membershipType A valid non-BungieNet membership type.
-     * @param dayend Last day to return when daily stats are requested. Use the format YYYY-MM-DD. Currently, we cannot allow more than 31 days of daily data to be requested in a single request.
-     * @param daystart First day to return when daily stats are requested. Use the format YYYY-MM-DD. Currently, we cannot allow more than 31 days of daily data to be requested in a single request.
-     * @param groups Group of stats to include, otherwise only general stats are returned. Comma separated list is allowed. Values: General, Weapons, Medals
-     * @param modes Game modes to return. See the documentation for DestinyActivityModeType for valid values, and pass in string representation, comma delimited.
-     * @param periodType Indicates a specific period type to return. Optional. May be: Daily, AllTime, or Activity
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2GetHistoricalStats(characterId: number, destinyMembershipId: number, membershipType: number, dayend?: string, daystart?: string, groups?: Array<number>, modes?: Array<number>, periodType?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20053>;
-    public destiny2GetHistoricalStats(characterId: number, destinyMembershipId: number, membershipType: number, dayend?: string, daystart?: string, groups?: Array<number>, modes?: Array<number>, periodType?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20053>>;
-    public destiny2GetHistoricalStats(characterId: number, destinyMembershipId: number, membershipType: number, dayend?: string, daystart?: string, groups?: Array<number>, modes?: Array<number>, periodType?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20053>>;
-    public destiny2GetHistoricalStats(characterId: number, destinyMembershipId: number, membershipType: number, dayend?: string, daystart?: string, groups?: Array<number>, modes?: Array<number>, periodType?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-        if (characterId === null || characterId === undefined) {
-            throw new Error('Required parameter characterId was null or undefined when calling destiny2GetHistoricalStats.');
-        }
-        if (destinyMembershipId === null || destinyMembershipId === undefined) {
-            throw new Error('Required parameter destinyMembershipId was null or undefined when calling destiny2GetHistoricalStats.');
-        }
-        if (membershipType === null || membershipType === undefined) {
-            throw new Error('Required parameter membershipType was null or undefined when calling destiny2GetHistoricalStats.');
-        }
+    return this.httpClient.post<InlineResponse20046>(
+      `${this.configuration.basePath}/Destiny2/Actions/Items/EquipItems/`,
+      null,
+      {
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (dayend !== undefined && dayend !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>dayend, 'dayend');
-        }
-        if (daystart !== undefined && daystart !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>daystart, 'daystart');
-        }
-        if (groups) {
-            queryParameters = this.addToHttpParams(queryParameters,
-                groups.join(COLLECTION_FORMATS['csv']), 'groups');
-        }
-        if (modes) {
-            queryParameters = this.addToHttpParams(queryParameters,
-                modes.join(COLLECTION_FORMATS['csv']), 'modes');
-        }
-        if (periodType !== undefined && periodType !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>periodType, 'periodType');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20053>(`${this.configuration.basePath}/Destiny2/${encodeURIComponent(String(membershipType))}/Account/${encodeURIComponent(String(destinyMembershipId))}/Character/${encodeURIComponent(String(characterId))}/Stats/`,
-            {
-                params: queryParameters,
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * Gets activity history stats for indicated character.
+   * @param characterId The id of the character to retrieve.
+   * @param destinyMembershipId The Destiny membershipId of the user to retrieve.
+   * @param membershipType A valid non-BungieNet membership type.
+   * @param count Number of rows to return
+   * @param mode A filter for the activity mode to be returned. None returns all activities. See the documentation for DestinyActivityModeType for valid values, and pass in string representation.
+   * @param page Page number to return, starting with 0.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2GetActivityHistory(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    count?: number,
+    mode?: number,
+    page?: number,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20055>;
+  public destiny2GetActivityHistory(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    count?: number,
+    mode?: number,
+    page?: number,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20055>>;
+  public destiny2GetActivityHistory(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    count?: number,
+    mode?: number,
+    page?: number,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20055>>;
+  public destiny2GetActivityHistory(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    count?: number,
+    mode?: number,
+    page?: number,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    if (characterId === null || characterId === undefined) {
+      throw new Error('Required parameter characterId was null or undefined when calling destiny2GetActivityHistory.');
+    }
+    if (destinyMembershipId === null || destinyMembershipId === undefined) {
+      throw new Error(
+        'Required parameter destinyMembershipId was null or undefined when calling destiny2GetActivityHistory.'
+      );
+    }
+    if (membershipType === null || membershipType === undefined) {
+      throw new Error(
+        'Required parameter membershipType was null or undefined when calling destiny2GetActivityHistory.'
+      );
     }
 
-    /**
-     * Gets historical stats definitions.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2GetHistoricalStatsDefinition(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20049>;
-    public destiny2GetHistoricalStatsDefinition(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20049>>;
-    public destiny2GetHistoricalStatsDefinition(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20049>>;
-    public destiny2GetHistoricalStatsDefinition(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20049>(`${this.configuration.basePath}/Destiny2/Stats/Definition/`,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (count !== undefined && count !== null) {
+      queryParameters = this.addToHttpParams(queryParameters, <any>count, 'count');
+    }
+    if (mode !== undefined && mode !== null) {
+      queryParameters = this.addToHttpParams(queryParameters, <any>mode, 'mode');
+    }
+    if (page !== undefined && page !== null) {
+      queryParameters = this.addToHttpParams(queryParameters, <any>page, 'page');
     }
 
-    /**
-     * Gets aggregate historical stats organized around each character for a given account.
-     * @param destinyMembershipId The Destiny membershipId of the user to retrieve.
-     * @param membershipType A valid non-BungieNet membership type.
-     * @param groups Groups of stats to include, otherwise only general stats are returned. Comma separated list is allowed. Values: General, Weapons, Medals.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2GetHistoricalStatsForAccount(destinyMembershipId: number, membershipType: number, groups?: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20054>;
-    public destiny2GetHistoricalStatsForAccount(destinyMembershipId: number, membershipType: number, groups?: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20054>>;
-    public destiny2GetHistoricalStatsForAccount(destinyMembershipId: number, membershipType: number, groups?: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20054>>;
-    public destiny2GetHistoricalStatsForAccount(destinyMembershipId: number, membershipType: number, groups?: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-        if (destinyMembershipId === null || destinyMembershipId === undefined) {
-            throw new Error('Required parameter destinyMembershipId was null or undefined when calling destiny2GetHistoricalStatsForAccount.');
-        }
-        if (membershipType === null || membershipType === undefined) {
-            throw new Error('Required parameter membershipType was null or undefined when calling destiny2GetHistoricalStatsForAccount.');
-        }
+    let headers = this.defaultHeaders;
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (groups) {
-            queryParameters = this.addToHttpParams(queryParameters,
-                groups.join(COLLECTION_FORMATS['csv']), 'groups');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20054>(`${this.configuration.basePath}/Destiny2/${encodeURIComponent(String(membershipType))}/Account/${encodeURIComponent(String(destinyMembershipId))}/Stats/`,
-            {
-                params: queryParameters,
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Retrieve the details of an instanced Destiny Item. An instanced Destiny item is one with an ItemInstanceId. Non-instanced items, such as materials, have no useful instance-specific details and thus are not queryable here.
-     * @param destinyMembershipId The membership ID of the destiny profile.
-     * @param itemInstanceId The Instance ID of the destiny item.
-     * @param membershipType A valid non-BungieNet membership type.
-     * @param components A comma separated list of components to return (as strings or numeric values). See the DestinyComponentType enum for valid components to request. You must request at least one component to receive results.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2GetItem(destinyMembershipId: number, itemInstanceId: number, membershipType: number, components?: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20041>;
-    public destiny2GetItem(destinyMembershipId: number, itemInstanceId: number, membershipType: number, components?: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20041>>;
-    public destiny2GetItem(destinyMembershipId: number, itemInstanceId: number, membershipType: number, components?: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20041>>;
-    public destiny2GetItem(destinyMembershipId: number, itemInstanceId: number, membershipType: number, components?: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-        if (destinyMembershipId === null || destinyMembershipId === undefined) {
-            throw new Error('Required parameter destinyMembershipId was null or undefined when calling destiny2GetItem.');
-        }
-        if (itemInstanceId === null || itemInstanceId === undefined) {
-            throw new Error('Required parameter itemInstanceId was null or undefined when calling destiny2GetItem.');
-        }
-        if (membershipType === null || membershipType === undefined) {
-            throw new Error('Required parameter membershipType was null or undefined when calling destiny2GetItem.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (components) {
-            queryParameters = this.addToHttpParams(queryParameters,
-                components.join(COLLECTION_FORMATS['csv']), 'components');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20041>(`${this.configuration.basePath}/Destiny2/${encodeURIComponent(String(membershipType))}/Profile/${encodeURIComponent(String(destinyMembershipId))}/Item/${encodeURIComponent(String(itemInstanceId))}/`,
-            {
-                params: queryParameters,
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    /**
-     * Gets leaderboards with the signed in user\&#39;s friends and the supplied destinyMembershipId as the focus. PREVIEW: This endpoint has not yet been implemented. It is being returned for a preview of future functionality, and for public comment/suggestion/preparation.
-     * @param destinyMembershipId The Destiny membershipId of the user to retrieve.
-     * @param membershipType A valid non-BungieNet membership type.
-     * @param maxtop Maximum number of top players to return. Use a large number to get entire leaderboard.
-     * @param modes List of game modes for which to get leaderboards. See the documentation for DestinyActivityModeType for valid values, and pass in string representation, comma delimited.
-     * @param statid ID of stat to return rather than returning all Leaderboard stats.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2GetLeaderboards(destinyMembershipId: number, membershipType: number, maxtop?: number, modes?: string, statid?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20050>;
-    public destiny2GetLeaderboards(destinyMembershipId: number, membershipType: number, maxtop?: number, modes?: string, statid?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20050>>;
-    public destiny2GetLeaderboards(destinyMembershipId: number, membershipType: number, maxtop?: number, modes?: string, statid?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20050>>;
-    public destiny2GetLeaderboards(destinyMembershipId: number, membershipType: number, maxtop?: number, modes?: string, statid?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-        if (destinyMembershipId === null || destinyMembershipId === undefined) {
-            throw new Error('Required parameter destinyMembershipId was null or undefined when calling destiny2GetLeaderboards.');
-        }
-        if (membershipType === null || membershipType === undefined) {
-            throw new Error('Required parameter membershipType was null or undefined when calling destiny2GetLeaderboards.');
-        }
+    return this.httpClient.get<InlineResponse20055>(
+      `${this.configuration.basePath}/Destiny2/${encodeURIComponent(
+        String(membershipType)
+      )}/Account/${encodeURIComponent(String(destinyMembershipId))}/Character/${encodeURIComponent(
+        String(characterId)
+      )}/Stats/Activities/`,
+      {
+        params: queryParameters,
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (maxtop !== undefined && maxtop !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>maxtop, 'maxtop');
-        }
-        if (modes !== undefined && modes !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>modes, 'modes');
-        }
-        if (statid !== undefined && statid !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>statid, 'statid');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20050>(`${this.configuration.basePath}/Destiny2/${encodeURIComponent(String(membershipType))}/Account/${encodeURIComponent(String(destinyMembershipId))}/Stats/Leaderboards/`,
-            {
-                params: queryParameters,
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * Returns character information for the supplied character.
+   * @param characterId ID of the character.
+   * @param destinyMembershipId Destiny membership ID.
+   * @param membershipType A valid non-BungieNet membership type.
+   * @param components A comma separated list of components to return (as strings or numeric values). See the DestinyComponentType enum for valid components to request. You must request at least one component to receive results.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2GetCharacter(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    components?: Array<number>,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20038>;
+  public destiny2GetCharacter(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    components?: Array<number>,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20038>>;
+  public destiny2GetCharacter(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    components?: Array<number>,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20038>>;
+  public destiny2GetCharacter(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    components?: Array<number>,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    if (characterId === null || characterId === undefined) {
+      throw new Error('Required parameter characterId was null or undefined when calling destiny2GetCharacter.');
+    }
+    if (destinyMembershipId === null || destinyMembershipId === undefined) {
+      throw new Error(
+        'Required parameter destinyMembershipId was null or undefined when calling destiny2GetCharacter.'
+      );
+    }
+    if (membershipType === null || membershipType === undefined) {
+      throw new Error('Required parameter membershipType was null or undefined when calling destiny2GetCharacter.');
     }
 
-    /**
-     * Gets leaderboards with the signed in user\&#39;s friends and the supplied destinyMembershipId as the focus. PREVIEW: This endpoint is still in beta, and may experience rough edges. The schema is in final form, but there may be bugs that prevent desirable operation.
-     * @param characterId The specific character to build the leaderboard around for the provided Destiny Membership.
-     * @param destinyMembershipId The Destiny membershipId of the user to retrieve.
-     * @param membershipType A valid non-BungieNet membership type.
-     * @param maxtop Maximum number of top players to return. Use a large number to get entire leaderboard.
-     * @param modes List of game modes for which to get leaderboards. See the documentation for DestinyActivityModeType for valid values, and pass in string representation, comma delimited.
-     * @param statid ID of stat to return rather than returning all Leaderboard stats.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2GetLeaderboardsForCharacter(characterId: number, destinyMembershipId: number, membershipType: number, maxtop?: number, modes?: string, statid?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20050>;
-    public destiny2GetLeaderboardsForCharacter(characterId: number, destinyMembershipId: number, membershipType: number, maxtop?: number, modes?: string, statid?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20050>>;
-    public destiny2GetLeaderboardsForCharacter(characterId: number, destinyMembershipId: number, membershipType: number, maxtop?: number, modes?: string, statid?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20050>>;
-    public destiny2GetLeaderboardsForCharacter(characterId: number, destinyMembershipId: number, membershipType: number, maxtop?: number, modes?: string, statid?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-        if (characterId === null || characterId === undefined) {
-            throw new Error('Required parameter characterId was null or undefined when calling destiny2GetLeaderboardsForCharacter.');
-        }
-        if (destinyMembershipId === null || destinyMembershipId === undefined) {
-            throw new Error('Required parameter destinyMembershipId was null or undefined when calling destiny2GetLeaderboardsForCharacter.');
-        }
-        if (membershipType === null || membershipType === undefined) {
-            throw new Error('Required parameter membershipType was null or undefined when calling destiny2GetLeaderboardsForCharacter.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (maxtop !== undefined && maxtop !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>maxtop, 'maxtop');
-        }
-        if (modes !== undefined && modes !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>modes, 'modes');
-        }
-        if (statid !== undefined && statid !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>statid, 'statid');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20050>(`${this.configuration.basePath}/Destiny2/Stats/Leaderboards/${encodeURIComponent(String(membershipType))}/${encodeURIComponent(String(destinyMembershipId))}/${encodeURIComponent(String(characterId))}/`,
-            {
-                params: queryParameters,
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (components) {
+      queryParameters = this.addToHttpParams(queryParameters, components.join(COLLECTION_FORMATS['csv']), 'components');
     }
 
-    /**
-     * Returns a summary information about all profiles linked to the requesting membership type/membership ID that have valid Destiny information. The passed-in Membership Type/Membership ID may be a Bungie.Net membership or a Destiny membership. It only returns the minimal amount of data to begin making more substantive requests, but will hopefully serve as a useful alternative to UserServices for people who just care about Destiny data. Note that it will only return linked accounts whose linkages you are allowed to view.
-     * @param membershipId The ID of the membership whose linked Destiny accounts you want returned. Make sure your membership ID matches its Membership Type: don\&#39;t pass us a PSN membership ID and the XBox membership type, it\&#39;s not going to work!
-     * @param membershipType The type for the membership whose linked Destiny accounts you want returned.
-     * @param getAllMemberships (optional) if set to \&#39;true\&#39;, all memberships regardless of whether they\&#39;re obscured by overrides will be returned. Normal privacy restrictions on account linking will still apply no matter what.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2GetLinkedProfiles(membershipId: number, membershipType: number, getAllMemberships?: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20036>;
-    public destiny2GetLinkedProfiles(membershipId: number, membershipType: number, getAllMemberships?: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20036>>;
-    public destiny2GetLinkedProfiles(membershipId: number, membershipType: number, getAllMemberships?: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20036>>;
-    public destiny2GetLinkedProfiles(membershipId: number, membershipType: number, getAllMemberships?: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-        if (membershipId === null || membershipId === undefined) {
-            throw new Error('Required parameter membershipId was null or undefined when calling destiny2GetLinkedProfiles.');
-        }
-        if (membershipType === null || membershipType === undefined) {
-            throw new Error('Required parameter membershipType was null or undefined when calling destiny2GetLinkedProfiles.');
-        }
+    let headers = this.defaultHeaders;
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (getAllMemberships !== undefined && getAllMemberships !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>getAllMemberships, 'getAllMemberships');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20036>(`${this.configuration.basePath}/Destiny2/${encodeURIComponent(String(membershipType))}/Profile/${encodeURIComponent(String(membershipId))}/LinkedProfiles/`,
-            {
-                params: queryParameters,
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Gets the available post game carnage report for the activity ID.
-     * @param activityId The ID of the activity whose PGCR is requested.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2GetPostGameCarnageReport(activityId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20048>;
-    public destiny2GetPostGameCarnageReport(activityId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20048>>;
-    public destiny2GetPostGameCarnageReport(activityId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20048>>;
-    public destiny2GetPostGameCarnageReport(activityId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-        if (activityId === null || activityId === undefined) {
-            throw new Error('Required parameter activityId was null or undefined when calling destiny2GetPostGameCarnageReport.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20048>(`${this.configuration.basePath}/Destiny2/Stats/PostGameCarnageReport/${encodeURIComponent(String(activityId))}/`,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    /**
-     * Returns Destiny Profile information for the supplied membership.
-     * @param destinyMembershipId Destiny membership ID.
-     * @param membershipType A valid non-BungieNet membership type.
-     * @param components A comma separated list of components to return (as strings or numeric values). See the DestinyComponentType enum for valid components to request. You must request at least one component to receive results.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2GetProfile(destinyMembershipId: number, membershipType: number, components?: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20037>;
-    public destiny2GetProfile(destinyMembershipId: number, membershipType: number, components?: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20037>>;
-    public destiny2GetProfile(destinyMembershipId: number, membershipType: number, components?: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20037>>;
-    public destiny2GetProfile(destinyMembershipId: number, membershipType: number, components?: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-        if (destinyMembershipId === null || destinyMembershipId === undefined) {
-            throw new Error('Required parameter destinyMembershipId was null or undefined when calling destiny2GetProfile.');
-        }
-        if (membershipType === null || membershipType === undefined) {
-            throw new Error('Required parameter membershipType was null or undefined when calling destiny2GetProfile.');
-        }
+    return this.httpClient.get<InlineResponse20038>(
+      `${this.configuration.basePath}/Destiny2/${encodeURIComponent(
+        String(membershipType)
+      )}/Profile/${encodeURIComponent(String(destinyMembershipId))}/Character/${encodeURIComponent(
+        String(characterId)
+      )}/`,
+      {
+        params: queryParameters,
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (components) {
-            queryParameters = this.addToHttpParams(queryParameters,
-                components.join(COLLECTION_FORMATS['csv']), 'components');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20037>(`${this.configuration.basePath}/Destiny2/${encodeURIComponent(String(membershipType))}/Profile/${encodeURIComponent(String(destinyMembershipId))}/`,
-            {
-                params: queryParameters,
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * Gets aggregated stats for a clan using the same categories as the clan leaderboards. PREVIEW: This endpoint is still in beta, and may experience rough edges. The schema is in final form, but there may be bugs that prevent desirable operation.
+   * @param groupId Group ID of the clan whose leaderboards you wish to fetch.
+   * @param modes List of game modes for which to get leaderboards. See the documentation for DestinyActivityModeType for valid values, and pass in string representation, comma delimited.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2GetClanAggregateStats(
+    groupId: number,
+    modes?: string,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20051>;
+  public destiny2GetClanAggregateStats(
+    groupId: number,
+    modes?: string,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20051>>;
+  public destiny2GetClanAggregateStats(
+    groupId: number,
+    modes?: string,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20051>>;
+  public destiny2GetClanAggregateStats(
+    groupId: number,
+    modes?: string,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    if (groupId === null || groupId === undefined) {
+      throw new Error('Required parameter groupId was null or undefined when calling destiny2GetClanAggregateStats.');
     }
 
-    /**
-     * Gets custom localized content for the milestone of the given hash, if it exists.
-     * @param milestoneHash The identifier for the milestone to be returned.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2GetPublicMilestoneContent(milestoneHash: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20058>;
-    public destiny2GetPublicMilestoneContent(milestoneHash: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20058>>;
-    public destiny2GetPublicMilestoneContent(milestoneHash: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20058>>;
-    public destiny2GetPublicMilestoneContent(milestoneHash: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-        if (milestoneHash === null || milestoneHash === undefined) {
-            throw new Error('Required parameter milestoneHash was null or undefined when calling destiny2GetPublicMilestoneContent.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20058>(`${this.configuration.basePath}/Destiny2/Milestones/${encodeURIComponent(String(milestoneHash))}/Content/`,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (modes !== undefined && modes !== null) {
+      queryParameters = this.addToHttpParams(queryParameters, <any>modes, 'modes');
     }
 
-    /**
-     * Gets public information about currently available Milestones.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2GetPublicMilestones(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20059>;
-    public destiny2GetPublicMilestones(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20059>>;
-    public destiny2GetPublicMilestones(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20059>>;
-    public destiny2GetPublicMilestones(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
+    let headers = this.defaultHeaders;
 
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20059>(`${this.configuration.basePath}/Destiny2/Milestones/`,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Get items available from vendors where the vendors have items for sale that are common for everyone. If any portion of the Vendor\&#39;s available inventory is character or account specific, we will be unable to return their data from this endpoint due to the way that available inventory is computed. As I am often guilty of saying: \&#39;It\&#39;s a long story...\&#39;
-     * @param components A comma separated list of components to return (as strings or numeric values). See the DestinyComponentType enum for valid components to request. You must request at least one component to receive results.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2GetPublicVendors(components?: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20044>;
-    public destiny2GetPublicVendors(components?: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20044>>;
-    public destiny2GetPublicVendors(components?: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20044>>;
-    public destiny2GetPublicVendors(components?: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (components) {
-            queryParameters = this.addToHttpParams(queryParameters,
-                components.join(COLLECTION_FORMATS['csv']), 'components');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20044>(`${this.configuration.basePath}/Destiny2/Vendors/`,
-            {
-                params: queryParameters,
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    /**
-     * Gets details about unique weapon usage, including all exotic weapons.
-     * @param characterId The id of the character to retrieve.
-     * @param destinyMembershipId The Destiny membershipId of the user to retrieve.
-     * @param membershipType A valid non-BungieNet membership type.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2GetUniqueWeaponHistory(characterId: number, destinyMembershipId: number, membershipType: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20056>;
-    public destiny2GetUniqueWeaponHistory(characterId: number, destinyMembershipId: number, membershipType: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20056>>;
-    public destiny2GetUniqueWeaponHistory(characterId: number, destinyMembershipId: number, membershipType: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20056>>;
-    public destiny2GetUniqueWeaponHistory(characterId: number, destinyMembershipId: number, membershipType: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-        if (characterId === null || characterId === undefined) {
-            throw new Error('Required parameter characterId was null or undefined when calling destiny2GetUniqueWeaponHistory.');
-        }
-        if (destinyMembershipId === null || destinyMembershipId === undefined) {
-            throw new Error('Required parameter destinyMembershipId was null or undefined when calling destiny2GetUniqueWeaponHistory.');
-        }
-        if (membershipType === null || membershipType === undefined) {
-            throw new Error('Required parameter membershipType was null or undefined when calling destiny2GetUniqueWeaponHistory.');
-        }
+    return this.httpClient.get<InlineResponse20051>(
+      `${this.configuration.basePath}/Destiny2/Stats/AggregateClanStats/${encodeURIComponent(String(groupId))}/`,
+      {
+        params: queryParameters,
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
 
-        let headers = this.defaultHeaders;
+  /**
+   * Returns the dictionary of values for the Clan Banner
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2GetClanBannerSource(
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20040>;
+  public destiny2GetClanBannerSource(
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20040>>;
+  public destiny2GetClanBannerSource(
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20040>>;
+  public destiny2GetClanBannerSource(
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
 
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20056>(`${this.configuration.basePath}/Destiny2/${encodeURIComponent(String(membershipType))}/Account/${encodeURIComponent(String(destinyMembershipId))}/Character/${encodeURIComponent(String(characterId))}/Stats/UniqueWeapons/`,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Get the details of a specific Vendor.
-     * @param characterId The Destiny Character ID of the character for whom we\&#39;re getting vendor info.
-     * @param destinyMembershipId Destiny membership ID of another user. You may be denied.
-     * @param membershipType A valid non-BungieNet membership type.
-     * @param vendorHash The Hash identifier of the Vendor to be returned.
-     * @param components A comma separated list of components to return (as strings or numeric values). See the DestinyComponentType enum for valid components to request. You must request at least one component to receive results.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2GetVendor(characterId: number, destinyMembershipId: number, membershipType: number, vendorHash: number, components?: Array<number>, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20043>;
-    public destiny2GetVendor(characterId: number, destinyMembershipId: number, membershipType: number, vendorHash: number, components?: Array<number>, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20043>>;
-    public destiny2GetVendor(characterId: number, destinyMembershipId: number, membershipType: number, vendorHash: number, components?: Array<number>, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20043>>;
-    public destiny2GetVendor(characterId: number, destinyMembershipId: number, membershipType: number, vendorHash: number, components?: Array<number>, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-        if (characterId === null || characterId === undefined) {
-            throw new Error('Required parameter characterId was null or undefined when calling destiny2GetVendor.');
-        }
-        if (destinyMembershipId === null || destinyMembershipId === undefined) {
-            throw new Error('Required parameter destinyMembershipId was null or undefined when calling destiny2GetVendor.');
-        }
-        if (membershipType === null || membershipType === undefined) {
-            throw new Error('Required parameter membershipType was null or undefined when calling destiny2GetVendor.');
-        }
-        if (vendorHash === null || vendorHash === undefined) {
-            throw new Error('Required parameter vendorHash was null or undefined when calling destiny2GetVendor.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (components) {
-            queryParameters = this.addToHttpParams(queryParameters,
-                components.join(COLLECTION_FORMATS['csv']), 'components');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20043>(`${this.configuration.basePath}/Destiny2/${encodeURIComponent(String(membershipType))}/Profile/${encodeURIComponent(String(destinyMembershipId))}/Character/${encodeURIComponent(String(characterId))}/Vendors/${encodeURIComponent(String(vendorHash))}/`,
-            {
-                params: queryParameters,
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    /**
-     * Get currently available vendors from the list of vendors that can possibly have rotating inventory. Note that this does not include things like preview vendors and vendors-as-kiosks, neither of whom have rotating/dynamic inventories. Use their definitions as-is for those.
-     * @param characterId The Destiny Character ID of the character for whom we\&#39;re getting vendor info.
-     * @param destinyMembershipId Destiny membership ID of another user. You may be denied.
-     * @param membershipType A valid non-BungieNet membership type.
-     * @param components A comma separated list of components to return (as strings or numeric values). See the DestinyComponentType enum for valid components to request. You must request at least one component to receive results.
-     * @param filter The filter of what vendors and items to return, if any.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2GetVendors(characterId: number, destinyMembershipId: number, membershipType: number, components?: Array<number>, filter?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20042>;
-    public destiny2GetVendors(characterId: number, destinyMembershipId: number, membershipType: number, components?: Array<number>, filter?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20042>>;
-    public destiny2GetVendors(characterId: number, destinyMembershipId: number, membershipType: number, components?: Array<number>, filter?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20042>>;
-    public destiny2GetVendors(characterId: number, destinyMembershipId: number, membershipType: number, components?: Array<number>, filter?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-        if (characterId === null || characterId === undefined) {
-            throw new Error('Required parameter characterId was null or undefined when calling destiny2GetVendors.');
-        }
-        if (destinyMembershipId === null || destinyMembershipId === undefined) {
-            throw new Error('Required parameter destinyMembershipId was null or undefined when calling destiny2GetVendors.');
-        }
-        if (membershipType === null || membershipType === undefined) {
-            throw new Error('Required parameter membershipType was null or undefined when calling destiny2GetVendors.');
-        }
+    return this.httpClient.get<InlineResponse20040>(
+      `${this.configuration.basePath}/Destiny2/Clan/ClanBannerDictionary/`,
+      {
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (components) {
-            queryParameters = this.addToHttpParams(queryParameters,
-                components.join(COLLECTION_FORMATS['csv']), 'components');
-        }
-        if (filter !== undefined && filter !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>filter, 'filter');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20042>(`${this.configuration.basePath}/Destiny2/${encodeURIComponent(String(membershipType))}/Profile/${encodeURIComponent(String(destinyMembershipId))}/Character/${encodeURIComponent(String(characterId))}/Vendors/`,
-            {
-                params: queryParameters,
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * Gets leaderboards with the signed in user\&#39;s friends and the supplied destinyMembershipId as the focus. PREVIEW: This endpoint is still in beta, and may experience rough edges. The schema is in final form, but there may be bugs that prevent desirable operation.
+   * @param groupId Group ID of the clan whose leaderboards you wish to fetch.
+   * @param maxtop Maximum number of top players to return. Use a large number to get entire leaderboard.
+   * @param modes List of game modes for which to get leaderboards. See the documentation for DestinyActivityModeType for valid values, and pass in string representation, comma delimited.
+   * @param statid ID of stat to return rather than returning all Leaderboard stats.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2GetClanLeaderboards(
+    groupId: number,
+    maxtop?: number,
+    modes?: string,
+    statid?: string,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20050>;
+  public destiny2GetClanLeaderboards(
+    groupId: number,
+    maxtop?: number,
+    modes?: string,
+    statid?: string,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20050>>;
+  public destiny2GetClanLeaderboards(
+    groupId: number,
+    maxtop?: number,
+    modes?: string,
+    statid?: string,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20050>>;
+  public destiny2GetClanLeaderboards(
+    groupId: number,
+    maxtop?: number,
+    modes?: string,
+    statid?: string,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    if (groupId === null || groupId === undefined) {
+      throw new Error('Required parameter groupId was null or undefined when calling destiny2GetClanLeaderboards.');
     }
 
-    /**
-     * Insert a plug into a socketed item. I know how it sounds, but I assure you it\&#39;s much more G-rated than you might be guessing. We haven\&#39;t decided yet whether this will be able to insert plugs that have side effects, but if we do it will require special scope permission for an application attempting to do so. You must have a valid Destiny Account, and either be in a social space, in orbit, or offline. Request must include proof of permission for \&#39;InsertPlugs\&#39; from the account owner.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2InsertSocketPlug(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20047>;
-    public destiny2InsertSocketPlug(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20047>>;
-    public destiny2InsertSocketPlug(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20047>>;
-    public destiny2InsertSocketPlug(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        let credential: string | undefined;
-        // authentication (oauth2) required
-        credential = this.configuration.lookupCredential('oauth2');
-        if (credential) {
-            headers = headers.set('Authorization', 'Bearer ' + credential);
-        }
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.post<InlineResponse20047>(`${this.configuration.basePath}/Destiny2/Actions/Items/InsertSocketPlug/`,
-            null,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (maxtop !== undefined && maxtop !== null) {
+      queryParameters = this.addToHttpParams(queryParameters, <any>maxtop, 'maxtop');
+    }
+    if (modes !== undefined && modes !== null) {
+      queryParameters = this.addToHttpParams(queryParameters, <any>modes, 'modes');
+    }
+    if (statid !== undefined && statid !== null) {
+      queryParameters = this.addToHttpParams(queryParameters, <any>statid, 'statid');
     }
 
-    /**
-     * Extract an item from the Postmaster, with whatever implications that may entail. You must have a valid Destiny account. You must also pass BOTH a reference AND an instance ID if it\&#39;s an instanced item.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2PullFromPostmaster(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20022>;
-    public destiny2PullFromPostmaster(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20022>>;
-    public destiny2PullFromPostmaster(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20022>>;
-    public destiny2PullFromPostmaster(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
+    let headers = this.defaultHeaders;
 
-        let headers = this.defaultHeaders;
-
-        let credential: string | undefined;
-        // authentication (oauth2) required
-        credential = this.configuration.lookupCredential('oauth2');
-        if (credential) {
-            headers = headers.set('Authorization', 'Bearer ' + credential);
-        }
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.post<InlineResponse20022>(`${this.configuration.basePath}/Destiny2/Actions/Items/PullFromPostmaster/`,
-            null,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Report a player that you met in an activity that was engaging in ToS-violating activities. Both you and the offending player must have played in the activityId passed in. Please use this judiciously and only when you have strong suspicions of violation, pretty please.
-     * @param activityId The ID of the activity where you ran into the brigand that you\&#39;re reporting.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2ReportOffensivePostGameCarnageReportPlayer(activityId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20022>;
-    public destiny2ReportOffensivePostGameCarnageReportPlayer(activityId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20022>>;
-    public destiny2ReportOffensivePostGameCarnageReportPlayer(activityId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20022>>;
-    public destiny2ReportOffensivePostGameCarnageReportPlayer(activityId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-        if (activityId === null || activityId === undefined) {
-            throw new Error('Required parameter activityId was null or undefined when calling destiny2ReportOffensivePostGameCarnageReportPlayer.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let credential: string | undefined;
-        // authentication (oauth2) required
-        credential = this.configuration.lookupCredential('oauth2');
-        if (credential) {
-            headers = headers.set('Authorization', 'Bearer ' + credential);
-        }
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.post<InlineResponse20022>(`${this.configuration.basePath}/Destiny2/Stats/PostGameCarnageReport/${encodeURIComponent(String(activityId))}/Report/`,
-            null,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    /**
-     * Gets a page list of Destiny items.
-     * @param searchTerm The string to use when searching for Destiny entities.
-     * @param type The type of entity for whom you would like results. These correspond to the entity\&#39;s definition contract name. For instance, if you are looking for items, this property should be \&#39;DestinyInventoryItemDefinition\&#39;.
-     * @param page Page number to return, starting with 0.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2SearchDestinyEntities(searchTerm: string, type: string, page?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20052>;
-    public destiny2SearchDestinyEntities(searchTerm: string, type: string, page?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20052>>;
-    public destiny2SearchDestinyEntities(searchTerm: string, type: string, page?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20052>>;
-    public destiny2SearchDestinyEntities(searchTerm: string, type: string, page?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-        if (searchTerm === null || searchTerm === undefined) {
-            throw new Error('Required parameter searchTerm was null or undefined when calling destiny2SearchDestinyEntities.');
-        }
-        if (type === null || type === undefined) {
-            throw new Error('Required parameter type was null or undefined when calling destiny2SearchDestinyEntities.');
-        }
+    return this.httpClient.get<InlineResponse20050>(
+      `${this.configuration.basePath}/Destiny2/Stats/Leaderboards/Clans/${encodeURIComponent(String(groupId))}/`,
+      {
+        params: queryParameters,
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
 
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (page !== undefined && page !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>page, 'page');
-        }
-
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20052>(`${this.configuration.basePath}/Destiny2/Armory/Search/${encodeURIComponent(String(type))}/${encodeURIComponent(String(searchTerm))}/`,
-            {
-                params: queryParameters,
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * Returns information on the weekly clan rewards and if the clan has earned them or not. Note that this will always report rewards as not redeemed.
+   * @param groupId A valid group id of clan.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2GetClanWeeklyRewardState(
+    groupId: number,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20039>;
+  public destiny2GetClanWeeklyRewardState(
+    groupId: number,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20039>>;
+  public destiny2GetClanWeeklyRewardState(
+    groupId: number,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20039>>;
+  public destiny2GetClanWeeklyRewardState(
+    groupId: number,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    if (groupId === null || groupId === undefined) {
+      throw new Error(
+        'Required parameter groupId was null or undefined when calling destiny2GetClanWeeklyRewardState.'
+      );
     }
 
-    /**
-     * Returns a list of Destiny memberships given a global Bungie Display Name. This method will hide overridden memberships due to cross save.
-     * @param displayName The full bungie global display name to look up, include the # and the code at the end. This is an exact match lookup.
-     * @param membershipType A valid non-BungieNet membership type, or All. Indicates which memberships to return. You probably want this set to All.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2SearchDestinyPlayer(displayName: string, membershipType: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20035>;
-    public destiny2SearchDestinyPlayer(displayName: string, membershipType: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20035>>;
-    public destiny2SearchDestinyPlayer(displayName: string, membershipType: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20035>>;
-    public destiny2SearchDestinyPlayer(displayName: string, membershipType: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-        if (displayName === null || displayName === undefined) {
-            throw new Error('Required parameter displayName was null or undefined when calling destiny2SearchDestinyPlayer.');
-        }
-        if (membershipType === null || membershipType === undefined) {
-            throw new Error('Required parameter membershipType was null or undefined when calling destiny2SearchDestinyPlayer.');
-        }
+    let headers = this.defaultHeaders;
 
-        let headers = this.defaultHeaders;
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<InlineResponse20035>(`${this.configuration.basePath}/Destiny2/SearchDestinyPlayer/${encodeURIComponent(String(membershipType))}/${encodeURIComponent(String(displayName))}/`,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Set the Lock State for an instanced item. You must have a valid Destiny Account.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2SetItemLockState(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20022>;
-    public destiny2SetItemLockState(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20022>>;
-    public destiny2SetItemLockState(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20022>>;
-    public destiny2SetItemLockState(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        let credential: string | undefined;
-        // authentication (oauth2) required
-        credential = this.configuration.lookupCredential('oauth2');
-        if (credential) {
-            headers = headers.set('Authorization', 'Bearer ' + credential);
-        }
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.post<InlineResponse20022>(`${this.configuration.basePath}/Destiny2/Actions/Items/SetLockState/`,
-            null,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    /**
-     * Set the Tracking State for an instanced item, if that item is a Quest or Bounty. You must have a valid Destiny Account. Yeah, it\&#39;s an item.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2SetQuestTrackedState(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20022>;
-    public destiny2SetQuestTrackedState(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20022>>;
-    public destiny2SetQuestTrackedState(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20022>>;
-    public destiny2SetQuestTrackedState(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
+    return this.httpClient.get<InlineResponse20039>(
+      `${this.configuration.basePath}/Destiny2/Clan/${encodeURIComponent(String(groupId))}/WeeklyRewardState/`,
+      {
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
 
-        let headers = this.defaultHeaders;
-
-        let credential: string | undefined;
-        // authentication (oauth2) required
-        credential = this.configuration.lookupCredential('oauth2');
-        if (credential) {
-            headers = headers.set('Authorization', 'Bearer ' + credential);
-        }
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.post<InlineResponse20022>(`${this.configuration.basePath}/Destiny2/Actions/Items/SetTrackedState/`,
-            null,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+  /**
+   * Given a Presentation Node that has Collectibles as direct descendants, this will return item details about those descendants in the context of the requesting character.
+   * @param characterId The Destiny Character ID of the character for whom we\&#39;re getting collectible detail info.
+   * @param collectiblePresentationNodeHash The hash identifier of the Presentation Node for whom we should return collectible details. Details will only be returned for collectibles that are direct descendants of this node.
+   * @param destinyMembershipId Destiny membership ID of another user. You may be denied.
+   * @param membershipType A valid non-BungieNet membership type.
+   * @param components A comma separated list of components to return (as strings or numeric values). See the DestinyComponentType enum for valid components to request. You must request at least one component to receive results.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2GetCollectibleNodeDetails(
+    characterId: number,
+    collectiblePresentationNodeHash: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    components?: Array<number>,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20045>;
+  public destiny2GetCollectibleNodeDetails(
+    characterId: number,
+    collectiblePresentationNodeHash: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    components?: Array<number>,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20045>>;
+  public destiny2GetCollectibleNodeDetails(
+    characterId: number,
+    collectiblePresentationNodeHash: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    components?: Array<number>,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20045>>;
+  public destiny2GetCollectibleNodeDetails(
+    characterId: number,
+    collectiblePresentationNodeHash: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    components?: Array<number>,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    if (characterId === null || characterId === undefined) {
+      throw new Error(
+        'Required parameter characterId was null or undefined when calling destiny2GetCollectibleNodeDetails.'
+      );
+    }
+    if (collectiblePresentationNodeHash === null || collectiblePresentationNodeHash === undefined) {
+      throw new Error(
+        'Required parameter collectiblePresentationNodeHash was null or undefined when calling destiny2GetCollectibleNodeDetails.'
+      );
+    }
+    if (destinyMembershipId === null || destinyMembershipId === undefined) {
+      throw new Error(
+        'Required parameter destinyMembershipId was null or undefined when calling destiny2GetCollectibleNodeDetails.'
+      );
+    }
+    if (membershipType === null || membershipType === undefined) {
+      throw new Error(
+        'Required parameter membershipType was null or undefined when calling destiny2GetCollectibleNodeDetails.'
+      );
     }
 
-    /**
-     * Transfer an item to/from your vault. You must have a valid Destiny account. You must also pass BOTH a reference AND an instance ID if it\&#39;s an instanced item. itshappening.gif
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public destiny2TransferItem(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<InlineResponse20022>;
-    public destiny2TransferItem(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<InlineResponse20022>>;
-    public destiny2TransferItem(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<InlineResponse20022>>;
-    public destiny2TransferItem(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        let credential: string | undefined;
-        // authentication (oauth2) required
-        credential = this.configuration.lookupCredential('oauth2');
-        if (credential) {
-            headers = headers.set('Authorization', 'Bearer ' + credential);
-        }
-
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                '*/*'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.post<InlineResponse20022>(`${this.configuration.basePath}/Destiny2/Actions/Items/TransferItem/`,
-            null,
-            {
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (components) {
+      queryParameters = this.addToHttpParams(queryParameters, components.join(COLLECTION_FORMATS['csv']), 'components');
     }
 
+    let headers = this.defaultHeaders;
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.get<InlineResponse20045>(
+      `${this.configuration.basePath}/Destiny2/${encodeURIComponent(
+        String(membershipType)
+      )}/Profile/${encodeURIComponent(String(destinyMembershipId))}/Character/${encodeURIComponent(
+        String(characterId)
+      )}/Collectibles/${encodeURIComponent(String(collectiblePresentationNodeHash))}/`,
+      {
+        params: queryParameters,
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * Gets all activities the character has participated in together with aggregate statistics for those activities.
+   * @param characterId The specific character whose activities should be returned.
+   * @param destinyMembershipId The Destiny membershipId of the user to retrieve.
+   * @param membershipType A valid non-BungieNet membership type.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2GetDestinyAggregateActivityStats(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20057>;
+  public destiny2GetDestinyAggregateActivityStats(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20057>>;
+  public destiny2GetDestinyAggregateActivityStats(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20057>>;
+  public destiny2GetDestinyAggregateActivityStats(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    if (characterId === null || characterId === undefined) {
+      throw new Error(
+        'Required parameter characterId was null or undefined when calling destiny2GetDestinyAggregateActivityStats.'
+      );
+    }
+    if (destinyMembershipId === null || destinyMembershipId === undefined) {
+      throw new Error(
+        'Required parameter destinyMembershipId was null or undefined when calling destiny2GetDestinyAggregateActivityStats.'
+      );
+    }
+    if (membershipType === null || membershipType === undefined) {
+      throw new Error(
+        'Required parameter membershipType was null or undefined when calling destiny2GetDestinyAggregateActivityStats.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.get<InlineResponse20057>(
+      `${this.configuration.basePath}/Destiny2/${encodeURIComponent(
+        String(membershipType)
+      )}/Account/${encodeURIComponent(String(destinyMembershipId))}/Character/${encodeURIComponent(
+        String(characterId)
+      )}/Stats/AggregateActivityStats/`,
+      {
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * Returns the static definition of an entity of the given Type and hash identifier. Examine the API Documentation for the Type Names of entities that have their own definitions. Note that the return type will always *inherit from* DestinyDefinition, but the specific type returned will be the requested entity type if it can be found. Please don\&#39;t use this as a chatty alternative to the Manifest database if you require large sets of data, but for simple and one-off accesses this should be handy.
+   * @param entityType The type of entity for whom you would like results. These correspond to the entity\&#39;s definition contract name. For instance, if you are looking for items, this property should be \&#39;DestinyInventoryItemDefinition\&#39;. PREVIEW: This endpoint is still in beta, and may experience rough edges. The schema is tentatively in final form, but there may be bugs that prevent desirable operation.
+   * @param hashIdentifier The hash identifier for the specific Entity you want returned.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2GetDestinyEntityDefinition(
+    entityType: string,
+    hashIdentifier: number,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20034>;
+  public destiny2GetDestinyEntityDefinition(
+    entityType: string,
+    hashIdentifier: number,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20034>>;
+  public destiny2GetDestinyEntityDefinition(
+    entityType: string,
+    hashIdentifier: number,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20034>>;
+  public destiny2GetDestinyEntityDefinition(
+    entityType: string,
+    hashIdentifier: number,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    if (entityType === null || entityType === undefined) {
+      throw new Error(
+        'Required parameter entityType was null or undefined when calling destiny2GetDestinyEntityDefinition.'
+      );
+    }
+    if (hashIdentifier === null || hashIdentifier === undefined) {
+      throw new Error(
+        'Required parameter hashIdentifier was null or undefined when calling destiny2GetDestinyEntityDefinition.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.get<InlineResponse20034>(
+      `${this.configuration.basePath}/Destiny2/Manifest/${encodeURIComponent(String(entityType))}/${encodeURIComponent(
+        String(hashIdentifier)
+      )}/`,
+      {
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * Returns the current version of the manifest as a json object.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2GetDestinyManifest(
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20033>;
+  public destiny2GetDestinyManifest(
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20033>>;
+  public destiny2GetDestinyManifest(
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20033>>;
+  public destiny2GetDestinyManifest(
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.get<InlineResponse20033>(`${this.configuration.basePath}/Destiny2/Manifest/`, {
+      responseType: <any>responseType,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+      observe: observe,
+      reportProgress: reportProgress
+    });
+  }
+
+  /**
+   * Gets historical stats for indicated character.
+   * @param characterId The id of the character to retrieve. You can omit this character ID or set it to 0 to get aggregate stats across all characters.
+   * @param destinyMembershipId The Destiny membershipId of the user to retrieve.
+   * @param membershipType A valid non-BungieNet membership type.
+   * @param dayend Last day to return when daily stats are requested. Use the format YYYY-MM-DD. Currently, we cannot allow more than 31 days of daily data to be requested in a single request.
+   * @param daystart First day to return when daily stats are requested. Use the format YYYY-MM-DD. Currently, we cannot allow more than 31 days of daily data to be requested in a single request.
+   * @param groups Group of stats to include, otherwise only general stats are returned. Comma separated list is allowed. Values: General, Weapons, Medals
+   * @param modes Game modes to return. See the documentation for DestinyActivityModeType for valid values, and pass in string representation, comma delimited.
+   * @param periodType Indicates a specific period type to return. Optional. May be: Daily, AllTime, or Activity
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2GetHistoricalStats(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    dayend?: string,
+    daystart?: string,
+    groups?: Array<number>,
+    modes?: Array<number>,
+    periodType?: number,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20053>;
+  public destiny2GetHistoricalStats(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    dayend?: string,
+    daystart?: string,
+    groups?: Array<number>,
+    modes?: Array<number>,
+    periodType?: number,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20053>>;
+  public destiny2GetHistoricalStats(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    dayend?: string,
+    daystart?: string,
+    groups?: Array<number>,
+    modes?: Array<number>,
+    periodType?: number,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20053>>;
+  public destiny2GetHistoricalStats(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    dayend?: string,
+    daystart?: string,
+    groups?: Array<number>,
+    modes?: Array<number>,
+    periodType?: number,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    if (characterId === null || characterId === undefined) {
+      throw new Error('Required parameter characterId was null or undefined when calling destiny2GetHistoricalStats.');
+    }
+    if (destinyMembershipId === null || destinyMembershipId === undefined) {
+      throw new Error(
+        'Required parameter destinyMembershipId was null or undefined when calling destiny2GetHistoricalStats.'
+      );
+    }
+    if (membershipType === null || membershipType === undefined) {
+      throw new Error(
+        'Required parameter membershipType was null or undefined when calling destiny2GetHistoricalStats.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (dayend !== undefined && dayend !== null) {
+      queryParameters = this.addToHttpParams(queryParameters, <any>dayend, 'dayend');
+    }
+    if (daystart !== undefined && daystart !== null) {
+      queryParameters = this.addToHttpParams(queryParameters, <any>daystart, 'daystart');
+    }
+    if (groups) {
+      queryParameters = this.addToHttpParams(queryParameters, groups.join(COLLECTION_FORMATS['csv']), 'groups');
+    }
+    if (modes) {
+      queryParameters = this.addToHttpParams(queryParameters, modes.join(COLLECTION_FORMATS['csv']), 'modes');
+    }
+    if (periodType !== undefined && periodType !== null) {
+      queryParameters = this.addToHttpParams(queryParameters, <any>periodType, 'periodType');
+    }
+
+    let headers = this.defaultHeaders;
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.get<InlineResponse20053>(
+      `${this.configuration.basePath}/Destiny2/${encodeURIComponent(
+        String(membershipType)
+      )}/Account/${encodeURIComponent(String(destinyMembershipId))}/Character/${encodeURIComponent(
+        String(characterId)
+      )}/Stats/`,
+      {
+        params: queryParameters,
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * Gets historical stats definitions.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2GetHistoricalStatsDefinition(
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20049>;
+  public destiny2GetHistoricalStatsDefinition(
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20049>>;
+  public destiny2GetHistoricalStatsDefinition(
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20049>>;
+  public destiny2GetHistoricalStatsDefinition(
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.get<InlineResponse20049>(`${this.configuration.basePath}/Destiny2/Stats/Definition/`, {
+      responseType: <any>responseType,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+      observe: observe,
+      reportProgress: reportProgress
+    });
+  }
+
+  /**
+   * Gets aggregate historical stats organized around each character for a given account.
+   * @param destinyMembershipId The Destiny membershipId of the user to retrieve.
+   * @param membershipType A valid non-BungieNet membership type.
+   * @param groups Groups of stats to include, otherwise only general stats are returned. Comma separated list is allowed. Values: General, Weapons, Medals.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2GetHistoricalStatsForAccount(
+    destinyMembershipId: number,
+    membershipType: number,
+    groups?: Array<number>,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20054>;
+  public destiny2GetHistoricalStatsForAccount(
+    destinyMembershipId: number,
+    membershipType: number,
+    groups?: Array<number>,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20054>>;
+  public destiny2GetHistoricalStatsForAccount(
+    destinyMembershipId: number,
+    membershipType: number,
+    groups?: Array<number>,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20054>>;
+  public destiny2GetHistoricalStatsForAccount(
+    destinyMembershipId: number,
+    membershipType: number,
+    groups?: Array<number>,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    if (destinyMembershipId === null || destinyMembershipId === undefined) {
+      throw new Error(
+        'Required parameter destinyMembershipId was null or undefined when calling destiny2GetHistoricalStatsForAccount.'
+      );
+    }
+    if (membershipType === null || membershipType === undefined) {
+      throw new Error(
+        'Required parameter membershipType was null or undefined when calling destiny2GetHistoricalStatsForAccount.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (groups) {
+      queryParameters = this.addToHttpParams(queryParameters, groups.join(COLLECTION_FORMATS['csv']), 'groups');
+    }
+
+    let headers = this.defaultHeaders;
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.get<InlineResponse20054>(
+      `${this.configuration.basePath}/Destiny2/${encodeURIComponent(
+        String(membershipType)
+      )}/Account/${encodeURIComponent(String(destinyMembershipId))}/Stats/`,
+      {
+        params: queryParameters,
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * Retrieve the details of an instanced Destiny Item. An instanced Destiny item is one with an ItemInstanceId. Non-instanced items, such as materials, have no useful instance-specific details and thus are not queryable here.
+   * @param destinyMembershipId The membership ID of the destiny profile.
+   * @param itemInstanceId The Instance ID of the destiny item.
+   * @param membershipType A valid non-BungieNet membership type.
+   * @param components A comma separated list of components to return (as strings or numeric values). See the DestinyComponentType enum for valid components to request. You must request at least one component to receive results.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2GetItem(
+    destinyMembershipId: number,
+    itemInstanceId: number,
+    membershipType: number,
+    components?: Array<number>,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20041>;
+  public destiny2GetItem(
+    destinyMembershipId: number,
+    itemInstanceId: number,
+    membershipType: number,
+    components?: Array<number>,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20041>>;
+  public destiny2GetItem(
+    destinyMembershipId: number,
+    itemInstanceId: number,
+    membershipType: number,
+    components?: Array<number>,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20041>>;
+  public destiny2GetItem(
+    destinyMembershipId: number,
+    itemInstanceId: number,
+    membershipType: number,
+    components?: Array<number>,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    if (destinyMembershipId === null || destinyMembershipId === undefined) {
+      throw new Error('Required parameter destinyMembershipId was null or undefined when calling destiny2GetItem.');
+    }
+    if (itemInstanceId === null || itemInstanceId === undefined) {
+      throw new Error('Required parameter itemInstanceId was null or undefined when calling destiny2GetItem.');
+    }
+    if (membershipType === null || membershipType === undefined) {
+      throw new Error('Required parameter membershipType was null or undefined when calling destiny2GetItem.');
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (components) {
+      queryParameters = this.addToHttpParams(queryParameters, components.join(COLLECTION_FORMATS['csv']), 'components');
+    }
+
+    let headers = this.defaultHeaders;
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.get<InlineResponse20041>(
+      `${this.configuration.basePath}/Destiny2/${encodeURIComponent(
+        String(membershipType)
+      )}/Profile/${encodeURIComponent(String(destinyMembershipId))}/Item/${encodeURIComponent(
+        String(itemInstanceId)
+      )}/`,
+      {
+        params: queryParameters,
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * Gets leaderboards with the signed in user\&#39;s friends and the supplied destinyMembershipId as the focus. PREVIEW: This endpoint has not yet been implemented. It is being returned for a preview of future functionality, and for public comment/suggestion/preparation.
+   * @param destinyMembershipId The Destiny membershipId of the user to retrieve.
+   * @param membershipType A valid non-BungieNet membership type.
+   * @param maxtop Maximum number of top players to return. Use a large number to get entire leaderboard.
+   * @param modes List of game modes for which to get leaderboards. See the documentation for DestinyActivityModeType for valid values, and pass in string representation, comma delimited.
+   * @param statid ID of stat to return rather than returning all Leaderboard stats.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2GetLeaderboards(
+    destinyMembershipId: number,
+    membershipType: number,
+    maxtop?: number,
+    modes?: string,
+    statid?: string,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20050>;
+  public destiny2GetLeaderboards(
+    destinyMembershipId: number,
+    membershipType: number,
+    maxtop?: number,
+    modes?: string,
+    statid?: string,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20050>>;
+  public destiny2GetLeaderboards(
+    destinyMembershipId: number,
+    membershipType: number,
+    maxtop?: number,
+    modes?: string,
+    statid?: string,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20050>>;
+  public destiny2GetLeaderboards(
+    destinyMembershipId: number,
+    membershipType: number,
+    maxtop?: number,
+    modes?: string,
+    statid?: string,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    if (destinyMembershipId === null || destinyMembershipId === undefined) {
+      throw new Error(
+        'Required parameter destinyMembershipId was null or undefined when calling destiny2GetLeaderboards.'
+      );
+    }
+    if (membershipType === null || membershipType === undefined) {
+      throw new Error('Required parameter membershipType was null or undefined when calling destiny2GetLeaderboards.');
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (maxtop !== undefined && maxtop !== null) {
+      queryParameters = this.addToHttpParams(queryParameters, <any>maxtop, 'maxtop');
+    }
+    if (modes !== undefined && modes !== null) {
+      queryParameters = this.addToHttpParams(queryParameters, <any>modes, 'modes');
+    }
+    if (statid !== undefined && statid !== null) {
+      queryParameters = this.addToHttpParams(queryParameters, <any>statid, 'statid');
+    }
+
+    let headers = this.defaultHeaders;
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.get<InlineResponse20050>(
+      `${this.configuration.basePath}/Destiny2/${encodeURIComponent(
+        String(membershipType)
+      )}/Account/${encodeURIComponent(String(destinyMembershipId))}/Stats/Leaderboards/`,
+      {
+        params: queryParameters,
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * Gets leaderboards with the signed in user\&#39;s friends and the supplied destinyMembershipId as the focus. PREVIEW: This endpoint is still in beta, and may experience rough edges. The schema is in final form, but there may be bugs that prevent desirable operation.
+   * @param characterId The specific character to build the leaderboard around for the provided Destiny Membership.
+   * @param destinyMembershipId The Destiny membershipId of the user to retrieve.
+   * @param membershipType A valid non-BungieNet membership type.
+   * @param maxtop Maximum number of top players to return. Use a large number to get entire leaderboard.
+   * @param modes List of game modes for which to get leaderboards. See the documentation for DestinyActivityModeType for valid values, and pass in string representation, comma delimited.
+   * @param statid ID of stat to return rather than returning all Leaderboard stats.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2GetLeaderboardsForCharacter(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    maxtop?: number,
+    modes?: string,
+    statid?: string,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20050>;
+  public destiny2GetLeaderboardsForCharacter(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    maxtop?: number,
+    modes?: string,
+    statid?: string,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20050>>;
+  public destiny2GetLeaderboardsForCharacter(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    maxtop?: number,
+    modes?: string,
+    statid?: string,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20050>>;
+  public destiny2GetLeaderboardsForCharacter(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    maxtop?: number,
+    modes?: string,
+    statid?: string,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    if (characterId === null || characterId === undefined) {
+      throw new Error(
+        'Required parameter characterId was null or undefined when calling destiny2GetLeaderboardsForCharacter.'
+      );
+    }
+    if (destinyMembershipId === null || destinyMembershipId === undefined) {
+      throw new Error(
+        'Required parameter destinyMembershipId was null or undefined when calling destiny2GetLeaderboardsForCharacter.'
+      );
+    }
+    if (membershipType === null || membershipType === undefined) {
+      throw new Error(
+        'Required parameter membershipType was null or undefined when calling destiny2GetLeaderboardsForCharacter.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (maxtop !== undefined && maxtop !== null) {
+      queryParameters = this.addToHttpParams(queryParameters, <any>maxtop, 'maxtop');
+    }
+    if (modes !== undefined && modes !== null) {
+      queryParameters = this.addToHttpParams(queryParameters, <any>modes, 'modes');
+    }
+    if (statid !== undefined && statid !== null) {
+      queryParameters = this.addToHttpParams(queryParameters, <any>statid, 'statid');
+    }
+
+    let headers = this.defaultHeaders;
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.get<InlineResponse20050>(
+      `${this.configuration.basePath}/Destiny2/Stats/Leaderboards/${encodeURIComponent(
+        String(membershipType)
+      )}/${encodeURIComponent(String(destinyMembershipId))}/${encodeURIComponent(String(characterId))}/`,
+      {
+        params: queryParameters,
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * Returns a summary information about all profiles linked to the requesting membership type/membership ID that have valid Destiny information. The passed-in Membership Type/Membership ID may be a Bungie.Net membership or a Destiny membership. It only returns the minimal amount of data to begin making more substantive requests, but will hopefully serve as a useful alternative to UserServices for people who just care about Destiny data. Note that it will only return linked accounts whose linkages you are allowed to view.
+   * @param membershipId The ID of the membership whose linked Destiny accounts you want returned. Make sure your membership ID matches its Membership Type: don\&#39;t pass us a PSN membership ID and the XBox membership type, it\&#39;s not going to work!
+   * @param membershipType The type for the membership whose linked Destiny accounts you want returned.
+   * @param getAllMemberships (optional) if set to \&#39;true\&#39;, all memberships regardless of whether they\&#39;re obscured by overrides will be returned. Normal privacy restrictions on account linking will still apply no matter what.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2GetLinkedProfiles(
+    membershipId: number,
+    membershipType: number,
+    getAllMemberships?: boolean,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20036>;
+  public destiny2GetLinkedProfiles(
+    membershipId: number,
+    membershipType: number,
+    getAllMemberships?: boolean,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20036>>;
+  public destiny2GetLinkedProfiles(
+    membershipId: number,
+    membershipType: number,
+    getAllMemberships?: boolean,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20036>>;
+  public destiny2GetLinkedProfiles(
+    membershipId: number,
+    membershipType: number,
+    getAllMemberships?: boolean,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    if (membershipId === null || membershipId === undefined) {
+      throw new Error('Required parameter membershipId was null or undefined when calling destiny2GetLinkedProfiles.');
+    }
+    if (membershipType === null || membershipType === undefined) {
+      throw new Error(
+        'Required parameter membershipType was null or undefined when calling destiny2GetLinkedProfiles.'
+      );
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (getAllMemberships !== undefined && getAllMemberships !== null) {
+      queryParameters = this.addToHttpParams(queryParameters, <any>getAllMemberships, 'getAllMemberships');
+    }
+
+    let headers = this.defaultHeaders;
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.get<InlineResponse20036>(
+      `${this.configuration.basePath}/Destiny2/${encodeURIComponent(
+        String(membershipType)
+      )}/Profile/${encodeURIComponent(String(membershipId))}/LinkedProfiles/`,
+      {
+        params: queryParameters,
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * Gets the available post game carnage report for the activity ID.
+   * @param activityId The ID of the activity whose PGCR is requested.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2GetPostGameCarnageReport(
+    activityId: number,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20048>;
+  public destiny2GetPostGameCarnageReport(
+    activityId: number,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20048>>;
+  public destiny2GetPostGameCarnageReport(
+    activityId: number,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20048>>;
+  public destiny2GetPostGameCarnageReport(
+    activityId: number,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    if (activityId === null || activityId === undefined) {
+      throw new Error(
+        'Required parameter activityId was null or undefined when calling destiny2GetPostGameCarnageReport.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.get<InlineResponse20048>(
+      `${this.configuration.basePath}/Destiny2/Stats/PostGameCarnageReport/${encodeURIComponent(String(activityId))}/`,
+      {
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * Returns Destiny Profile information for the supplied membership.
+   * @param destinyMembershipId Destiny membership ID.
+   * @param membershipType A valid non-BungieNet membership type.
+   * @param components A comma separated list of components to return (as strings or numeric values). See the DestinyComponentType enum for valid components to request. You must request at least one component to receive results.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2GetProfile(
+    destinyMembershipId: number,
+    membershipType: number,
+    components?: Array<number>,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20037>;
+  public destiny2GetProfile(
+    destinyMembershipId: number,
+    membershipType: number,
+    components?: Array<number>,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20037>>;
+  public destiny2GetProfile(
+    destinyMembershipId: number,
+    membershipType: number,
+    components?: Array<number>,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20037>>;
+  public destiny2GetProfile(
+    destinyMembershipId: number,
+    membershipType: number,
+    components?: Array<number>,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    if (destinyMembershipId === null || destinyMembershipId === undefined) {
+      throw new Error('Required parameter destinyMembershipId was null or undefined when calling destiny2GetProfile.');
+    }
+    if (membershipType === null || membershipType === undefined) {
+      throw new Error('Required parameter membershipType was null or undefined when calling destiny2GetProfile.');
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (components) {
+      queryParameters = this.addToHttpParams(queryParameters, components.join(COLLECTION_FORMATS['csv']), 'components');
+    }
+
+    let headers = this.defaultHeaders;
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.get<InlineResponse20037>(
+      `${this.configuration.basePath}/Destiny2/${encodeURIComponent(
+        String(membershipType)
+      )}/Profile/${encodeURIComponent(String(destinyMembershipId))}/`,
+      {
+        params: queryParameters,
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * Gets custom localized content for the milestone of the given hash, if it exists.
+   * @param milestoneHash The identifier for the milestone to be returned.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2GetPublicMilestoneContent(
+    milestoneHash: number,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20058>;
+  public destiny2GetPublicMilestoneContent(
+    milestoneHash: number,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20058>>;
+  public destiny2GetPublicMilestoneContent(
+    milestoneHash: number,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20058>>;
+  public destiny2GetPublicMilestoneContent(
+    milestoneHash: number,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    if (milestoneHash === null || milestoneHash === undefined) {
+      throw new Error(
+        'Required parameter milestoneHash was null or undefined when calling destiny2GetPublicMilestoneContent.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.get<InlineResponse20058>(
+      `${this.configuration.basePath}/Destiny2/Milestones/${encodeURIComponent(String(milestoneHash))}/Content/`,
+      {
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * Gets public information about currently available Milestones.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2GetPublicMilestones(
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20059>;
+  public destiny2GetPublicMilestones(
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20059>>;
+  public destiny2GetPublicMilestones(
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20059>>;
+  public destiny2GetPublicMilestones(
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.get<InlineResponse20059>(`${this.configuration.basePath}/Destiny2/Milestones/`, {
+      responseType: <any>responseType,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+      observe: observe,
+      reportProgress: reportProgress
+    });
+  }
+
+  /**
+   * Get items available from vendors where the vendors have items for sale that are common for everyone. If any portion of the Vendor\&#39;s available inventory is character or account specific, we will be unable to return their data from this endpoint due to the way that available inventory is computed. As I am often guilty of saying: \&#39;It\&#39;s a long story...\&#39;
+   * @param components A comma separated list of components to return (as strings or numeric values). See the DestinyComponentType enum for valid components to request. You must request at least one component to receive results.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2GetPublicVendors(
+    components?: Array<number>,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20044>;
+  public destiny2GetPublicVendors(
+    components?: Array<number>,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20044>>;
+  public destiny2GetPublicVendors(
+    components?: Array<number>,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20044>>;
+  public destiny2GetPublicVendors(
+    components?: Array<number>,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (components) {
+      queryParameters = this.addToHttpParams(queryParameters, components.join(COLLECTION_FORMATS['csv']), 'components');
+    }
+
+    let headers = this.defaultHeaders;
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.get<InlineResponse20044>(`${this.configuration.basePath}/Destiny2/Vendors/`, {
+      params: queryParameters,
+      responseType: <any>responseType,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+      observe: observe,
+      reportProgress: reportProgress
+    });
+  }
+
+  /**
+   * Gets details about unique weapon usage, including all exotic weapons.
+   * @param characterId The id of the character to retrieve.
+   * @param destinyMembershipId The Destiny membershipId of the user to retrieve.
+   * @param membershipType A valid non-BungieNet membership type.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2GetUniqueWeaponHistory(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20056>;
+  public destiny2GetUniqueWeaponHistory(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20056>>;
+  public destiny2GetUniqueWeaponHistory(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20056>>;
+  public destiny2GetUniqueWeaponHistory(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    if (characterId === null || characterId === undefined) {
+      throw new Error(
+        'Required parameter characterId was null or undefined when calling destiny2GetUniqueWeaponHistory.'
+      );
+    }
+    if (destinyMembershipId === null || destinyMembershipId === undefined) {
+      throw new Error(
+        'Required parameter destinyMembershipId was null or undefined when calling destiny2GetUniqueWeaponHistory.'
+      );
+    }
+    if (membershipType === null || membershipType === undefined) {
+      throw new Error(
+        'Required parameter membershipType was null or undefined when calling destiny2GetUniqueWeaponHistory.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.get<InlineResponse20056>(
+      `${this.configuration.basePath}/Destiny2/${encodeURIComponent(
+        String(membershipType)
+      )}/Account/${encodeURIComponent(String(destinyMembershipId))}/Character/${encodeURIComponent(
+        String(characterId)
+      )}/Stats/UniqueWeapons/`,
+      {
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * Get the details of a specific Vendor.
+   * @param characterId The Destiny Character ID of the character for whom we\&#39;re getting vendor info.
+   * @param destinyMembershipId Destiny membership ID of another user. You may be denied.
+   * @param membershipType A valid non-BungieNet membership type.
+   * @param vendorHash The Hash identifier of the Vendor to be returned.
+   * @param components A comma separated list of components to return (as strings or numeric values). See the DestinyComponentType enum for valid components to request. You must request at least one component to receive results.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2GetVendor(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    vendorHash: number,
+    components?: Array<number>,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20043>;
+  public destiny2GetVendor(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    vendorHash: number,
+    components?: Array<number>,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20043>>;
+  public destiny2GetVendor(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    vendorHash: number,
+    components?: Array<number>,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20043>>;
+  public destiny2GetVendor(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    vendorHash: number,
+    components?: Array<number>,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    if (characterId === null || characterId === undefined) {
+      throw new Error('Required parameter characterId was null or undefined when calling destiny2GetVendor.');
+    }
+    if (destinyMembershipId === null || destinyMembershipId === undefined) {
+      throw new Error('Required parameter destinyMembershipId was null or undefined when calling destiny2GetVendor.');
+    }
+    if (membershipType === null || membershipType === undefined) {
+      throw new Error('Required parameter membershipType was null or undefined when calling destiny2GetVendor.');
+    }
+    if (vendorHash === null || vendorHash === undefined) {
+      throw new Error('Required parameter vendorHash was null or undefined when calling destiny2GetVendor.');
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (components) {
+      queryParameters = this.addToHttpParams(queryParameters, components.join(COLLECTION_FORMATS['csv']), 'components');
+    }
+
+    let headers = this.defaultHeaders;
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.get<InlineResponse20043>(
+      `${this.configuration.basePath}/Destiny2/${encodeURIComponent(
+        String(membershipType)
+      )}/Profile/${encodeURIComponent(String(destinyMembershipId))}/Character/${encodeURIComponent(
+        String(characterId)
+      )}/Vendors/${encodeURIComponent(String(vendorHash))}/`,
+      {
+        params: queryParameters,
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * Get currently available vendors from the list of vendors that can possibly have rotating inventory. Note that this does not include things like preview vendors and vendors-as-kiosks, neither of whom have rotating/dynamic inventories. Use their definitions as-is for those.
+   * @param characterId The Destiny Character ID of the character for whom we\&#39;re getting vendor info.
+   * @param destinyMembershipId Destiny membership ID of another user. You may be denied.
+   * @param membershipType A valid non-BungieNet membership type.
+   * @param components A comma separated list of components to return (as strings or numeric values). See the DestinyComponentType enum for valid components to request. You must request at least one component to receive results.
+   * @param filter The filter of what vendors and items to return, if any.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2GetVendors(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    components?: Array<number>,
+    filter?: number,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20042>;
+  public destiny2GetVendors(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    components?: Array<number>,
+    filter?: number,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20042>>;
+  public destiny2GetVendors(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    components?: Array<number>,
+    filter?: number,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20042>>;
+  public destiny2GetVendors(
+    characterId: number,
+    destinyMembershipId: number,
+    membershipType: number,
+    components?: Array<number>,
+    filter?: number,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    if (characterId === null || characterId === undefined) {
+      throw new Error('Required parameter characterId was null or undefined when calling destiny2GetVendors.');
+    }
+    if (destinyMembershipId === null || destinyMembershipId === undefined) {
+      throw new Error('Required parameter destinyMembershipId was null or undefined when calling destiny2GetVendors.');
+    }
+    if (membershipType === null || membershipType === undefined) {
+      throw new Error('Required parameter membershipType was null or undefined when calling destiny2GetVendors.');
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (components) {
+      queryParameters = this.addToHttpParams(queryParameters, components.join(COLLECTION_FORMATS['csv']), 'components');
+    }
+    if (filter !== undefined && filter !== null) {
+      queryParameters = this.addToHttpParams(queryParameters, <any>filter, 'filter');
+    }
+
+    let headers = this.defaultHeaders;
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.get<InlineResponse20042>(
+      `${this.configuration.basePath}/Destiny2/${encodeURIComponent(
+        String(membershipType)
+      )}/Profile/${encodeURIComponent(String(destinyMembershipId))}/Character/${encodeURIComponent(
+        String(characterId)
+      )}/Vendors/`,
+      {
+        params: queryParameters,
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * Insert a plug into a socketed item. I know how it sounds, but I assure you it\&#39;s much more G-rated than you might be guessing. We haven\&#39;t decided yet whether this will be able to insert plugs that have side effects, but if we do it will require special scope permission for an application attempting to do so. You must have a valid Destiny Account, and either be in a social space, in orbit, or offline. Request must include proof of permission for \&#39;InsertPlugs\&#39; from the account owner.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2InsertSocketPlug(
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20047>;
+  public destiny2InsertSocketPlug(
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20047>>;
+  public destiny2InsertSocketPlug(
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20047>>;
+  public destiny2InsertSocketPlug(
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
+
+    let credential: string | undefined;
+    // authentication (oauth2) required
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
+    }
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.post<InlineResponse20047>(
+      `${this.configuration.basePath}/Destiny2/Actions/Items/InsertSocketPlug/`,
+      null,
+      {
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * Extract an item from the Postmaster, with whatever implications that may entail. You must have a valid Destiny account. You must also pass BOTH a reference AND an instance ID if it\&#39;s an instanced item.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2PullFromPostmaster(
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20022>;
+  public destiny2PullFromPostmaster(
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20022>>;
+  public destiny2PullFromPostmaster(
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20022>>;
+  public destiny2PullFromPostmaster(
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
+
+    let credential: string | undefined;
+    // authentication (oauth2) required
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
+    }
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.post<InlineResponse20022>(
+      `${this.configuration.basePath}/Destiny2/Actions/Items/PullFromPostmaster/`,
+      null,
+      {
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * Report a player that you met in an activity that was engaging in ToS-violating activities. Both you and the offending player must have played in the activityId passed in. Please use this judiciously and only when you have strong suspicions of violation, pretty please.
+   * @param activityId The ID of the activity where you ran into the brigand that you\&#39;re reporting.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2ReportOffensivePostGameCarnageReportPlayer(
+    activityId: number,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20022>;
+  public destiny2ReportOffensivePostGameCarnageReportPlayer(
+    activityId: number,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20022>>;
+  public destiny2ReportOffensivePostGameCarnageReportPlayer(
+    activityId: number,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20022>>;
+  public destiny2ReportOffensivePostGameCarnageReportPlayer(
+    activityId: number,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    if (activityId === null || activityId === undefined) {
+      throw new Error(
+        'Required parameter activityId was null or undefined when calling destiny2ReportOffensivePostGameCarnageReportPlayer.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    let credential: string | undefined;
+    // authentication (oauth2) required
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
+    }
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.post<InlineResponse20022>(
+      `${this.configuration.basePath}/Destiny2/Stats/PostGameCarnageReport/${encodeURIComponent(
+        String(activityId)
+      )}/Report/`,
+      null,
+      {
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * Gets a page list of Destiny items.
+   * @param searchTerm The string to use when searching for Destiny entities.
+   * @param type The type of entity for whom you would like results. These correspond to the entity\&#39;s definition contract name. For instance, if you are looking for items, this property should be \&#39;DestinyInventoryItemDefinition\&#39;.
+   * @param page Page number to return, starting with 0.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2SearchDestinyEntities(
+    searchTerm: string,
+    type: string,
+    page?: number,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20052>;
+  public destiny2SearchDestinyEntities(
+    searchTerm: string,
+    type: string,
+    page?: number,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20052>>;
+  public destiny2SearchDestinyEntities(
+    searchTerm: string,
+    type: string,
+    page?: number,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20052>>;
+  public destiny2SearchDestinyEntities(
+    searchTerm: string,
+    type: string,
+    page?: number,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    if (searchTerm === null || searchTerm === undefined) {
+      throw new Error(
+        'Required parameter searchTerm was null or undefined when calling destiny2SearchDestinyEntities.'
+      );
+    }
+    if (type === null || type === undefined) {
+      throw new Error('Required parameter type was null or undefined when calling destiny2SearchDestinyEntities.');
+    }
+
+    let queryParameters = new HttpParams({ encoder: this.encoder });
+    if (page !== undefined && page !== null) {
+      queryParameters = this.addToHttpParams(queryParameters, <any>page, 'page');
+    }
+
+    let headers = this.defaultHeaders;
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.get<InlineResponse20052>(
+      `${this.configuration.basePath}/Destiny2/Armory/Search/${encodeURIComponent(String(type))}/${encodeURIComponent(
+        String(searchTerm)
+      )}/`,
+      {
+        params: queryParameters,
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * Returns a list of Destiny memberships given a global Bungie Display Name. This method will hide overridden memberships due to cross save.
+   * @param displayName The full bungie global display name to look up, include the # and the code at the end. This is an exact match lookup.
+   * @param membershipType A valid non-BungieNet membership type, or All. Indicates which memberships to return. You probably want this set to All.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2SearchDestinyPlayer(
+    displayName: string,
+    membershipType: number,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20035>;
+  public destiny2SearchDestinyPlayer(
+    displayName: string,
+    membershipType: number,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20035>>;
+  public destiny2SearchDestinyPlayer(
+    displayName: string,
+    membershipType: number,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20035>>;
+  public destiny2SearchDestinyPlayer(
+    displayName: string,
+    membershipType: number,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    if (displayName === null || displayName === undefined) {
+      throw new Error('Required parameter displayName was null or undefined when calling destiny2SearchDestinyPlayer.');
+    }
+    if (membershipType === null || membershipType === undefined) {
+      throw new Error(
+        'Required parameter membershipType was null or undefined when calling destiny2SearchDestinyPlayer.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.get<InlineResponse20035>(
+      `${this.configuration.basePath}/Destiny2/SearchDestinyPlayer/${encodeURIComponent(
+        String(membershipType)
+      )}/${encodeURIComponent(String(displayName))}/`,
+      {
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * Set the Lock State for an instanced item. You must have a valid Destiny Account.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2SetItemLockState(
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20022>;
+  public destiny2SetItemLockState(
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20022>>;
+  public destiny2SetItemLockState(
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20022>>;
+  public destiny2SetItemLockState(
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
+
+    let credential: string | undefined;
+    // authentication (oauth2) required
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
+    }
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.post<InlineResponse20022>(
+      `${this.configuration.basePath}/Destiny2/Actions/Items/SetLockState/`,
+      null,
+      {
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * Set the Tracking State for an instanced item, if that item is a Quest or Bounty. You must have a valid Destiny Account. Yeah, it\&#39;s an item.
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2SetQuestTrackedState(
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20022>;
+  public destiny2SetQuestTrackedState(
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20022>>;
+  public destiny2SetQuestTrackedState(
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20022>>;
+  public destiny2SetQuestTrackedState(
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
+
+    let credential: string | undefined;
+    // authentication (oauth2) required
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
+    }
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.post<InlineResponse20022>(
+      `${this.configuration.basePath}/Destiny2/Actions/Items/SetTrackedState/`,
+      null,
+      {
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * Transfer an item to/from your vault. You must have a valid Destiny account. You must also pass BOTH a reference AND an instance ID if it\&#39;s an instanced item. itshappening.gif
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public destiny2TransferItem(
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20022>;
+  public destiny2TransferItem(
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20022>>;
+  public destiny2TransferItem(
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20022>>;
+  public destiny2TransferItem(
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<any> {
+    let headers = this.defaultHeaders;
+
+    let credential: string | undefined;
+    // authentication (oauth2) required
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
+    }
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
+    }
+
+    return this.httpClient.post<InlineResponse20022>(
+      `${this.configuration.basePath}/Destiny2/Actions/Items/TransferItem/`,
+      null,
+      {
+        responseType: <any>responseType,
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
 }

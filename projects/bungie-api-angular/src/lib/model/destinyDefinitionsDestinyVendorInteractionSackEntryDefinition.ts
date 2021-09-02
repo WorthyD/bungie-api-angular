@@ -10,11 +10,9 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * Compare this sackType to the sack identifier in the DestinyInventoryItemDefinition.vendorSackType property of items. If they match, show this sack with this interaction.
  */
-export interface DestinyDefinitionsDestinyVendorInteractionSackEntryDefinition { 
-    sackType?: number;
+export interface DestinyDefinitionsDestinyVendorInteractionSackEntryDefinition {
+  sackType?: number;
 }
-

@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * This appears to be information used when rendering rewards. We don\'t currently use it on BNet.
  */
-export interface DestinyDefinitionsDestinyItemSummaryBlockDefinition { 
-    /**
-     * Apparently when rendering an item in a reward, this should be used as a sort priority. We\'re not doing it presently.
-     */
-    sortPriority?: number;
+export interface DestinyDefinitionsDestinyItemSummaryBlockDefinition {
+  /**
+   * Apparently when rendering an item in a reward, this should be used as a sort priority. We\'re not doing it presently.
+   */
+  sortPriority?: number;
 }
-

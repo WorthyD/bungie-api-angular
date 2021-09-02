@@ -10,11 +10,9 @@
  * Do not edit the class manually.
  */
 
-
 export type DestinyAdvancedAwaType = 0 | 1;
 
 export const DestinyAdvancedAwaType = {
-    NUMBER_0: 0 as DestinyAdvancedAwaType,
-    NUMBER_1: 1 as DestinyAdvancedAwaType
+  NUMBER_0: 0 as DestinyAdvancedAwaType,
+  NUMBER_1: 1 as DestinyAdvancedAwaType
 };
-

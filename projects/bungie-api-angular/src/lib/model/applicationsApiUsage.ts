@@ -11,15 +11,13 @@
  */
 import { ApplicationsSeries } from './applicationsSeries';
 
-
-export interface ApplicationsApiUsage { 
-    /**
-     * Counts for on API calls made for the time range.
-     */
-    apiCalls?: Array<ApplicationsSeries>;
-    /**
-     * Instances of blocked requests or requests that crossed the warn threshold during the time range.
-     */
-    throttledRequests?: Array<ApplicationsSeries>;
+export interface ApplicationsApiUsage {
+  /**
+   * Counts for on API calls made for the time range.
+   */
+  apiCalls?: Array<ApplicationsSeries>;
+  /**
+   * Instances of blocked requests or requests that crossed the warn threshold during the time range.
+   */
+  throttledRequests?: Array<ApplicationsSeries>;
 }
-

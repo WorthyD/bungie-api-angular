@@ -11,8 +11,6 @@
  */
 import { ContentContentItemPublicContract } from './contentContentItemPublicContract';
 
-
-export interface TrendingTrendingEntryNews { 
-    article?: ContentContentItemPublicContract;
+export interface TrendingTrendingEntryNews {
+  article?: ContentContentItemPublicContract;
 }
-

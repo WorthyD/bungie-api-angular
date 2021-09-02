@@ -13,22 +13,20 @@ import { UserEmailViewDefinition } from './userEmailViewDefinition';
 import { UserEmailOptInDefinition } from './userEmailOptInDefinition';
 import { UserEmailSubscriptionDefinition } from './userEmailSubscriptionDefinition';
 
-
 /**
  * The set of all email subscription/opt-in settings and definitions.
  */
-export interface UserEmailSettings { 
-    /**
-     * Keyed by the name identifier of the opt-in definition.
-     */
-    optInDefinitions?: { [key: string]: UserEmailOptInDefinition; };
-    /**
-     * Keyed by the name identifier of the Subscription definition.
-     */
-    subscriptionDefinitions?: { [key: string]: UserEmailSubscriptionDefinition; };
-    /**
-     * Keyed by the name identifier of the View definition.
-     */
-    views?: { [key: string]: UserEmailViewDefinition; };
+export interface UserEmailSettings {
+  /**
+   * Keyed by the name identifier of the opt-in definition.
+   */
+  optInDefinitions?: { [key: string]: UserEmailOptInDefinition };
+  /**
+   * Keyed by the name identifier of the Subscription definition.
+   */
+  subscriptionDefinitions?: { [key: string]: UserEmailSubscriptionDefinition };
+  /**
+   * Keyed by the name identifier of the View definition.
+   */
+  views?: { [key: string]: UserEmailViewDefinition };
 }
-

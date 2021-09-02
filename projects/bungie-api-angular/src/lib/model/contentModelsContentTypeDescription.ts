@@ -15,28 +15,26 @@ import { ContentModelsTagMetadataDefinition } from './contentModelsTagMetadataDe
 import { ContentModelsContentPreview } from './contentModelsContentPreview';
 import { ContentModelsContentTypePropertySection } from './contentModelsContentTypePropertySection';
 
-
-export interface ContentModelsContentTypeDescription { 
-    cType?: string;
-    name?: string;
-    contentDescription?: string;
-    previewImage?: string;
-    priority?: number;
-    reminder?: string;
-    properties?: Array<ContentModelsContentTypeProperty>;
-    tagMetadata?: Array<ContentModelsTagMetadataDefinition>;
-    tagMetadataItems?: { [key: string]: ContentModelsTagMetadataItem; };
-    usageExamples?: Array<string>;
-    showInContentEditor?: boolean;
-    typeOf?: string;
-    bindIdentifierToProperty?: string;
-    boundRegex?: string;
-    forceIdentifierBinding?: boolean;
-    allowComments?: boolean;
-    autoEnglishPropertyFallback?: boolean;
-    bulkUploadable?: boolean;
-    previews?: Array<ContentModelsContentPreview>;
-    suppressCmsPath?: boolean;
-    propertySections?: Array<ContentModelsContentTypePropertySection>;
+export interface ContentModelsContentTypeDescription {
+  cType?: string;
+  name?: string;
+  contentDescription?: string;
+  previewImage?: string;
+  priority?: number;
+  reminder?: string;
+  properties?: Array<ContentModelsContentTypeProperty>;
+  tagMetadata?: Array<ContentModelsTagMetadataDefinition>;
+  tagMetadataItems?: { [key: string]: ContentModelsTagMetadataItem };
+  usageExamples?: Array<string>;
+  showInContentEditor?: boolean;
+  typeOf?: string;
+  bindIdentifierToProperty?: string;
+  boundRegex?: string;
+  forceIdentifierBinding?: boolean;
+  allowComments?: boolean;
+  autoEnglishPropertyFallback?: boolean;
+  bulkUploadable?: boolean;
+  previews?: Array<ContentModelsContentPreview>;
+  suppressCmsPath?: boolean;
+  propertySections?: Array<ContentModelsContentTypePropertySection>;
 }
-

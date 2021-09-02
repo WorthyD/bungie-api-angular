@@ -12,21 +12,19 @@
 import { DestinyMilestonesDestinyMilestoneContent } from './destinyMilestonesDestinyMilestoneContent';
 import { DestinyMilestonesDestinyPublicMilestone } from './destinyMilestonesDestinyPublicMilestone';
 
-
-export interface TrendingTrendingEntryDestinyRitual { 
-    image?: string;
-    icon?: string;
-    title?: string;
-    subtitle?: string;
-    dateStart?: string;
-    dateEnd?: string;
-    /**
-     * A destiny event does not necessarily have a related Milestone, but if it does the details will be returned here.
-     */
-    milestoneDetails?: DestinyMilestonesDestinyPublicMilestone;
-    /**
-     * A destiny event will not necessarily have milestone \"custom content\", but if it does the details will be here.
-     */
-    eventContent?: DestinyMilestonesDestinyMilestoneContent;
+export interface TrendingTrendingEntryDestinyRitual {
+  image?: string;
+  icon?: string;
+  title?: string;
+  subtitle?: string;
+  dateStart?: string;
+  dateEnd?: string;
+  /**
+   * A destiny event does not necessarily have a related Milestone, but if it does the details will be returned here.
+   */
+  milestoneDetails?: DestinyMilestonesDestinyPublicMilestone;
+  /**
+   * A destiny event will not necessarily have milestone \"custom content\", but if it does the details will be here.
+   */
+  eventContent?: DestinyMilestonesDestinyMilestoneContent;
 }
-

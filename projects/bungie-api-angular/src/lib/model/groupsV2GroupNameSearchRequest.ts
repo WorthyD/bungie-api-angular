@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface GroupsV2GroupNameSearchRequest { 
-    groupName?: string;
-    groupType?: number;
+export interface GroupsV2GroupNameSearchRequest {
+  groupName?: string;
+  groupType?: number;
 }
-

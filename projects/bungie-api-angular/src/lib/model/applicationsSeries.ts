@@ -11,15 +11,13 @@
  */
 import { ApplicationsDatapoint } from './applicationsDatapoint';
 
-
-export interface ApplicationsSeries { 
-    /**
-     * Collection of samples with time and value.
-     */
-    datapoints?: Array<ApplicationsDatapoint>;
-    /**
-     * Target to which to datapoints apply.
-     */
-    target?: string;
+export interface ApplicationsSeries {
+  /**
+   * Collection of samples with time and value.
+   */
+  datapoints?: Array<ApplicationsDatapoint>;
+  /**
+   * Target to which to datapoints apply.
+   */
+  target?: string;
 }
-

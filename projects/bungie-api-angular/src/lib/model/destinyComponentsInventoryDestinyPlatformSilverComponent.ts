@@ -11,11 +11,9 @@
  */
 import { DestinyEntitiesItemsDestinyItemComponent } from './destinyEntitiesItemsDestinyItemComponent';
 
-
-export interface DestinyComponentsInventoryDestinyPlatformSilverComponent { 
-    /**
-     * If a Profile is played on multiple platforms, this is the silver they have for each platform, keyed by Membership Type.
-     */
-    platformSilver?: { [key: string]: DestinyEntitiesItemsDestinyItemComponent; };
+export interface DestinyComponentsInventoryDestinyPlatformSilverComponent {
+  /**
+   * If a Profile is played on multiple platforms, this is the silver they have for each platform, keyed by Membership Type.
+   */
+  platformSilver?: { [key: string]: DestinyEntitiesItemsDestinyItemComponent };
 }
-

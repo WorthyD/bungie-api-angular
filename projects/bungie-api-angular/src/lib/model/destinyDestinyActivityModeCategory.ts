@@ -10,16 +10,14 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * Activity Modes are grouped into a few possible broad categories.
  */
 export type DestinyDestinyActivityModeCategory = 0 | 1 | 2 | 3;
 
 export const DestinyDestinyActivityModeCategory = {
-    NUMBER_0: 0 as DestinyDestinyActivityModeCategory,
-    NUMBER_1: 1 as DestinyDestinyActivityModeCategory,
-    NUMBER_2: 2 as DestinyDestinyActivityModeCategory,
-    NUMBER_3: 3 as DestinyDestinyActivityModeCategory
+  NUMBER_0: 0 as DestinyDestinyActivityModeCategory,
+  NUMBER_1: 1 as DestinyDestinyActivityModeCategory,
+  NUMBER_2: 2 as DestinyDestinyActivityModeCategory,
+  NUMBER_3: 3 as DestinyDestinyActivityModeCategory
 };
-

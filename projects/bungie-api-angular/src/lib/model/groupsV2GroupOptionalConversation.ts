@@ -10,12 +10,10 @@
  * Do not edit the class manually.
  */
 
-
-export interface GroupsV2GroupOptionalConversation { 
-    groupId?: number;
-    conversationId?: number;
-    chatEnabled?: boolean;
-    chatName?: string;
-    chatSecurity?: number;
+export interface GroupsV2GroupOptionalConversation {
+  groupId?: number;
+  conversationId?: number;
+  chatEnabled?: boolean;
+  chatName?: string;
+  chatSecurity?: number;
 }
-

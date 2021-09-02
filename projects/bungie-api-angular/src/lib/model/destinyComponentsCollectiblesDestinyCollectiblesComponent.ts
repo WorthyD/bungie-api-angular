@@ -11,16 +11,14 @@
  */
 import { DestinyComponentsCollectiblesDestinyCollectibleComponent } from './destinyComponentsCollectiblesDestinyCollectibleComponent';
 
-
-export interface DestinyComponentsCollectiblesDestinyCollectiblesComponent { 
-    collectibles?: { [key: string]: DestinyComponentsCollectiblesDestinyCollectibleComponent; };
-    /**
-     * The hash for the root presentation node definition of Collection categories.
-     */
-    collectionCategoriesRootNodeHash?: number;
-    /**
-     * The hash for the root presentation node definition of Collection Badges.
-     */
-    collectionBadgesRootNodeHash?: number;
+export interface DestinyComponentsCollectiblesDestinyCollectiblesComponent {
+  collectibles?: { [key: string]: DestinyComponentsCollectiblesDestinyCollectibleComponent };
+  /**
+   * The hash for the root presentation node definition of Collection categories.
+   */
+  collectionCategoriesRootNodeHash?: number;
+  /**
+   * The hash for the root presentation node definition of Collection Badges.
+   */
+  collectionBadgesRootNodeHash?: number;
 }
-

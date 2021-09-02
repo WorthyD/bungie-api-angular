@@ -10,11 +10,9 @@
  * Do not edit the class manually.
  */
 
-
 export type DestinyBucketScope = 0 | 1;
 
 export const DestinyBucketScope = {
-    NUMBER_0: 0 as DestinyBucketScope,
-    NUMBER_1: 1 as DestinyBucketScope
+  NUMBER_0: 0 as DestinyBucketScope,
+  NUMBER_1: 1 as DestinyBucketScope
 };
-

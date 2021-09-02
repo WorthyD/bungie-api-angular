@@ -11,15 +11,13 @@
  */
 import { UserGeneralUser } from './userGeneralUser';
 
-
-export interface SocialFriendsBungieFriend { 
-    lastSeenAsMembershipId?: number;
-    lastSeenAsBungieMembershipType?: number;
-    bungieGlobalDisplayName?: string;
-    bungieGlobalDisplayNameCode?: number;
-    onlineStatus?: number;
-    onlineTitle?: number;
-    relationship?: number;
-    bungieNetUser?: UserGeneralUser;
+export interface SocialFriendsBungieFriend {
+  lastSeenAsMembershipId?: number;
+  lastSeenAsBungieMembershipType?: number;
+  bungieGlobalDisplayName?: string;
+  bungieGlobalDisplayNameCode?: number;
+  onlineStatus?: number;
+  onlineTitle?: number;
+  relationship?: number;
+  bungieNetUser?: UserGeneralUser;
 }
-

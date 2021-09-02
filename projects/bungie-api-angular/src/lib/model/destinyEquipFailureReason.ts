@@ -10,18 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * The reasons why an item cannot be equipped, if any. Many flags can be set, or \"None\" if
  */
 export type DestinyEquipFailureReason = 0 | 1 | 2 | 4 | 8 | 16;
 
 export const DestinyEquipFailureReason = {
-    NUMBER_0: 0 as DestinyEquipFailureReason,
-    NUMBER_1: 1 as DestinyEquipFailureReason,
-    NUMBER_2: 2 as DestinyEquipFailureReason,
-    NUMBER_4: 4 as DestinyEquipFailureReason,
-    NUMBER_8: 8 as DestinyEquipFailureReason,
-    NUMBER_16: 16 as DestinyEquipFailureReason
+  NUMBER_0: 0 as DestinyEquipFailureReason,
+  NUMBER_1: 1 as DestinyEquipFailureReason,
+  NUMBER_2: 2 as DestinyEquipFailureReason,
+  NUMBER_4: 4 as DestinyEquipFailureReason,
+  NUMBER_8: 8 as DestinyEquipFailureReason,
+  NUMBER_16: 16 as DestinyEquipFailureReason
 };
-

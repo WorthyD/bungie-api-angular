@@ -20,17 +20,15 @@ import { DictionaryComponentResponseOfuint32AndDestinyItemSocketsComponent } fro
 import { DictionaryComponentResponseOfuint32AndDestinyItemStatsComponent } from './dictionaryComponentResponseOfuint32AndDestinyItemStatsComponent';
 import { DictionaryComponentResponseOfuint32AndDestinyItemPlugObjectivesComponent } from './dictionaryComponentResponseOfuint32AndDestinyItemPlugObjectivesComponent';
 
-
-export interface DestinyItemComponentSetOfuint32 { 
-    instances?: DictionaryComponentResponseOfuint32AndDestinyItemInstanceComponent;
-    perks?: DictionaryComponentResponseOfuint32AndDestinyItemPerksComponent;
-    renderData?: DictionaryComponentResponseOfuint32AndDestinyItemRenderComponent;
-    stats?: DictionaryComponentResponseOfuint32AndDestinyItemStatsComponent;
-    sockets?: DictionaryComponentResponseOfuint32AndDestinyItemSocketsComponent;
-    reusablePlugs?: DictionaryComponentResponseOfuint32AndDestinyItemReusablePlugsComponent;
-    plugObjectives?: DictionaryComponentResponseOfuint32AndDestinyItemPlugObjectivesComponent;
-    talentGrids?: DictionaryComponentResponseOfuint32AndDestinyItemTalentGridComponent;
-    plugStates?: DictionaryComponentResponseOfuint32AndDestinyItemPlugComponent;
-    objectives?: DictionaryComponentResponseOfuint32AndDestinyItemObjectivesComponent;
+export interface DestinyItemComponentSetOfuint32 {
+  instances?: DictionaryComponentResponseOfuint32AndDestinyItemInstanceComponent;
+  perks?: DictionaryComponentResponseOfuint32AndDestinyItemPerksComponent;
+  renderData?: DictionaryComponentResponseOfuint32AndDestinyItemRenderComponent;
+  stats?: DictionaryComponentResponseOfuint32AndDestinyItemStatsComponent;
+  sockets?: DictionaryComponentResponseOfuint32AndDestinyItemSocketsComponent;
+  reusablePlugs?: DictionaryComponentResponseOfuint32AndDestinyItemReusablePlugsComponent;
+  plugObjectives?: DictionaryComponentResponseOfuint32AndDestinyItemPlugObjectivesComponent;
+  talentGrids?: DictionaryComponentResponseOfuint32AndDestinyItemTalentGridComponent;
+  plugStates?: DictionaryComponentResponseOfuint32AndDestinyItemPlugComponent;
+  objectives?: DictionaryComponentResponseOfuint32AndDestinyItemObjectivesComponent;
 }
-

@@ -12,14 +12,12 @@
 import { UserUserInfoCard } from './userUserInfoCard';
 import { FireteamFireteamUserInfoCard } from './fireteamFireteamUserInfoCard';
 
-
-export interface FireteamFireteamMember { 
-    destinyUserInfo?: FireteamFireteamUserInfoCard;
-    bungieNetUserInfo?: UserUserInfoCard;
-    characterId?: number;
-    dateJoined?: string;
-    hasMicrophone?: boolean;
-    lastPlatformInviteAttemptDate?: string;
-    lastPlatformInviteAttemptResult?: number;
+export interface FireteamFireteamMember {
+  destinyUserInfo?: FireteamFireteamUserInfoCard;
+  bungieNetUserInfo?: UserUserInfoCard;
+  characterId?: number;
+  dateJoined?: string;
+  hasMicrophone?: boolean;
+  lastPlatformInviteAttemptDate?: string;
+  lastPlatformInviteAttemptResult?: number;
 }
-

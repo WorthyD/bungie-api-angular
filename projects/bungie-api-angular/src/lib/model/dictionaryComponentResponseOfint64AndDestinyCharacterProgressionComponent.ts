@@ -11,13 +11,11 @@
  */
 import { DestinyEntitiesCharactersDestinyCharacterProgressionComponent } from './destinyEntitiesCharactersDestinyCharacterProgressionComponent';
 
-
-export interface DictionaryComponentResponseOfint64AndDestinyCharacterProgressionComponent { 
-    data?: { [key: string]: DestinyEntitiesCharactersDestinyCharacterProgressionComponent; };
-    privacy?: number;
-    /**
-     * If true, this component is disabled.
-     */
-    disabled?: boolean;
+export interface DictionaryComponentResponseOfint64AndDestinyCharacterProgressionComponent {
+  data?: { [key: string]: DestinyEntitiesCharactersDestinyCharacterProgressionComponent };
+  privacy?: number;
+  /**
+   * If true, this component is disabled.
+   */
+  disabled?: boolean;
 }
-

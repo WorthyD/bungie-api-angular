@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface ContentCommentSummary { 
-    topicId?: number;
-    commentCount?: number;
+export interface ContentCommentSummary {
+  topicId?: number;
+  commentCount?: number;
 }
-

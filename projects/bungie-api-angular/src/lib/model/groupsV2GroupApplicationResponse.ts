@@ -10,8 +10,6 @@
  * Do not edit the class manually.
  */
 
-
-export interface GroupsV2GroupApplicationResponse { 
-    resolution?: number;
+export interface GroupsV2GroupApplicationResponse {
+  resolution?: number;
 }
-

@@ -10,8 +10,6 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDefinitionsPresentationDestinyPresentationNodeMetricChildEntry { 
-    metricHash?: number;
+export interface DestinyDefinitionsPresentationDestinyPresentationNodeMetricChildEntry {
+  metricHash?: number;
 }
-

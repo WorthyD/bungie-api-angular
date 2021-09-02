@@ -10,23 +10,21 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyAdvancedAwaPermissionRequested { 
-    /**
-     * Type of advanced write action.
-     */
-    type?: number;
-    /**
-     * Item instance ID the action shall be applied to. This is optional for all but a new AwaType values. Rule of thumb is to provide the item instance ID if one is available.
-     */
-    affectedItemId?: number;
-    /**
-     * Destiny membership type of the account to modify.
-     */
-    membershipType?: number;
-    /**
-     * Destiny character ID, if applicable, that will be affected by the action.
-     */
-    characterId?: number;
+export interface DestinyAdvancedAwaPermissionRequested {
+  /**
+   * Type of advanced write action.
+   */
+  type?: number;
+  /**
+   * Item instance ID the action shall be applied to. This is optional for all but a new AwaType values. Rule of thumb is to provide the item instance ID if one is available.
+   */
+  affectedItemId?: number;
+  /**
+   * Destiny membership type of the account to modify.
+   */
+  membershipType?: number;
+  /**
+   * Destiny character ID, if applicable, that will be affected by the action.
+   */
+  characterId?: number;
 }
-

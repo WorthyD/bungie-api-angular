@@ -11,13 +11,11 @@
  */
 import { DestinyComponentsKiosksDestinyKiosksComponent } from './destinyComponentsKiosksDestinyKiosksComponent';
 
-
-export interface DictionaryComponentResponseOfint64AndDestinyKiosksComponent { 
-    data?: { [key: string]: DestinyComponentsKiosksDestinyKiosksComponent; };
-    privacy?: number;
-    /**
-     * If true, this component is disabled.
-     */
-    disabled?: boolean;
+export interface DictionaryComponentResponseOfint64AndDestinyKiosksComponent {
+  data?: { [key: string]: DestinyComponentsKiosksDestinyKiosksComponent };
+  privacy?: number;
+  /**
+   * If true, this component is disabled.
+   */
+  disabled?: boolean;
 }
-

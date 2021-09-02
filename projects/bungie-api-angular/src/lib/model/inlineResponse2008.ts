@@ -11,14 +11,12 @@
  */
 import { ContentContentItemPublicContract } from './contentContentItemPublicContract';
 
-
-export interface InlineResponse2008 { 
-    Response?: ContentContentItemPublicContract;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse2008 {
+  Response?: ContentContentItemPublicContract;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

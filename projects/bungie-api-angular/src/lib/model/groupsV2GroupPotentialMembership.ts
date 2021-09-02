@@ -12,9 +12,7 @@
 import { GroupsV2GroupV2 } from './groupsV2GroupV2';
 import { GroupsV2GroupPotentialMember } from './groupsV2GroupPotentialMember';
 
-
-export interface GroupsV2GroupPotentialMembership { 
-    member?: GroupsV2GroupPotentialMember;
-    group?: GroupsV2GroupV2;
+export interface GroupsV2GroupPotentialMembership {
+  member?: GroupsV2GroupPotentialMember;
+  group?: GroupsV2GroupV2;
 }
-

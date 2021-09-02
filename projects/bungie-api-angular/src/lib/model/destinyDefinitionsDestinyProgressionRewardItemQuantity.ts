@@ -10,27 +10,25 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDefinitionsDestinyProgressionRewardItemQuantity { 
-    rewardedAtProgressionLevel?: number;
-    acquisitionBehavior?: number;
-    uiDisplayStyle?: string;
-    claimUnlockDisplayStrings?: Array<string>;
-    /**
-     * The hash identifier for the item in question. Use it to look up the item\'s DestinyInventoryItemDefinition.
-     */
-    itemHash?: number;
-    /**
-     * If this quantity is referring to a specific instance of an item, this will have the item\'s instance ID. Normally, this will be null.
-     */
-    itemInstanceId?: number;
-    /**
-     * The amount of the item needed/available depending on the context of where DestinyItemQuantity is being used.
-     */
-    quantity?: number;
-    /**
-     * Indicates that this item quantity may be conditionally shown or hidden, based on various sources of state. For example: server flags, account state, or character progress.
-     */
-    hasConditionalVisibility?: boolean;
+export interface DestinyDefinitionsDestinyProgressionRewardItemQuantity {
+  rewardedAtProgressionLevel?: number;
+  acquisitionBehavior?: number;
+  uiDisplayStyle?: string;
+  claimUnlockDisplayStrings?: Array<string>;
+  /**
+   * The hash identifier for the item in question. Use it to look up the item\'s DestinyInventoryItemDefinition.
+   */
+  itemHash?: number;
+  /**
+   * If this quantity is referring to a specific instance of an item, this will have the item\'s instance ID. Normally, this will be null.
+   */
+  itemInstanceId?: number;
+  /**
+   * The amount of the item needed/available depending on the context of where DestinyItemQuantity is being used.
+   */
+  quantity?: number;
+  /**
+   * Indicates that this item quantity may be conditionally shown or hidden, based on various sources of state. For example: server flags, account state, or character progress.
+   */
+  hasConditionalVisibility?: boolean;
 }
-

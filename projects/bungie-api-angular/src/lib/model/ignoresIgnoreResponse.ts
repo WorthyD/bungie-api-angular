@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface IgnoresIgnoreResponse { 
-    isIgnored?: boolean;
-    ignoreFlags?: number;
+export interface IgnoresIgnoreResponse {
+  isIgnored?: boolean;
+  ignoreFlags?: number;
 }
-

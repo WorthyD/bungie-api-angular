@@ -11,10 +11,8 @@
  */
 import { SearchResultOfTrendingEntry } from './searchResultOfTrendingEntry';
 
-
-export interface TrendingTrendingCategory { 
-    categoryName?: string;
-    entries?: SearchResultOfTrendingEntry;
-    categoryId?: string;
+export interface TrendingTrendingCategory {
+  categoryName?: string;
+  entries?: SearchResultOfTrendingEntry;
+  categoryId?: string;
 }
-

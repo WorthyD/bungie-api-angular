@@ -10,12 +10,10 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * Not terribly useful, some basic cooldown interaction info.
  */
-export interface DestinyDefinitionsDestinyVendorSaleItemActionBlockDefinition { 
-    executeSeconds?: number;
-    isPositive?: boolean;
+export interface DestinyDefinitionsDestinyVendorSaleItemActionBlockDefinition {
+  executeSeconds?: number;
+  isPositive?: boolean;
 }
-

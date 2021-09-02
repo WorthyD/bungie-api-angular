@@ -11,23 +11,21 @@
  */
 import { GroupsV2GroupV2ClanInfo } from './groupsV2GroupV2ClanInfo';
 
-
 /**
  * A small infocard of group information, usually used for when a list of groups are returned
  */
-export interface GroupsV2GroupV2Card { 
-    groupId?: number;
-    name?: string;
-    groupType?: number;
-    creationDate?: string;
-    about?: string;
-    motto?: string;
-    memberCount?: number;
-    locale?: string;
-    membershipOption?: number;
-    capabilities?: number;
-    clanInfo?: GroupsV2GroupV2ClanInfo;
-    avatarPath?: string;
-    theme?: string;
+export interface GroupsV2GroupV2Card {
+  groupId?: number;
+  name?: string;
+  groupType?: number;
+  creationDate?: string;
+  about?: string;
+  motto?: string;
+  memberCount?: number;
+  locale?: string;
+  membershipOption?: number;
+  capabilities?: number;
+  clanInfo?: GroupsV2GroupV2ClanInfo;
+  avatarPath?: string;
+  theme?: string;
 }
-

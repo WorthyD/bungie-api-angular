@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * Indicates the type of actions that can be performed
  */
 export type DestinySocketTypeActionType = 0 | 1 | 2;
 
 export const DestinySocketTypeActionType = {
-    NUMBER_0: 0 as DestinySocketTypeActionType,
-    NUMBER_1: 1 as DestinySocketTypeActionType,
-    NUMBER_2: 2 as DestinySocketTypeActionType
+  NUMBER_0: 0 as DestinySocketTypeActionType,
+  NUMBER_1: 1 as DestinySocketTypeActionType,
+  NUMBER_2: 2 as DestinySocketTypeActionType
 };
-

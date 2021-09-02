@@ -10,12 +10,10 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * Localized text relevant to a given EMail setting in a given localization.
  */
-export interface UserEMailSettingLocalization { 
-    title?: string;
-    description?: string;
+export interface UserEMailSettingLocalization {
+  title?: string;
+  description?: string;
 }
-

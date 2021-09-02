@@ -11,13 +11,11 @@
  */
 import { DestinyComponentsPresentationDestinyPresentationNodesComponent } from './destinyComponentsPresentationDestinyPresentationNodesComponent';
 
-
-export interface DictionaryComponentResponseOfint64AndDestinyPresentationNodesComponent { 
-    data?: { [key: string]: DestinyComponentsPresentationDestinyPresentationNodesComponent; };
-    privacy?: number;
-    /**
-     * If true, this component is disabled.
-     */
-    disabled?: boolean;
+export interface DictionaryComponentResponseOfint64AndDestinyPresentationNodesComponent {
+  data?: { [key: string]: DestinyComponentsPresentationDestinyPresentationNodesComponent };
+  privacy?: number;
+  /**
+   * If true, this component is disabled.
+   */
+  disabled?: boolean;
 }
-

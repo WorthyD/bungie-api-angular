@@ -12,19 +12,17 @@
 import { DestinyHistoricalStatsDestinyHistoricalStatsValue } from './destinyHistoricalStatsDestinyHistoricalStatsValue';
 import { DestinyHistoricalStatsDestinyHistoricalStatsActivity } from './destinyHistoricalStatsDestinyHistoricalStatsActivity';
 
-
-export interface DestinyHistoricalStatsDestinyHistoricalStatsPeriodGroup { 
-    /**
-     * Period for the group. If the stat periodType is day, then this will have a specific day. If the type is monthly, then this value will be the first day of the applicable month. This value is not set when the periodType is \'all time\'.
-     */
-    period?: string;
-    /**
-     * If the period group is for a specific activity, this property will be set.
-     */
-    activityDetails?: DestinyHistoricalStatsDestinyHistoricalStatsActivity;
-    /**
-     * Collection of stats for the period.
-     */
-    values?: { [key: string]: DestinyHistoricalStatsDestinyHistoricalStatsValue; };
+export interface DestinyHistoricalStatsDestinyHistoricalStatsPeriodGroup {
+  /**
+   * Period for the group. If the stat periodType is day, then this will have a specific day. If the type is monthly, then this value will be the first day of the applicable month. This value is not set when the periodType is \'all time\'.
+   */
+  period?: string;
+  /**
+   * If the period group is for a specific activity, this property will be set.
+   */
+  activityDetails?: DestinyHistoricalStatsDestinyHistoricalStatsActivity;
+  /**
+   * Collection of stats for the period.
+   */
+  values?: { [key: string]: DestinyHistoricalStatsDestinyHistoricalStatsValue };
 }
-

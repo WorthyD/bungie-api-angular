@@ -10,10 +10,8 @@
  * Do not edit the class manually.
  */
 
-
-export interface ContentModelsContentTypeDefaultValue { 
-    whenClause?: string;
-    whenValue?: string;
-    defaultValue?: string;
+export interface ContentModelsContentTypeDefaultValue {
+  whenClause?: string;
+  whenValue?: string;
+  defaultValue?: string;
 }
-

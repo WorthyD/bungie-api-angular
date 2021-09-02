@@ -10,11 +10,9 @@
  * Do not edit the class manually.
  */
 
-
 export type DestinyEquippingItemBlockAttributes = 0 | 1;
 
 export const DestinyEquippingItemBlockAttributes = {
-    NUMBER_0: 0 as DestinyEquippingItemBlockAttributes,
-    NUMBER_1: 1 as DestinyEquippingItemBlockAttributes
+  NUMBER_0: 0 as DestinyEquippingItemBlockAttributes,
+  NUMBER_1: 1 as DestinyEquippingItemBlockAttributes
 };
-

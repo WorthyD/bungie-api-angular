@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDefinitionsDestinyItemTooltipNotification { 
-    displayString?: string;
-    displayStyle?: string;
+export interface DestinyDefinitionsDestinyItemTooltipNotification {
+  displayString?: string;
+  displayStyle?: string;
 }
-

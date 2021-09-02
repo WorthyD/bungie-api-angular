@@ -11,17 +11,15 @@
  */
 import { UserGeneralUser } from './userGeneralUser';
 
-
-export interface ForumForumRecruitmentDetail { 
-    topicId?: number;
-    microphoneRequired?: boolean;
-    intensity?: number;
-    tone?: number;
-    approved?: boolean;
-    conversationId?: number;
-    playerSlotsTotal?: number;
-    playerSlotsRemaining?: number;
-    Fireteam?: Array<UserGeneralUser>;
-    kickedPlayerIds?: Array<number>;
+export interface ForumForumRecruitmentDetail {
+  topicId?: number;
+  microphoneRequired?: boolean;
+  intensity?: number;
+  tone?: number;
+  approved?: boolean;
+  conversationId?: number;
+  playerSlotsTotal?: number;
+  playerSlotsRemaining?: number;
+  Fireteam?: Array<UserGeneralUser>;
+  kickedPlayerIds?: Array<number>;
 }
-

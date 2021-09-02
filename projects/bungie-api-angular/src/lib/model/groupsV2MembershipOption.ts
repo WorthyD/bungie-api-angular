@@ -10,12 +10,10 @@
  * Do not edit the class manually.
  */
 
-
 export type GroupsV2MembershipOption = 0 | 1 | 2;
 
 export const GroupsV2MembershipOption = {
-    NUMBER_0: 0 as GroupsV2MembershipOption,
-    NUMBER_1: 1 as GroupsV2MembershipOption,
-    NUMBER_2: 2 as GroupsV2MembershipOption
+  NUMBER_0: 0 as GroupsV2MembershipOption,
+  NUMBER_1: 1 as GroupsV2MembershipOption,
+  NUMBER_2: 2 as GroupsV2MembershipOption
 };
-

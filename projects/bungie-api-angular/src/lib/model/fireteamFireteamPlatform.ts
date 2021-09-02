@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
 export type FireteamFireteamPlatform = 0 | 1 | 2 | 3 | 4 | 5;
 
 export const FireteamFireteamPlatform = {
-    NUMBER_0: 0 as FireteamFireteamPlatform,
-    NUMBER_1: 1 as FireteamFireteamPlatform,
-    NUMBER_2: 2 as FireteamFireteamPlatform,
-    NUMBER_3: 3 as FireteamFireteamPlatform,
-    NUMBER_4: 4 as FireteamFireteamPlatform,
-    NUMBER_5: 5 as FireteamFireteamPlatform
+  NUMBER_0: 0 as FireteamFireteamPlatform,
+  NUMBER_1: 1 as FireteamFireteamPlatform,
+  NUMBER_2: 2 as FireteamFireteamPlatform,
+  NUMBER_3: 3 as FireteamFireteamPlatform,
+  NUMBER_4: 4 as FireteamFireteamPlatform,
+  NUMBER_5: 5 as FireteamFireteamPlatform
 };
-

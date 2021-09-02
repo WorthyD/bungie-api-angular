@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * Describes the type of progression that a vendor has.
  */
 export type DestinyDestinyVendorProgressionType = 0 | 1;
 
 export const DestinyDestinyVendorProgressionType = {
-    NUMBER_0: 0 as DestinyDestinyVendorProgressionType,
-    NUMBER_1: 1 as DestinyDestinyVendorProgressionType
+  NUMBER_0: 0 as DestinyDestinyVendorProgressionType,
+  NUMBER_1: 1 as DestinyDestinyVendorProgressionType
 };
-

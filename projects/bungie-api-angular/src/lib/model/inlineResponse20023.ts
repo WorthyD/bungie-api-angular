@@ -11,14 +11,12 @@
  */
 import { SearchResultOfGroupMember } from './searchResultOfGroupMember';
 
-
-export interface InlineResponse20023 { 
-    Response?: SearchResultOfGroupMember;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse20023 {
+  Response?: SearchResultOfGroupMember;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

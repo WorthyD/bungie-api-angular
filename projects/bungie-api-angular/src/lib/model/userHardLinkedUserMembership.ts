@@ -10,11 +10,9 @@
  * Do not edit the class manually.
  */
 
-
-export interface UserHardLinkedUserMembership { 
-    membershipType?: number;
-    membershipId?: number;
-    CrossSaveOverriddenType?: number;
-    CrossSaveOverriddenMembershipId?: number;
+export interface UserHardLinkedUserMembership {
+  membershipType?: number;
+  membershipId?: number;
+  CrossSaveOverriddenType?: number;
+  CrossSaveOverriddenMembershipId?: number;
 }
-

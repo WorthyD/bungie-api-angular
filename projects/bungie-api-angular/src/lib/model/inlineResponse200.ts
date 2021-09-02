@@ -11,14 +11,12 @@
  */
 import { ApplicationsApiUsage } from './applicationsApiUsage';
 
-
-export interface InlineResponse200 { 
-    Response?: ApplicationsApiUsage;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse200 {
+  Response?: ApplicationsApiUsage;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

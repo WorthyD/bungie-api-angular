@@ -11,11 +11,9 @@
  */
 import { DestinyHistoricalStatsDestinyHistoricalWeaponStats } from './destinyHistoricalStatsDestinyHistoricalWeaponStats';
 
-
-export interface DestinyHistoricalStatsDestinyHistoricalWeaponStatsData { 
-    /**
-     * List of weapons and their perspective values.
-     */
-    weapons?: Array<DestinyHistoricalStatsDestinyHistoricalWeaponStats>;
+export interface DestinyHistoricalStatsDestinyHistoricalWeaponStatsData {
+  /**
+   * List of weapons and their perspective values.
+   */
+  weapons?: Array<DestinyHistoricalStatsDestinyHistoricalWeaponStats>;
 }
-

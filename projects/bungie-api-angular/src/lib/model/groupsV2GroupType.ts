@@ -10,11 +10,9 @@
  * Do not edit the class manually.
  */
 
-
 export type GroupsV2GroupType = 0 | 1;
 
 export const GroupsV2GroupType = {
-    NUMBER_0: 0 as GroupsV2GroupType,
-    NUMBER_1: 1 as GroupsV2GroupType
+  NUMBER_0: 0 as GroupsV2GroupType,
+  NUMBER_1: 1 as GroupsV2GroupType
 };
-

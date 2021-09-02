@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDyeReference { 
-    channelHash?: number;
-    dyeHash?: number;
+export interface DestinyDyeReference {
+  channelHash?: number;
+  dyeHash?: number;
 }
-

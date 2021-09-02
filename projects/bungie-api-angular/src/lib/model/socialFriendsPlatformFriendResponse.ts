@@ -11,11 +11,9 @@
  */
 import { SocialFriendsPlatformFriend } from './socialFriendsPlatformFriend';
 
-
-export interface SocialFriendsPlatformFriendResponse { 
-    itemsPerPage?: number;
-    currentPage?: number;
-    hasMore?: boolean;
-    platformFriends?: Array<SocialFriendsPlatformFriend>;
+export interface SocialFriendsPlatformFriendResponse {
+  itemsPerPage?: number;
+  currentPage?: number;
+  hasMore?: boolean;
+  platformFriends?: Array<SocialFriendsPlatformFriend>;
 }
-

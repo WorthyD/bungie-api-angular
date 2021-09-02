@@ -10,11 +10,9 @@
  * Do not edit the class manually.
  */
 
-
-export interface UserModelsGetCredentialTypesForAccountResponse { 
-    credentialType?: number;
-    credentialDisplayName?: string;
-    isPublic?: boolean;
-    credentialAsString?: string;
+export interface UserModelsGetCredentialTypesForAccountResponse {
+  credentialType?: number;
+  credentialDisplayName?: string;
+  isPublic?: boolean;
+  credentialAsString?: string;
 }
-

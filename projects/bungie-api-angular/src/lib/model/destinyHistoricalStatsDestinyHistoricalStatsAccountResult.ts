@@ -12,10 +12,8 @@
 import { DestinyHistoricalStatsDestinyHistoricalStatsWithMerged } from './destinyHistoricalStatsDestinyHistoricalStatsWithMerged';
 import { DestinyHistoricalStatsDestinyHistoricalStatsPerCharacter } from './destinyHistoricalStatsDestinyHistoricalStatsPerCharacter';
 
-
-export interface DestinyHistoricalStatsDestinyHistoricalStatsAccountResult { 
-    mergedDeletedCharacters?: DestinyHistoricalStatsDestinyHistoricalStatsWithMerged;
-    mergedAllCharacters?: DestinyHistoricalStatsDestinyHistoricalStatsWithMerged;
-    characters?: Array<DestinyHistoricalStatsDestinyHistoricalStatsPerCharacter>;
+export interface DestinyHistoricalStatsDestinyHistoricalStatsAccountResult {
+  mergedDeletedCharacters?: DestinyHistoricalStatsDestinyHistoricalStatsWithMerged;
+  mergedAllCharacters?: DestinyHistoricalStatsDestinyHistoricalStatsWithMerged;
+  characters?: Array<DestinyHistoricalStatsDestinyHistoricalStatsPerCharacter>;
 }
-

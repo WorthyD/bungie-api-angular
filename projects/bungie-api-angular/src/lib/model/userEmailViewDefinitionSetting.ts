@@ -12,27 +12,25 @@
 import { UserEMailSettingLocalization } from './userEMailSettingLocalization';
 import { UserEmailSubscriptionDefinition } from './userEmailSubscriptionDefinition';
 
-
-export interface UserEmailViewDefinitionSetting { 
-    /**
-     * The identifier for this UI Setting, which can be used to relate it to custom strings or other data as desired.
-     */
-    name?: string;
-    /**
-     * A dictionary of localized text for the EMail setting, keyed by the locale.
-     */
-    localization?: { [key: string]: UserEMailSettingLocalization; };
-    /**
-     * If true, this setting should be set by default if the user hasn\'t chosen whether it\'s set or cleared yet.
-     */
-    setByDefault?: boolean;
-    /**
-     * The OptInFlags value to set or clear if this setting is set or cleared in the UI. It is the aggregate of all underlying opt-in flags related to this setting.
-     */
-    optInAggregateValue?: number;
-    /**
-     * The subscriptions to show as children of this setting, if any.
-     */
-    subscriptions?: Array<UserEmailSubscriptionDefinition>;
+export interface UserEmailViewDefinitionSetting {
+  /**
+   * The identifier for this UI Setting, which can be used to relate it to custom strings or other data as desired.
+   */
+  name?: string;
+  /**
+   * A dictionary of localized text for the EMail setting, keyed by the locale.
+   */
+  localization?: { [key: string]: UserEMailSettingLocalization };
+  /**
+   * If true, this setting should be set by default if the user hasn\'t chosen whether it\'s set or cleared yet.
+   */
+  setByDefault?: boolean;
+  /**
+   * The OptInFlags value to set or clear if this setting is set or cleared in the UI. It is the aggregate of all underlying opt-in flags related to this setting.
+   */
+  optInAggregateValue?: number;
+  /**
+   * The subscriptions to show as children of this setting, if any.
+   */
+  subscriptions?: Array<UserEmailSubscriptionDefinition>;
 }
-

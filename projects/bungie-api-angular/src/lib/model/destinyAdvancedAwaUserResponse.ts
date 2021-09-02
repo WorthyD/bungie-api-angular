@@ -10,19 +10,17 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyAdvancedAwaUserResponse { 
-    /**
-     * Indication of the selection the user has made (Approving or rejecting the action)
-     */
-    selection?: number;
-    /**
-     * Correlation ID of the request
-     */
-    correlationId?: string;
-    /**
-     * Secret nonce received via the PUSH notification.
-     */
-    nonce?: Array<string>;
+export interface DestinyAdvancedAwaUserResponse {
+  /**
+   * Indication of the selection the user has made (Approving or rejecting the action)
+   */
+  selection?: number;
+  /**
+   * Correlation ID of the request
+   */
+  correlationId?: string;
+  /**
+   * Secret nonce received via the PUSH notification.
+   */
+  nonce?: Array<string>;
 }
-

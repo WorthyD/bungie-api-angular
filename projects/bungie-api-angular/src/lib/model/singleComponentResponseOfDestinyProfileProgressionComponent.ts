@@ -11,13 +11,11 @@
  */
 import { DestinyComponentsProfilesDestinyProfileProgressionComponent } from './destinyComponentsProfilesDestinyProfileProgressionComponent';
 
-
-export interface SingleComponentResponseOfDestinyProfileProgressionComponent { 
-    data?: DestinyComponentsProfilesDestinyProfileProgressionComponent;
-    privacy?: number;
-    /**
-     * If true, this component is disabled.
-     */
-    disabled?: boolean;
+export interface SingleComponentResponseOfDestinyProfileProgressionComponent {
+  data?: DestinyComponentsProfilesDestinyProfileProgressionComponent;
+  privacy?: number;
+  /**
+   * If true, this component is disabled.
+   */
+  disabled?: boolean;
 }
-

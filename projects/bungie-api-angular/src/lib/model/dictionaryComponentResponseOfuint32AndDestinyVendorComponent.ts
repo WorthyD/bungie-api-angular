@@ -11,13 +11,11 @@
  */
 import { DestinyEntitiesVendorsDestinyVendorComponent } from './destinyEntitiesVendorsDestinyVendorComponent';
 
-
-export interface DictionaryComponentResponseOfuint32AndDestinyVendorComponent { 
-    data?: { [key: string]: DestinyEntitiesVendorsDestinyVendorComponent; };
-    privacy?: number;
-    /**
-     * If true, this component is disabled.
-     */
-    disabled?: boolean;
+export interface DictionaryComponentResponseOfuint32AndDestinyVendorComponent {
+  data?: { [key: string]: DestinyEntitiesVendorsDestinyVendorComponent };
+  privacy?: number;
+  /**
+   * If true, this component is disabled.
+   */
+  disabled?: boolean;
 }
-

@@ -10,8 +10,6 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDefinitionsCommonDestinyIconSequenceDefinition { 
-    frames?: Array<string>;
+export interface DestinyDefinitionsCommonDestinyIconSequenceDefinition {
+  frames?: Array<string>;
 }
-

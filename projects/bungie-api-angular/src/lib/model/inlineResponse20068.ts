@@ -11,14 +11,12 @@
  */
 import { SocialFriendsBungieFriendListResponse } from './socialFriendsBungieFriendListResponse';
 
-
-export interface InlineResponse20068 { 
-    Response?: SocialFriendsBungieFriendListResponse;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse20068 {
+  Response?: SocialFriendsBungieFriendListResponse;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

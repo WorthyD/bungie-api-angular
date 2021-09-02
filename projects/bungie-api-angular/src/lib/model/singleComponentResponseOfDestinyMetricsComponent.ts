@@ -11,13 +11,11 @@
  */
 import { DestinyComponentsMetricsDestinyMetricsComponent } from './destinyComponentsMetricsDestinyMetricsComponent';
 
-
-export interface SingleComponentResponseOfDestinyMetricsComponent { 
-    data?: DestinyComponentsMetricsDestinyMetricsComponent;
-    privacy?: number;
-    /**
-     * If true, this component is disabled.
-     */
-    disabled?: boolean;
+export interface SingleComponentResponseOfDestinyMetricsComponent {
+  data?: DestinyComponentsMetricsDestinyMetricsComponent;
+  privacy?: number;
+  /**
+   * If true, this component is disabled.
+   */
+  disabled?: boolean;
 }
-

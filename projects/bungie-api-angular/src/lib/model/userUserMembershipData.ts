@@ -12,16 +12,14 @@
 import { GroupsV2GroupUserInfoCard } from './groupsV2GroupUserInfoCard';
 import { UserGeneralUser } from './userGeneralUser';
 
-
-export interface UserUserMembershipData { 
-    /**
-     * this allows you to see destiny memberships that are visible and linked to this account (regardless of whether or not they have characters on the world server)
-     */
-    destinyMemberships?: Array<GroupsV2GroupUserInfoCard>;
-    /**
-     * If this property is populated, it will have the membership ID of the account considered to be \"primary\" in this user\'s cross save relationship.   If null, this user has no cross save relationship, nor primary account.
-     */
-    primaryMembershipId?: number;
-    bungieNetUser?: UserGeneralUser;
+export interface UserUserMembershipData {
+  /**
+   * this allows you to see destiny memberships that are visible and linked to this account (regardless of whether or not they have characters on the world server)
+   */
+  destinyMemberships?: Array<GroupsV2GroupUserInfoCard>;
+  /**
+   * If this property is populated, it will have the membership ID of the account considered to be \"primary\" in this user\'s cross save relationship.   If null, this user has no cross save relationship, nor primary account.
+   */
+  primaryMembershipId?: number;
+  bungieNetUser?: UserGeneralUser;
 }
-

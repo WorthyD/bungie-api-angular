@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * Display categories can have custom sort orders. These are the possible options.
  */
 export type DestinyVendorDisplayCategorySortOrder = 0 | 1;
 
 export const DestinyVendorDisplayCategorySortOrder = {
-    NUMBER_0: 0 as DestinyVendorDisplayCategorySortOrder,
-    NUMBER_1: 1 as DestinyVendorDisplayCategorySortOrder
+  NUMBER_0: 0 as DestinyVendorDisplayCategorySortOrder,
+  NUMBER_1: 1 as DestinyVendorDisplayCategorySortOrder
 };
-

@@ -11,27 +11,25 @@
  */
 import { DestinyDefinitionsArtifactsDestinyArtifactTierItemDefinition } from './destinyDefinitionsArtifactsDestinyArtifactTierItemDefinition';
 
-
-export interface DestinyDefinitionsArtifactsDestinyArtifactTierDefinition { 
-    /**
-     * An identifier, unique within the Artifact, for this specific tier.
-     */
-    tierHash?: number;
-    /**
-     * The human readable title of this tier, if any.
-     */
-    displayTitle?: string;
-    /**
-     * A string representing the localized minimum requirement text for this Tier, if any.
-     */
-    progressRequirementMessage?: string;
-    /**
-     * The items that can be earned within this tier.
-     */
-    items?: Array<DestinyDefinitionsArtifactsDestinyArtifactTierItemDefinition>;
-    /**
-     * The minimum number of \"unlock points\" that you must have used before you can unlock items from this tier.
-     */
-    minimumUnlockPointsUsedRequirement?: number;
+export interface DestinyDefinitionsArtifactsDestinyArtifactTierDefinition {
+  /**
+   * An identifier, unique within the Artifact, for this specific tier.
+   */
+  tierHash?: number;
+  /**
+   * The human readable title of this tier, if any.
+   */
+  displayTitle?: string;
+  /**
+   * A string representing the localized minimum requirement text for this Tier, if any.
+   */
+  progressRequirementMessage?: string;
+  /**
+   * The items that can be earned within this tier.
+   */
+  items?: Array<DestinyDefinitionsArtifactsDestinyArtifactTierItemDefinition>;
+  /**
+   * The minimum number of \"unlock points\" that you must have used before you can unlock items from this tier.
+   */
+  minimumUnlockPointsUsedRequirement?: number;
 }
-

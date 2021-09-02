@@ -10,10 +10,8 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDefinitionsPresentationDestinyPresentationChildBlock { 
-    presentationNodeType?: number;
-    parentPresentationNodeHashes?: Array<number>;
-    displayStyle?: number;
+export interface DestinyDefinitionsPresentationDestinyPresentationChildBlock {
+  presentationNodeType?: number;
+  parentPresentationNodeHashes?: Array<number>;
+  displayStyle?: number;
 }
-

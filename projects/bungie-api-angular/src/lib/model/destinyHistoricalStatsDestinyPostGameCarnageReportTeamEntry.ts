@@ -11,23 +11,21 @@
  */
 import { DestinyHistoricalStatsDestinyHistoricalStatsValue } from './destinyHistoricalStatsDestinyHistoricalStatsValue';
 
-
-export interface DestinyHistoricalStatsDestinyPostGameCarnageReportTeamEntry { 
-    /**
-     * Integer ID for the team.
-     */
-    teamId?: number;
-    /**
-     * Team\'s standing relative to other teams.
-     */
-    standing?: DestinyHistoricalStatsDestinyHistoricalStatsValue;
-    /**
-     * Score earned by the team
-     */
-    score?: DestinyHistoricalStatsDestinyHistoricalStatsValue;
-    /**
-     * Alpha or Bravo
-     */
-    teamName?: string;
+export interface DestinyHistoricalStatsDestinyPostGameCarnageReportTeamEntry {
+  /**
+   * Integer ID for the team.
+   */
+  teamId?: number;
+  /**
+   * Team\'s standing relative to other teams.
+   */
+  standing?: DestinyHistoricalStatsDestinyHistoricalStatsValue;
+  /**
+   * Score earned by the team
+   */
+  score?: DestinyHistoricalStatsDestinyHistoricalStatsValue;
+  /**
+   * Alpha or Bravo
+   */
+  teamName?: string;
 }
-

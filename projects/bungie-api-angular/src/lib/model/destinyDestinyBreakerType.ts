@@ -10,16 +10,14 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * A plug can optionally have a \"Breaker Type\": a special ability that can affect units in unique ways. Activating this plug can grant one of these types.
  */
 export type DestinyDestinyBreakerType = 0 | 1 | 2 | 3;
 
 export const DestinyDestinyBreakerType = {
-    NUMBER_0: 0 as DestinyDestinyBreakerType,
-    NUMBER_1: 1 as DestinyDestinyBreakerType,
-    NUMBER_2: 2 as DestinyDestinyBreakerType,
-    NUMBER_3: 3 as DestinyDestinyBreakerType
+  NUMBER_0: 0 as DestinyDestinyBreakerType,
+  NUMBER_1: 1 as DestinyDestinyBreakerType,
+  NUMBER_2: 2 as DestinyDestinyBreakerType,
+  NUMBER_3: 3 as DestinyDestinyBreakerType
 };
-

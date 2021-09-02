@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 export type DestinyDestinyAmmunitionType = 0 | 1 | 2 | 3 | 4;
 
 export const DestinyDestinyAmmunitionType = {
-    NUMBER_0: 0 as DestinyDestinyAmmunitionType,
-    NUMBER_1: 1 as DestinyDestinyAmmunitionType,
-    NUMBER_2: 2 as DestinyDestinyAmmunitionType,
-    NUMBER_3: 3 as DestinyDestinyAmmunitionType,
-    NUMBER_4: 4 as DestinyDestinyAmmunitionType
+  NUMBER_0: 0 as DestinyDestinyAmmunitionType,
+  NUMBER_1: 1 as DestinyDestinyAmmunitionType,
+  NUMBER_2: 2 as DestinyDestinyAmmunitionType,
+  NUMBER_3: 3 as DestinyDestinyAmmunitionType,
+  NUMBER_4: 4 as DestinyDestinyAmmunitionType
 };
-

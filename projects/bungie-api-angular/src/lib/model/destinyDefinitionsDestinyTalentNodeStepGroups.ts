@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * These properties are an attempt to categorize talent node steps by certain common properties. See the related enumerations for the type of properties being categorized.
  */
-export interface DestinyDefinitionsDestinyTalentNodeStepGroups { 
-    weaponPerformance?: number;
-    impactEffects?: number;
-    guardianAttributes?: number;
-    lightAbilities?: number;
-    damageTypes?: number;
+export interface DestinyDefinitionsDestinyTalentNodeStepGroups {
+  weaponPerformance?: number;
+  impactEffects?: number;
+  guardianAttributes?: number;
+  lightAbilities?: number;
+  damageTypes?: number;
 }
-

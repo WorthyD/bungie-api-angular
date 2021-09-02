@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyArtifactsDestinyArtifactTierItem { 
-    itemHash?: number;
-    isActive?: boolean;
+export interface DestinyArtifactsDestinyArtifactTierItem {
+  itemHash?: number;
+  isActive?: boolean;
 }
-

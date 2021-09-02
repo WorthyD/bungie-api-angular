@@ -11,14 +11,12 @@
  */
 import { DestinyAdvancedAwaAuthorizationResult } from './destinyAdvancedAwaAuthorizationResult';
 
-
-export interface InlineResponse20061 { 
-    Response?: DestinyAdvancedAwaAuthorizationResult;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse20061 {
+  Response?: DestinyAdvancedAwaAuthorizationResult;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

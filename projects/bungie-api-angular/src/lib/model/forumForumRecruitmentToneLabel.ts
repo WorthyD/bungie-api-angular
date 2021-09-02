@@ -10,12 +10,10 @@
  * Do not edit the class manually.
  */
 
-
 export type ForumForumRecruitmentToneLabel = 0 | 1 | 2;
 
 export const ForumForumRecruitmentToneLabel = {
-    NUMBER_0: 0 as ForumForumRecruitmentToneLabel,
-    NUMBER_1: 1 as ForumForumRecruitmentToneLabel,
-    NUMBER_2: 2 as ForumForumRecruitmentToneLabel
+  NUMBER_0: 0 as ForumForumRecruitmentToneLabel,
+  NUMBER_1: 1 as ForumForumRecruitmentToneLabel,
+  NUMBER_2: 2 as ForumForumRecruitmentToneLabel
 };
-

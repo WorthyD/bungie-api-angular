@@ -11,11 +11,9 @@
  */
 import { DestinyHistoricalStatsDestinyHistoricalStatsByPeriod } from './destinyHistoricalStatsDestinyHistoricalStatsByPeriod';
 
-
-export interface DestinyHistoricalStatsDestinyHistoricalStatsPerCharacter { 
-    characterId?: number;
-    deleted?: boolean;
-    results?: { [key: string]: DestinyHistoricalStatsDestinyHistoricalStatsByPeriod; };
-    merged?: DestinyHistoricalStatsDestinyHistoricalStatsByPeriod;
+export interface DestinyHistoricalStatsDestinyHistoricalStatsPerCharacter {
+  characterId?: number;
+  deleted?: boolean;
+  results?: { [key: string]: DestinyHistoricalStatsDestinyHistoricalStatsByPeriod };
+  merged?: DestinyHistoricalStatsDestinyHistoricalStatsByPeriod;
 }
-

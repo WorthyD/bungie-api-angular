@@ -10,11 +10,9 @@
  * Do not edit the class manually.
  */
 
-
 export type GroupsV2ChatSecuritySetting = 0 | 1;
 
 export const GroupsV2ChatSecuritySetting = {
-    NUMBER_0: 0 as GroupsV2ChatSecuritySetting,
-    NUMBER_1: 1 as GroupsV2ChatSecuritySetting
+  NUMBER_0: 0 as GroupsV2ChatSecuritySetting,
+  NUMBER_1: 1 as GroupsV2ChatSecuritySetting
 };
-

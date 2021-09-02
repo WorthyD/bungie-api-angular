@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface DatesDateRange { 
-    start?: string;
-    end?: string;
+export interface DatesDateRange {
+  start?: string;
+  end?: string;
 }
-

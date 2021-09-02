@@ -11,13 +11,11 @@
  */
 import { DestinyComponentsCollectiblesDestinyProfileCollectiblesComponent } from './destinyComponentsCollectiblesDestinyProfileCollectiblesComponent';
 
-
-export interface SingleComponentResponseOfDestinyProfileCollectiblesComponent { 
-    data?: DestinyComponentsCollectiblesDestinyProfileCollectiblesComponent;
-    privacy?: number;
-    /**
-     * If true, this component is disabled.
-     */
-    disabled?: boolean;
+export interface SingleComponentResponseOfDestinyProfileCollectiblesComponent {
+  data?: DestinyComponentsCollectiblesDestinyProfileCollectiblesComponent;
+  privacy?: number;
+  /**
+   * If true, this component is disabled.
+   */
+  disabled?: boolean;
 }
-

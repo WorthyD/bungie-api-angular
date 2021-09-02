@@ -11,14 +11,12 @@
  */
 import { GlobalAlert } from './globalAlert';
 
-
-export interface InlineResponse20073 { 
-    Response?: Array<GlobalAlert>;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse20073 {
+  Response?: Array<GlobalAlert>;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

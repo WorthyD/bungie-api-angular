@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 export type ApplicationsApplicationStatus = 0 | 1 | 2 | 3 | 4;
 
 export const ApplicationsApplicationStatus = {
-    NUMBER_0: 0 as ApplicationsApplicationStatus,
-    NUMBER_1: 1 as ApplicationsApplicationStatus,
-    NUMBER_2: 2 as ApplicationsApplicationStatus,
-    NUMBER_3: 3 as ApplicationsApplicationStatus,
-    NUMBER_4: 4 as ApplicationsApplicationStatus
+  NUMBER_0: 0 as ApplicationsApplicationStatus,
+  NUMBER_1: 1 as ApplicationsApplicationStatus,
+  NUMBER_2: 2 as ApplicationsApplicationStatus,
+  NUMBER_3: 3 as ApplicationsApplicationStatus,
+  NUMBER_4: 4 as ApplicationsApplicationStatus
 };
-

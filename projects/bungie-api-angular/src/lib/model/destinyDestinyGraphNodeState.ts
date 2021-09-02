@@ -10,17 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * Represents a potential state of an Activity Graph node.
  */
 export type DestinyDestinyGraphNodeState = 0 | 1 | 2 | 3 | 4;
 
 export const DestinyDestinyGraphNodeState = {
-    NUMBER_0: 0 as DestinyDestinyGraphNodeState,
-    NUMBER_1: 1 as DestinyDestinyGraphNodeState,
-    NUMBER_2: 2 as DestinyDestinyGraphNodeState,
-    NUMBER_3: 3 as DestinyDestinyGraphNodeState,
-    NUMBER_4: 4 as DestinyDestinyGraphNodeState
+  NUMBER_0: 0 as DestinyDestinyGraphNodeState,
+  NUMBER_1: 1 as DestinyDestinyGraphNodeState,
+  NUMBER_2: 2 as DestinyDestinyGraphNodeState,
+  NUMBER_3: 3 as DestinyDestinyGraphNodeState,
+  NUMBER_4: 4 as DestinyDestinyGraphNodeState
 };
-

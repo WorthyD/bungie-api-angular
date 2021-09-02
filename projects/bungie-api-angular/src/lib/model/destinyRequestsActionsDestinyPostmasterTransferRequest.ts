@@ -10,12 +10,10 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyRequestsActionsDestinyPostmasterTransferRequest { 
-    itemReferenceHash?: number;
-    stackSize?: number;
-    itemId?: number;
-    characterId?: number;
-    membershipType?: number;
+export interface DestinyRequestsActionsDestinyPostmasterTransferRequest {
+  itemReferenceHash?: number;
+  stackSize?: number;
+  itemId?: number;
+  characterId?: number;
+  membershipType?: number;
 }
-

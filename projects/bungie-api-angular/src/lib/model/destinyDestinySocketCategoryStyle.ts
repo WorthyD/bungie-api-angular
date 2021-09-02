@@ -10,21 +10,19 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * Represents the possible and known UI styles used by the game for rendering Socket Categories.
  */
 export type DestinyDestinySocketCategoryStyle = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 export const DestinyDestinySocketCategoryStyle = {
-    NUMBER_0: 0 as DestinyDestinySocketCategoryStyle,
-    NUMBER_1: 1 as DestinyDestinySocketCategoryStyle,
-    NUMBER_2: 2 as DestinyDestinySocketCategoryStyle,
-    NUMBER_3: 3 as DestinyDestinySocketCategoryStyle,
-    NUMBER_4: 4 as DestinyDestinySocketCategoryStyle,
-    NUMBER_5: 5 as DestinyDestinySocketCategoryStyle,
-    NUMBER_6: 6 as DestinyDestinySocketCategoryStyle,
-    NUMBER_7: 7 as DestinyDestinySocketCategoryStyle,
-    NUMBER_8: 8 as DestinyDestinySocketCategoryStyle
+  NUMBER_0: 0 as DestinyDestinySocketCategoryStyle,
+  NUMBER_1: 1 as DestinyDestinySocketCategoryStyle,
+  NUMBER_2: 2 as DestinyDestinySocketCategoryStyle,
+  NUMBER_3: 3 as DestinyDestinySocketCategoryStyle,
+  NUMBER_4: 4 as DestinyDestinySocketCategoryStyle,
+  NUMBER_5: 5 as DestinyDestinySocketCategoryStyle,
+  NUMBER_6: 6 as DestinyDestinySocketCategoryStyle,
+  NUMBER_7: 7 as DestinyDestinySocketCategoryStyle,
+  NUMBER_8: 8 as DestinyDestinySocketCategoryStyle
 };
-

@@ -10,11 +10,9 @@
  * Do not edit the class manually.
  */
 
-
 export type ForumForumPostSortEnum = 0 | 1;
 
 export const ForumForumPostSortEnum = {
-    NUMBER_0: 0 as ForumForumPostSortEnum,
-    NUMBER_1: 1 as ForumForumPostSortEnum
+  NUMBER_0: 0 as ForumForumPostSortEnum,
+  NUMBER_1: 1 as ForumForumPostSortEnum
 };
-

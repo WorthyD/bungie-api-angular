@@ -10,29 +10,27 @@
  * Do not edit the class manually.
  */
 
-
-export interface CommonModelsDestiny2CoreSettings { 
-    collectionRootNode?: number;
-    badgesRootNode?: number;
-    recordsRootNode?: number;
-    medalsRootNode?: number;
-    metricsRootNode?: number;
-    activeTriumphsRootNodeHash?: number;
-    activeSealsRootNodeHash?: number;
-    legacyTriumphsRootNodeHash?: number;
-    legacySealsRootNodeHash?: number;
-    medalsRootNodeHash?: number;
-    exoticCatalystsRootNodeHash?: number;
-    loreRootNodeHash?: number;
-    currentRankProgressionHashes?: Array<number>;
-    undiscoveredCollectibleImage?: string;
-    ammoTypeHeavyIcon?: string;
-    ammoTypeSpecialIcon?: string;
-    ammoTypePrimaryIcon?: string;
-    currentSeasonalArtifactHash?: number;
-    currentSeasonHash?: number;
-    seasonalChallengesPresentationNodeHash?: number;
-    futureSeasonHashes?: Array<number>;
-    pastSeasonHashes?: Array<number>;
+export interface CommonModelsDestiny2CoreSettings {
+  collectionRootNode?: number;
+  badgesRootNode?: number;
+  recordsRootNode?: number;
+  medalsRootNode?: number;
+  metricsRootNode?: number;
+  activeTriumphsRootNodeHash?: number;
+  activeSealsRootNodeHash?: number;
+  legacyTriumphsRootNodeHash?: number;
+  legacySealsRootNodeHash?: number;
+  medalsRootNodeHash?: number;
+  exoticCatalystsRootNodeHash?: number;
+  loreRootNodeHash?: number;
+  currentRankProgressionHashes?: Array<number>;
+  undiscoveredCollectibleImage?: string;
+  ammoTypeHeavyIcon?: string;
+  ammoTypeSpecialIcon?: string;
+  ammoTypePrimaryIcon?: string;
+  currentSeasonalArtifactHash?: number;
+  currentSeasonHash?: number;
+  seasonalChallengesPresentationNodeHash?: number;
+  futureSeasonHashes?: Array<number>;
+  pastSeasonHashes?: Array<number>;
 }
-

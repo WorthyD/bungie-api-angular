@@ -11,13 +11,11 @@
  */
 import { DestinyEntitiesItemsDestinyItemPerksComponent } from './destinyEntitiesItemsDestinyItemPerksComponent';
 
-
-export interface DictionaryComponentResponseOfint64AndDestinyItemPerksComponent { 
-    data?: { [key: string]: DestinyEntitiesItemsDestinyItemPerksComponent; };
-    privacy?: number;
-    /**
-     * If true, this component is disabled.
-     */
-    disabled?: boolean;
+export interface DictionaryComponentResponseOfint64AndDestinyItemPerksComponent {
+  data?: { [key: string]: DestinyEntitiesItemsDestinyItemPerksComponent };
+  privacy?: number;
+  /**
+   * If true, this component is disabled.
+   */
+  disabled?: boolean;
 }
-

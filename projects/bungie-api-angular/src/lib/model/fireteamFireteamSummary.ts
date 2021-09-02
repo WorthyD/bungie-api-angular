@@ -10,26 +10,24 @@
  * Do not edit the class manually.
  */
 
-
-export interface FireteamFireteamSummary { 
-    fireteamId?: number;
-    groupId?: number;
-    platform?: number;
-    activityType?: number;
-    isImmediate?: boolean;
-    scheduledTime?: string;
-    ownerMembershipId?: number;
-    playerSlotCount?: number;
-    alternateSlotCount?: number;
-    availablePlayerSlotCount?: number;
-    availableAlternateSlotCount?: number;
-    title?: string;
-    dateCreated?: string;
-    dateModified?: string;
-    isPublic?: boolean;
-    locale?: string;
-    isValid?: boolean;
-    datePlayerModified?: string;
-    titleBeforeModeration?: string;
+export interface FireteamFireteamSummary {
+  fireteamId?: number;
+  groupId?: number;
+  platform?: number;
+  activityType?: number;
+  isImmediate?: boolean;
+  scheduledTime?: string;
+  ownerMembershipId?: number;
+  playerSlotCount?: number;
+  alternateSlotCount?: number;
+  availablePlayerSlotCount?: number;
+  availableAlternateSlotCount?: number;
+  title?: string;
+  dateCreated?: string;
+  dateModified?: string;
+  isPublic?: boolean;
+  locale?: string;
+  isValid?: boolean;
+  datePlayerModified?: string;
+  titleBeforeModeration?: string;
 }
-

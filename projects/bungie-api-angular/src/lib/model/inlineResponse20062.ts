@@ -11,14 +11,12 @@
  */
 import { TrendingTrendingCategories } from './trendingTrendingCategories';
 
-
-export interface InlineResponse20062 { 
-    Response?: TrendingTrendingCategories;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse20062 {
+  Response?: TrendingTrendingCategories;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

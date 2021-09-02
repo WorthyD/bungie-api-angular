@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * Represents a color whose RGBA values are all represented as values between 0 and 255.
  */
-export interface DestinyMiscDestinyColor { 
-    red?: string;
-    green?: string;
-    blue?: string;
-    alpha?: string;
+export interface DestinyMiscDestinyColor {
+  red?: string;
+  green?: string;
+  blue?: string;
+  alpha?: string;
 }
-

@@ -11,14 +11,12 @@
  */
 import { EntitiesEntityActionResult } from './entitiesEntityActionResult';
 
-
-export interface InlineResponse20027 { 
-    Response?: Array<EntitiesEntityActionResult>;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse20027 {
+  Response?: Array<EntitiesEntityActionResult>;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

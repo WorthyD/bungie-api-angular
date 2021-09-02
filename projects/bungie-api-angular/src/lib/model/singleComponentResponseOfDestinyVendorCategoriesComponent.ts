@@ -11,13 +11,11 @@
  */
 import { DestinyEntitiesVendorsDestinyVendorCategoriesComponent } from './destinyEntitiesVendorsDestinyVendorCategoriesComponent';
 
-
-export interface SingleComponentResponseOfDestinyVendorCategoriesComponent { 
-    data?: DestinyEntitiesVendorsDestinyVendorCategoriesComponent;
-    privacy?: number;
-    /**
-     * If true, this component is disabled.
-     */
-    disabled?: boolean;
+export interface SingleComponentResponseOfDestinyVendorCategoriesComponent {
+  data?: DestinyEntitiesVendorsDestinyVendorCategoriesComponent;
+  privacy?: number;
+  /**
+   * If true, this component is disabled.
+   */
+  disabled?: boolean;
 }
-

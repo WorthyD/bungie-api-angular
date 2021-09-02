@@ -10,10 +10,8 @@
  * Do not edit the class manually.
  */
 
-
-export interface QueriesPagedQuery { 
-    itemsPerPage?: number;
-    currentPage?: number;
-    requestContinuationToken?: string;
+export interface QueriesPagedQuery {
+  itemsPerPage?: number;
+  currentPage?: number;
+  requestContinuationToken?: string;
 }
-

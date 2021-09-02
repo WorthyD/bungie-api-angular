@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
-export interface GroupsV2ClanBanner { 
-    decalId?: number;
-    decalColorId?: number;
-    decalBackgroundColorId?: number;
-    gonfalonId?: number;
-    gonfalonColorId?: number;
-    gonfalonDetailId?: number;
-    gonfalonDetailColorId?: number;
+export interface GroupsV2ClanBanner {
+  decalId?: number;
+  decalColorId?: number;
+  decalBackgroundColorId?: number;
+  gonfalonId?: number;
+  gonfalonColorId?: number;
+  gonfalonDetailId?: number;
+  gonfalonDetailColorId?: number;
 }
-

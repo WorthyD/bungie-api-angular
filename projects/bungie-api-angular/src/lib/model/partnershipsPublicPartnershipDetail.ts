@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * All the partnership info that's fit to expose externally, if we care to do so.
  */
-export interface PartnershipsPublicPartnershipDetail { 
-    partnerType?: number;
-    identifier?: string;
-    name?: string;
-    icon?: string;
+export interface PartnershipsPublicPartnershipDetail {
+  partnerType?: number;
+  identifier?: string;
+  name?: string;
+  icon?: string;
 }
-

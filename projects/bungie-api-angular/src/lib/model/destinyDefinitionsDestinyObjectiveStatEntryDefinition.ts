@@ -11,18 +11,16 @@
  */
 import { DestinyDefinitionsDestinyItemInvestmentStatDefinition } from './destinyDefinitionsDestinyItemInvestmentStatDefinition';
 
-
 /**
  * Defines the conditions under which stat modifications will be applied to a Character while participating in an objective.
  */
-export interface DestinyDefinitionsDestinyObjectiveStatEntryDefinition { 
-    /**
-     * The stat being modified, and the value used.
-     */
-    stat?: DestinyDefinitionsDestinyItemInvestmentStatDefinition;
-    /**
-     * Whether it will be applied as long as the objective is active, when it\'s completed, or until it\'s completed.
-     */
-    style?: number;
+export interface DestinyDefinitionsDestinyObjectiveStatEntryDefinition {
+  /**
+   * The stat being modified, and the value used.
+   */
+  stat?: DestinyDefinitionsDestinyItemInvestmentStatDefinition;
+  /**
+   * Whether it will be applied as long as the objective is active, when it\'s completed, or until it\'s completed.
+   */
+  style?: number;
 }
-

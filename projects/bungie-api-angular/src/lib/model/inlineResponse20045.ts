@@ -11,14 +11,12 @@
  */
 import { DestinyResponsesDestinyCollectibleNodeDetailResponse } from './destinyResponsesDestinyCollectibleNodeDetailResponse';
 
-
-export interface InlineResponse20045 { 
-    Response?: DestinyResponsesDestinyCollectibleNodeDetailResponse;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse20045 {
+  Response?: DestinyResponsesDestinyCollectibleNodeDetailResponse;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

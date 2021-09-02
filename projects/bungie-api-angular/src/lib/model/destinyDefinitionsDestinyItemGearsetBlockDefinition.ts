@@ -10,18 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * If an item has a related gearset, this is the list of items in that set, and an unlock expression that evaluates to a number representing the progress toward gearset completion (a very rare use for unlock expressions!)
  */
-export interface DestinyDefinitionsDestinyItemGearsetBlockDefinition { 
-    /**
-     * The maximum possible number of items that can be collected.
-     */
-    trackingValueMax?: number;
-    /**
-     * The list of hashes for items in the gearset. Use them to look up DestinyInventoryItemDefinition entries for the items in the set.
-     */
-    itemList?: Array<number>;
+export interface DestinyDefinitionsDestinyItemGearsetBlockDefinition {
+  /**
+   * The maximum possible number of items that can be collected.
+   */
+  trackingValueMax?: number;
+  /**
+   * The list of hashes for items in the gearset. Use them to look up DestinyInventoryItemDefinition entries for the items in the set.
+   */
+  itemList?: Array<number>;
 }
-

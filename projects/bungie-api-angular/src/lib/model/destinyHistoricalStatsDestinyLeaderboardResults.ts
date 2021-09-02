@@ -9,11 +9,10 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-//import { { [key: string]: DestinyHistoricalStatsDestinyLeaderboard; } } from './keyStringDestinyHistoricalStatsDestinyLeaderboard';
-import {  DestinyHistoricalStatsDestinyLeaderboard } from './destinyHistoricalStatsDestinyLeaderboard';
+import { { [key: string]: DestinyHistoricalStatsDestinyLeaderboard; } } from './keyStringDestinyHistoricalStatsDestinyLeaderboard';
 
 
-export interface DestinyHistoricalStatsDestinyLeaderboardResults {
+export interface DestinyHistoricalStatsDestinyLeaderboardResults { 
   [key: string]: { [key: string]: DestinyHistoricalStatsDestinyLeaderboard; } | any;
 
 

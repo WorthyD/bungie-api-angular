@@ -10,10 +10,8 @@
  * Do not edit the class manually.
  */
 
-
-export interface ContentContentRepresentation { 
-    name?: string;
-    path?: string;
-    validationString?: string;
+export interface ContentContentRepresentation {
+  name?: string;
+  path?: string;
+  validationString?: string;
 }
-

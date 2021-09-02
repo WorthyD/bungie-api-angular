@@ -11,14 +11,12 @@
  */
 import { DestinyHistoricalStatsDestinyPostGameCarnageReportData } from './destinyHistoricalStatsDestinyPostGameCarnageReportData';
 
-
-export interface InlineResponse20048 { 
-    Response?: DestinyHistoricalStatsDestinyPostGameCarnageReportData;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse20048 {
+  Response?: DestinyHistoricalStatsDestinyPostGameCarnageReportData;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

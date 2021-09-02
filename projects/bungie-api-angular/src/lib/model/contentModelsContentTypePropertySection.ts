@@ -10,10 +10,8 @@
  * Do not edit the class manually.
  */
 
-
-export interface ContentModelsContentTypePropertySection { 
-    name?: string;
-    readableName?: string;
-    collapsed?: boolean;
+export interface ContentModelsContentTypePropertySection {
+  name?: string;
+  readableName?: string;
+  collapsed?: boolean;
 }
-

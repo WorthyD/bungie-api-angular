@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * When a Vendor Interaction provides rewards, they\'ll either let you choose one or let you have all of them. This determines which it will be.
  */
 export type DestinyDestinyVendorInteractionRewardSelection = 0 | 1 | 2;
 
 export const DestinyDestinyVendorInteractionRewardSelection = {
-    NUMBER_0: 0 as DestinyDestinyVendorInteractionRewardSelection,
-    NUMBER_1: 1 as DestinyDestinyVendorInteractionRewardSelection,
-    NUMBER_2: 2 as DestinyDestinyVendorInteractionRewardSelection
+  NUMBER_0: 0 as DestinyDestinyVendorInteractionRewardSelection,
+  NUMBER_1: 1 as DestinyDestinyVendorInteractionRewardSelection,
+  NUMBER_2: 2 as DestinyDestinyVendorInteractionRewardSelection
 };
-

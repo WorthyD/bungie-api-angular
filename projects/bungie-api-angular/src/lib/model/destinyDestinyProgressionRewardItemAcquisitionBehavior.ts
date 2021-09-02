@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * Represents the different kinds of acquisition behavior for progression reward items.
  */
 export type DestinyDestinyProgressionRewardItemAcquisitionBehavior = 0 | 1;
 
 export const DestinyDestinyProgressionRewardItemAcquisitionBehavior = {
-    NUMBER_0: 0 as DestinyDestinyProgressionRewardItemAcquisitionBehavior,
-    NUMBER_1: 1 as DestinyDestinyProgressionRewardItemAcquisitionBehavior
+  NUMBER_0: 0 as DestinyDestinyProgressionRewardItemAcquisitionBehavior,
+  NUMBER_1: 1 as DestinyDestinyProgressionRewardItemAcquisitionBehavior
 };
-

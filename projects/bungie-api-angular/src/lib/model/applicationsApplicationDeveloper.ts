@@ -11,10 +11,8 @@
  */
 import { UserUserInfoCard } from './userUserInfoCard';
 
-
-export interface ApplicationsApplicationDeveloper { 
-    role?: number;
-    apiEulaVersion?: number;
-    user?: UserUserInfoCard;
+export interface ApplicationsApplicationDeveloper {
+  role?: number;
+  apiEulaVersion?: number;
+  user?: UserUserInfoCard;
 }
-

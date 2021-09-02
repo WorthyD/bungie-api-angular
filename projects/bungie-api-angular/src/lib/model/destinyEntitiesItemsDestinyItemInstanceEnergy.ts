@@ -10,27 +10,25 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyEntitiesItemsDestinyItemInstanceEnergy { 
-    /**
-     * The type of energy for this item. Plugs that require Energy can only be inserted if they have the \"Any\" Energy Type or the matching energy type of this item. This is a reference to the DestinyEnergyTypeDefinition for the energy type, where you can find extended info about it.
-     */
-    energyTypeHash?: number;
-    /**
-     * This is the enum version of the Energy Type value, for convenience.
-     */
-    energyType?: number;
-    /**
-     * The total capacity of Energy that the item currently has, regardless of if it is currently being used.
-     */
-    energyCapacity?: number;
-    /**
-     * The amount of Energy currently in use by inserted plugs.
-     */
-    energyUsed?: number;
-    /**
-     * The amount of energy still available for inserting new plugs.
-     */
-    energyUnused?: number;
+export interface DestinyEntitiesItemsDestinyItemInstanceEnergy {
+  /**
+   * The type of energy for this item. Plugs that require Energy can only be inserted if they have the \"Any\" Energy Type or the matching energy type of this item. This is a reference to the DestinyEnergyTypeDefinition for the energy type, where you can find extended info about it.
+   */
+  energyTypeHash?: number;
+  /**
+   * This is the enum version of the Energy Type value, for convenience.
+   */
+  energyType?: number;
+  /**
+   * The total capacity of Energy that the item currently has, regardless of if it is currently being used.
+   */
+  energyCapacity?: number;
+  /**
+   * The amount of Energy currently in use by inserted plugs.
+   */
+  energyUsed?: number;
+  /**
+   * The amount of energy still available for inserting new plugs.
+   */
+  energyUnused?: number;
 }
-

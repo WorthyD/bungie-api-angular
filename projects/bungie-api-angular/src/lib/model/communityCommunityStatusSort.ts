@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 export type CommunityCommunityStatusSort = 0 | 1 | 2 | 3;
 
 export const CommunityCommunityStatusSort = {
-    NUMBER_0: 0 as CommunityCommunityStatusSort,
-    NUMBER_1: 1 as CommunityCommunityStatusSort,
-    NUMBER_2: 2 as CommunityCommunityStatusSort,
-    NUMBER_3: 3 as CommunityCommunityStatusSort
+  NUMBER_0: 0 as CommunityCommunityStatusSort,
+  NUMBER_1: 1 as CommunityCommunityStatusSort,
+  NUMBER_2: 2 as CommunityCommunityStatusSort,
+  NUMBER_3: 3 as CommunityCommunityStatusSort
 };

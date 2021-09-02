@@ -11,14 +11,12 @@
  */
 import { TokensPartnerOfferSkuHistoryResponse } from './tokensPartnerOfferSkuHistoryResponse';
 
-
-export interface InlineResponse20032 { 
-    Response?: Array<TokensPartnerOfferSkuHistoryResponse>;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse20032 {
+  Response?: Array<TokensPartnerOfferSkuHistoryResponse>;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

@@ -11,36 +11,34 @@
  */
 import { DestinyDefinitionsCommonDestinyDisplayPropertiesDefinition } from './destinyDefinitionsCommonDestinyDisplayPropertiesDefinition';
 
-
 /**
  * Defines a Character Class in Destiny 2. These are types of characters you can play, like Titan, Warlock, and Hunter.
  */
-export interface DestinyDefinitionsDestinyClassDefinition { 
-    /**
-     * In Destiny 1, we added a convenience Enumeration for referring to classes. We\'ve kept it, though mostly for posterity. This is the enum value for this definition\'s class.
-     */
-    classType?: number;
-    displayProperties?: DestinyDefinitionsCommonDestinyDisplayPropertiesDefinition;
-    /**
-     * A localized string referring to the singular form of the Class\'s name when referred to in gendered form. Keyed by the DestinyGender.
-     */
-    genderedClassNames?: { [key: string]: string; };
-    genderedClassNamesByGenderHash?: { [key: string]: string; };
-    /**
-     * Mentors don\'t really mean anything anymore. Don\'t expect this to be populated.
-     */
-    mentorVendorHash?: number;
-    /**
-     * The unique identifier for this entity. Guaranteed to be unique for the type of entity, but not globally.  When entities refer to each other in Destiny content, it is this hash that they are referring to.
-     */
-    hash?: number;
-    /**
-     * The index of the entity as it was found in the investment tables.
-     */
-    index?: number;
-    /**
-     * If this is true, then there is an entity with this identifier/type combination, but BNet is not yet allowed to show it. Sorry!
-     */
-    redacted?: boolean;
+export interface DestinyDefinitionsDestinyClassDefinition {
+  /**
+   * In Destiny 1, we added a convenience Enumeration for referring to classes. We\'ve kept it, though mostly for posterity. This is the enum value for this definition\'s class.
+   */
+  classType?: number;
+  displayProperties?: DestinyDefinitionsCommonDestinyDisplayPropertiesDefinition;
+  /**
+   * A localized string referring to the singular form of the Class\'s name when referred to in gendered form. Keyed by the DestinyGender.
+   */
+  genderedClassNames?: { [key: string]: string };
+  genderedClassNamesByGenderHash?: { [key: string]: string };
+  /**
+   * Mentors don\'t really mean anything anymore. Don\'t expect this to be populated.
+   */
+  mentorVendorHash?: number;
+  /**
+   * The unique identifier for this entity. Guaranteed to be unique for the type of entity, but not globally.  When entities refer to each other in Destiny content, it is this hash that they are referring to.
+   */
+  hash?: number;
+  /**
+   * The index of the entity as it was found in the investment tables.
+   */
+  index?: number;
+  /**
+   * If this is true, then there is an entity with this identifier/type combination, but BNet is not yet allowed to show it. Sorry!
+   */
+  redacted?: boolean;
 }
-

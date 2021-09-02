@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
-export interface ApplicationsDatapoint { 
-    /**
-     * Timestamp for the related count.
-     */
-    time?: string;
-    /**
-     * Count associated with timestamp
-     */
-    count?: number;
+export interface ApplicationsDatapoint {
+  /**
+   * Timestamp for the related count.
+   */
+  time?: string;
+  /**
+   * Count associated with timestamp
+   */
+  count?: number;
 }
-

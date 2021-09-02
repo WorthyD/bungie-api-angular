@@ -10,22 +10,20 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * Guided Game information for this activity.
  */
-export interface DestinyDefinitionsDestinyActivityGuidedBlockDefinition { 
-    /**
-     * The maximum amount of people that can be in the waiting lobby.
-     */
-    guidedMaxLobbySize?: number;
-    /**
-     * The minimum amount of people that can be in the waiting lobby.
-     */
-    guidedMinLobbySize?: number;
-    /**
-     * If -1, the guided group cannot be disbanded. Otherwise, take the total # of players in the activity and subtract this number: that is the total # of votes needed for the guided group to disband.
-     */
-    guidedDisbandCount?: number;
+export interface DestinyDefinitionsDestinyActivityGuidedBlockDefinition {
+  /**
+   * The maximum amount of people that can be in the waiting lobby.
+   */
+  guidedMaxLobbySize?: number;
+  /**
+   * The minimum amount of people that can be in the waiting lobby.
+   */
+  guidedMinLobbySize?: number;
+  /**
+   * If -1, the guided group cannot be disbanded. Otherwise, take the total # of players in the activity and subtract this number: that is the total # of votes needed for the guided group to disband.
+   */
+  guidedDisbandCount?: number;
 }
-

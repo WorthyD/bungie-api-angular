@@ -11,8 +11,6 @@
  */
 import { GroupsV2GroupV2 } from './groupsV2GroupV2';
 
-
-export interface GroupsV2GroupMembershipBase { 
-    group?: GroupsV2GroupV2;
+export interface GroupsV2GroupMembershipBase {
+  group?: GroupsV2GroupV2;
 }
-

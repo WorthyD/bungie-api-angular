@@ -10,13 +10,11 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyRequestsDestinyItemTransferRequest { 
-    itemReferenceHash?: number;
-    stackSize?: number;
-    transferToVault?: boolean;
-    itemId?: number;
-    characterId?: number;
-    membershipType?: number;
+export interface DestinyRequestsDestinyItemTransferRequest {
+  itemReferenceHash?: number;
+  stackSize?: number;
+  transferToVault?: boolean;
+  itemId?: number;
+  characterId?: number;
+  membershipType?: number;
 }
-

@@ -11,14 +11,12 @@
  */
 import { DestinyConfigDestinyManifest } from './destinyConfigDestinyManifest';
 
-
-export interface InlineResponse20033 { 
-    Response?: DestinyConfigDestinyManifest;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse20033 {
+  Response?: DestinyConfigDestinyManifest;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

@@ -11,13 +11,11 @@
  */
 import { DestinyComponentsItemsDestinyItemReusablePlugsComponent } from './destinyComponentsItemsDestinyItemReusablePlugsComponent';
 
-
-export interface DictionaryComponentResponseOfint32AndDestinyItemReusablePlugsComponent { 
-    data?: { [key: string]: DestinyComponentsItemsDestinyItemReusablePlugsComponent; };
-    privacy?: number;
-    /**
-     * If true, this component is disabled.
-     */
-    disabled?: boolean;
+export interface DictionaryComponentResponseOfint32AndDestinyItemReusablePlugsComponent {
+  data?: { [key: string]: DestinyComponentsItemsDestinyItemReusablePlugsComponent };
+  privacy?: number;
+  /**
+   * If true, this component is disabled.
+   */
+  disabled?: boolean;
 }
-

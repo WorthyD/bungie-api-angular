@@ -11,14 +11,12 @@
  */
 import { GroupsV2GroupMembershipSearchResponse } from './groupsV2GroupMembershipSearchResponse';
 
-
-export interface InlineResponse20029 { 
-    Response?: GroupsV2GroupMembershipSearchResponse;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse20029 {
+  Response?: GroupsV2GroupMembershipSearchResponse;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

@@ -12,17 +12,15 @@
 import { DestinyDefinitionsDestinyGearArtArrangementReference } from './destinyDefinitionsDestinyGearArtArrangementReference';
 import { DestinyDyeReference } from './destinyDyeReference';
 
-
 /**
  * This Block defines the rendering data associated with the item, if any.
  */
-export interface DestinyDefinitionsDestinyItemTranslationBlockDefinition { 
-    weaponPatternIdentifier?: string;
-    weaponPatternHash?: number;
-    defaultDyes?: Array<DestinyDyeReference>;
-    lockedDyes?: Array<DestinyDyeReference>;
-    customDyes?: Array<DestinyDyeReference>;
-    arrangements?: Array<DestinyDefinitionsDestinyGearArtArrangementReference>;
-    hasGeometry?: boolean;
+export interface DestinyDefinitionsDestinyItemTranslationBlockDefinition {
+  weaponPatternIdentifier?: string;
+  weaponPatternHash?: number;
+  defaultDyes?: Array<DestinyDyeReference>;
+  lockedDyes?: Array<DestinyDyeReference>;
+  customDyes?: Array<DestinyDyeReference>;
+  arrangements?: Array<DestinyDefinitionsDestinyGearArtArrangementReference>;
+  hasGeometry?: boolean;
 }
-

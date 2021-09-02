@@ -11,22 +11,20 @@
  */
 import { UserEMailSettingSubscriptionLocalization } from './userEMailSettingSubscriptionLocalization';
 
-
 /**
  * Defines a single subscription: permission to send emails for a specific, focused subject (generally timeboxed, such as for a specific release of a product or feature).
  */
-export interface UserEmailSubscriptionDefinition { 
-    /**
-     * The unique identifier for this subscription.
-     */
-    name?: string;
-    /**
-     * A dictionary of localized text for the EMail Opt-in setting, keyed by the locale.
-     */
-    localization?: { [key: string]: UserEMailSettingSubscriptionLocalization; };
-    /**
-     * The bitflag value for this subscription. Should be a unique power of two value.
-     */
-    value?: number;
+export interface UserEmailSubscriptionDefinition {
+  /**
+   * The unique identifier for this subscription.
+   */
+  name?: string;
+  /**
+   * A dictionary of localized text for the EMail Opt-in setting, keyed by the locale.
+   */
+  localization?: { [key: string]: UserEMailSettingSubscriptionLocalization };
+  /**
+   * The bitflag value for this subscription. Should be a unique power of two value.
+   */
+  value?: number;
 }
-

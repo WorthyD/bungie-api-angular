@@ -10,17 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * A player can choose to restrict requests to join their Fireteam to specific states. These are the possible states a user can choose.
  */
 export type DestinyDestinyGamePrivacySetting = 0 | 1 | 2 | 3 | 4;
 
 export const DestinyDestinyGamePrivacySetting = {
-    NUMBER_0: 0 as DestinyDestinyGamePrivacySetting,
-    NUMBER_1: 1 as DestinyDestinyGamePrivacySetting,
-    NUMBER_2: 2 as DestinyDestinyGamePrivacySetting,
-    NUMBER_3: 3 as DestinyDestinyGamePrivacySetting,
-    NUMBER_4: 4 as DestinyDestinyGamePrivacySetting
+  NUMBER_0: 0 as DestinyDestinyGamePrivacySetting,
+  NUMBER_1: 1 as DestinyDestinyGamePrivacySetting,
+  NUMBER_2: 2 as DestinyDestinyGamePrivacySetting,
+  NUMBER_3: 3 as DestinyDestinyGamePrivacySetting,
+  NUMBER_4: 4 as DestinyDestinyGamePrivacySetting
 };
-

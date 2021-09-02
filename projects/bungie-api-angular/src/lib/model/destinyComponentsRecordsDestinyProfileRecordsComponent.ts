@@ -11,36 +11,34 @@
  */
 import { DestinyComponentsRecordsDestinyRecordComponent } from './destinyComponentsRecordsDestinyRecordComponent';
 
-
-export interface DestinyComponentsRecordsDestinyProfileRecordsComponent { 
-    /**
-     * Your \'active\' Triumphs score, maintained for backwards compatibility.
-     */
-    score?: number;
-    /**
-     * Your \'active\' Triumphs score.
-     */
-    activeScore?: number;
-    /**
-     * Your \'legacy\' Triumphs score.
-     */
-    legacyScore?: number;
-    /**
-     * Your \'lifetime\' Triumphs score.
-     */
-    lifetimeScore?: number;
-    /**
-     * If this profile is tracking a record, this is the hash identifier of the record it is tracking.
-     */
-    trackedRecordHash?: number;
-    records?: { [key: string]: DestinyComponentsRecordsDestinyRecordComponent; };
-    /**
-     * The hash for the root presentation node definition of Triumph categories.
-     */
-    recordCategoriesRootNodeHash?: number;
-    /**
-     * The hash for the root presentation node definition of Triumph Seals.
-     */
-    recordSealsRootNodeHash?: number;
+export interface DestinyComponentsRecordsDestinyProfileRecordsComponent {
+  /**
+   * Your \'active\' Triumphs score, maintained for backwards compatibility.
+   */
+  score?: number;
+  /**
+   * Your \'active\' Triumphs score.
+   */
+  activeScore?: number;
+  /**
+   * Your \'legacy\' Triumphs score.
+   */
+  legacyScore?: number;
+  /**
+   * Your \'lifetime\' Triumphs score.
+   */
+  lifetimeScore?: number;
+  /**
+   * If this profile is tracking a record, this is the hash identifier of the record it is tracking.
+   */
+  trackedRecordHash?: number;
+  records?: { [key: string]: DestinyComponentsRecordsDestinyRecordComponent };
+  /**
+   * The hash for the root presentation node definition of Triumph categories.
+   */
+  recordCategoriesRootNodeHash?: number;
+  /**
+   * The hash for the root presentation node definition of Triumph Seals.
+   */
+  recordSealsRootNodeHash?: number;
 }
-

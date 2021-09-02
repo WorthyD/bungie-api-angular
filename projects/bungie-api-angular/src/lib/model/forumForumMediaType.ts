@@ -10,13 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 export type ForumForumMediaType = 0 | 1 | 2 | 3;
 
 export const ForumForumMediaType = {
-    NUMBER_0: 0 as ForumForumMediaType,
-    NUMBER_1: 1 as ForumForumMediaType,
-    NUMBER_2: 2 as ForumForumMediaType,
-    NUMBER_3: 3 as ForumForumMediaType
+  NUMBER_0: 0 as ForumForumMediaType,
+  NUMBER_1: 1 as ForumForumMediaType,
+  NUMBER_2: 2 as ForumForumMediaType,
+  NUMBER_3: 3 as ForumForumMediaType
 };
-

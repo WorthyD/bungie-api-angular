@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
-export interface TrendingTrendingEntryCommunityCreation { 
-    media?: string;
-    title?: string;
-    author?: string;
-    authorMembershipId?: number;
-    postId?: number;
-    body?: string;
-    upvotes?: number;
+export interface TrendingTrendingEntryCommunityCreation {
+  media?: string;
+  title?: string;
+  author?: string;
+  authorMembershipId?: number;
+  postId?: number;
+  body?: string;
+  upvotes?: number;
 }
-

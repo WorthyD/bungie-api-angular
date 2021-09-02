@@ -12,15 +12,13 @@
 import { GroupsV2GroupUserInfoCard } from './groupsV2GroupUserInfoCard';
 import { UserUserInfoCard } from './userUserInfoCard';
 
-
-export interface GroupsV2GroupBan { 
-    groupId?: number;
-    lastModifiedBy?: UserUserInfoCard;
-    createdBy?: UserUserInfoCard;
-    dateBanned?: string;
-    dateExpires?: string;
-    comment?: string;
-    bungieNetUserInfo?: UserUserInfoCard;
-    destinyUserInfo?: GroupsV2GroupUserInfoCard;
+export interface GroupsV2GroupBan {
+  groupId?: number;
+  lastModifiedBy?: UserUserInfoCard;
+  createdBy?: UserUserInfoCard;
+  dateBanned?: string;
+  dateExpires?: string;
+  comment?: string;
+  bungieNetUserInfo?: UserUserInfoCard;
+  destinyUserInfo?: GroupsV2GroupUserInfoCard;
 }
-

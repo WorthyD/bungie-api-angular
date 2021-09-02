@@ -10,10 +10,8 @@
  * Do not edit the class manually.
  */
 
-
-export interface ConfigGroupTheme { 
-    name?: string;
-    folder?: string;
-    description?: string;
+export interface ConfigGroupTheme {
+  name?: string;
+  folder?: string;
+  description?: string;
 }
-

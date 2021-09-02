@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDefinitionsRecordsDestinyRecordTitleBlock { 
-    hasTitle?: boolean;
-    titlesByGender?: { [key: string]: string; };
-    /**
-     * For those who prefer to use the definitions.
-     */
-    titlesByGenderHash?: { [key: string]: string; };
-    gildingTrackingRecordHash?: number;
+export interface DestinyDefinitionsRecordsDestinyRecordTitleBlock {
+  hasTitle?: boolean;
+  titlesByGender?: { [key: string]: string };
+  /**
+   * For those who prefer to use the definitions.
+   */
+  titlesByGenderHash?: { [key: string]: string };
+  gildingTrackingRecordHash?: number;
 }
-

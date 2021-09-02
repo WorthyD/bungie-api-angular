@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 export type DestinyDestinyRecordValueStyle = 0 | 1 | 2 | 3 | 4;
 
 export const DestinyDestinyRecordValueStyle = {
-    NUMBER_0: 0 as DestinyDestinyRecordValueStyle,
-    NUMBER_1: 1 as DestinyDestinyRecordValueStyle,
-    NUMBER_2: 2 as DestinyDestinyRecordValueStyle,
-    NUMBER_3: 3 as DestinyDestinyRecordValueStyle,
-    NUMBER_4: 4 as DestinyDestinyRecordValueStyle
+  NUMBER_0: 0 as DestinyDestinyRecordValueStyle,
+  NUMBER_1: 1 as DestinyDestinyRecordValueStyle,
+  NUMBER_2: 2 as DestinyDestinyRecordValueStyle,
+  NUMBER_3: 3 as DestinyDestinyRecordValueStyle,
+  NUMBER_4: 4 as DestinyDestinyRecordValueStyle
 };
-

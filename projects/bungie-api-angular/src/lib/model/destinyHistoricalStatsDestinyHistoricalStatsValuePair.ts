@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyHistoricalStatsDestinyHistoricalStatsValuePair { 
-    /**
-     * Raw value of the statistic
-     */
-    value?: number;
-    /**
-     * Localized formated version of the value.
-     */
-    displayValue?: string;
+export interface DestinyHistoricalStatsDestinyHistoricalStatsValuePair {
+  /**
+   * Raw value of the statistic
+   */
+  value?: number;
+  /**
+   * Localized formated version of the value.
+   */
+  displayValue?: string;
 }
-

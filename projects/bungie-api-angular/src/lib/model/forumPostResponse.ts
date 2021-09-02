@@ -11,21 +11,19 @@
  */
 import { IgnoresIgnoreResponse } from './ignoresIgnoreResponse';
 
-
-export interface ForumPostResponse { 
-    lastReplyTimestamp?: string;
-    IsPinned?: boolean;
-    urlMediaType?: number;
-    thumbnail?: string;
-    popularity?: number;
-    isActive?: boolean;
-    isAnnouncement?: boolean;
-    userRating?: number;
-    userHasRated?: boolean;
-    userHasMutedPost?: boolean;
-    latestReplyPostId?: number;
-    latestReplyAuthorId?: number;
-    ignoreStatus?: IgnoresIgnoreResponse;
-    locale?: string;
+export interface ForumPostResponse {
+  lastReplyTimestamp?: string;
+  IsPinned?: boolean;
+  urlMediaType?: number;
+  thumbnail?: string;
+  popularity?: number;
+  isActive?: boolean;
+  isAnnouncement?: boolean;
+  userRating?: number;
+  userHasRated?: boolean;
+  userHasMutedPost?: boolean;
+  latestReplyPostId?: number;
+  latestReplyAuthorId?: number;
+  ignoreStatus?: IgnoresIgnoreResponse;
+  locale?: string;
 }
-

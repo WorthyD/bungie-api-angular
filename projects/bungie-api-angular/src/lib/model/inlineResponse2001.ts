@@ -11,14 +11,12 @@
  */
 import { ApplicationsApplication } from './applicationsApplication';
 
-
-export interface InlineResponse2001 { 
-    Response?: Array<ApplicationsApplication>;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse2001 {
+  Response?: Array<ApplicationsApplication>;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

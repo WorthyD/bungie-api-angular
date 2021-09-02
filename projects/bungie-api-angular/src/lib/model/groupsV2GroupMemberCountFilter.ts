@@ -10,13 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 export type GroupsV2GroupMemberCountFilter = 0 | 1 | 2 | 3;
 
 export const GroupsV2GroupMemberCountFilter = {
-    NUMBER_0: 0 as GroupsV2GroupMemberCountFilter,
-    NUMBER_1: 1 as GroupsV2GroupMemberCountFilter,
-    NUMBER_2: 2 as GroupsV2GroupMemberCountFilter,
-    NUMBER_3: 3 as GroupsV2GroupMemberCountFilter
+  NUMBER_0: 0 as GroupsV2GroupMemberCountFilter,
+  NUMBER_1: 1 as GroupsV2GroupMemberCountFilter,
+  NUMBER_2: 2 as GroupsV2GroupMemberCountFilter,
+  NUMBER_3: 3 as GroupsV2GroupMemberCountFilter
 };
-

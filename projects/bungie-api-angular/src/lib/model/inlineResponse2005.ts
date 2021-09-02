@@ -11,14 +11,12 @@
  */
 import { UserUserMembershipData } from './userUserMembershipData';
 
-
-export interface InlineResponse2005 { 
-    Response?: UserUserMembershipData;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse2005 {
+  Response?: UserUserMembershipData;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

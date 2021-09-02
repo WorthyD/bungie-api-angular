@@ -10,13 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 export type DestinyDestinySocketVisibility = 0 | 1 | 2 | 3;
 
 export const DestinyDestinySocketVisibility = {
-    NUMBER_0: 0 as DestinyDestinySocketVisibility,
-    NUMBER_1: 1 as DestinyDestinySocketVisibility,
-    NUMBER_2: 2 as DestinyDestinySocketVisibility,
-    NUMBER_3: 3 as DestinyDestinySocketVisibility
+  NUMBER_0: 0 as DestinyDestinySocketVisibility,
+  NUMBER_1: 1 as DestinyDestinySocketVisibility,
+  NUMBER_2: 2 as DestinyDestinySocketVisibility,
+  NUMBER_3: 3 as DestinyDestinySocketVisibility
 };
-

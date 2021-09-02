@@ -10,12 +10,10 @@
  * Do not edit the class manually.
  */
 
-
 export type SocialFriendsPresenceOnlineStateFlags = 0 | 1 | 2;
 
 export const SocialFriendsPresenceOnlineStateFlags = {
-    NUMBER_0: 0 as SocialFriendsPresenceOnlineStateFlags,
-    NUMBER_1: 1 as SocialFriendsPresenceOnlineStateFlags,
-    NUMBER_2: 2 as SocialFriendsPresenceOnlineStateFlags
+  NUMBER_0: 0 as SocialFriendsPresenceOnlineStateFlags,
+  NUMBER_1: 1 as SocialFriendsPresenceOnlineStateFlags,
+  NUMBER_2: 2 as SocialFriendsPresenceOnlineStateFlags
 };
-

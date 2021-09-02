@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * The action that happens when the user attempts to refund an item.
  */
 export type DestinyDestinyVendorItemRefundPolicy = 0 | 1 | 2;
 
 export const DestinyDestinyVendorItemRefundPolicy = {
-    NUMBER_0: 0 as DestinyDestinyVendorItemRefundPolicy,
-    NUMBER_1: 1 as DestinyDestinyVendorItemRefundPolicy,
-    NUMBER_2: 2 as DestinyDestinyVendorItemRefundPolicy
+  NUMBER_0: 0 as DestinyDestinyVendorItemRefundPolicy,
+  NUMBER_1: 1 as DestinyDestinyVendorItemRefundPolicy,
+  NUMBER_2: 2 as DestinyDestinyVendorItemRefundPolicy
 };
-

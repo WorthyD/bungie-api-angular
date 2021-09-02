@@ -11,15 +11,13 @@
  */
 import { DestinyDefinitionsCommonDestinyDisplayPropertiesDefinition } from './destinyDefinitionsCommonDestinyDisplayPropertiesDefinition';
 
-
 /**
  * A specific reason for being banned. Only accessible under the related category (DestinyReportReasonCategoryDefinition) under which it is shown. Note that this means that report reasons\' reasonHash are not globally unique: and indeed, entries like \"Other\" are defined under most categories for example.
  */
-export interface DestinyDefinitionsReportingDestinyReportReasonDefinition { 
-    /**
-     * The identifier for the reason: they are only guaranteed unique under the Category in which they are found.
-     */
-    reasonHash?: number;
-    displayProperties?: DestinyDefinitionsCommonDestinyDisplayPropertiesDefinition;
+export interface DestinyDefinitionsReportingDestinyReportReasonDefinition {
+  /**
+   * The identifier for the reason: they are only guaranteed unique under the Category in which they are found.
+   */
+  reasonHash?: number;
+  displayProperties?: DestinyDefinitionsCommonDestinyDisplayPropertiesDefinition;
 }
-

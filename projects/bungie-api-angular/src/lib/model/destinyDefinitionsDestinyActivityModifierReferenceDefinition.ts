@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * A reference to an Activity Modifier from another entity, such as an Activity (for now, just Activities).  This defines some
  */
-export interface DestinyDefinitionsDestinyActivityModifierReferenceDefinition { 
-    /**
-     * The hash identifier for the DestinyActivityModifierDefinition referenced by this activity.
-     */
-    activityModifierHash?: number;
+export interface DestinyDefinitionsDestinyActivityModifierReferenceDefinition {
+  /**
+   * The hash identifier for the DestinyActivityModifierDefinition referenced by this activity.
+   */
+  activityModifierHash?: number;
 }
-

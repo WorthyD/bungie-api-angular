@@ -10,11 +10,9 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * An overly complicated wrapper for the item level at which the item should spawn.
  */
-export interface DestinyDefinitionsDestinyItemCreationEntryLevelDefinition { 
-    level?: number;
+export interface DestinyDefinitionsDestinyItemCreationEntryLevelDefinition {
+  level?: number;
 }
-

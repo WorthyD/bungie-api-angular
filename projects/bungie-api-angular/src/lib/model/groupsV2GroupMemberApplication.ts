@@ -12,16 +12,14 @@
 import { GroupsV2GroupUserInfoCard } from './groupsV2GroupUserInfoCard';
 import { UserUserInfoCard } from './userUserInfoCard';
 
-
-export interface GroupsV2GroupMemberApplication { 
-    groupId?: number;
-    creationDate?: string;
-    resolveState?: number;
-    resolveDate?: string;
-    resolvedByMembershipId?: number;
-    requestMessage?: string;
-    resolveMessage?: string;
-    destinyUserInfo?: GroupsV2GroupUserInfoCard;
-    bungieNetUserInfo?: UserUserInfoCard;
+export interface GroupsV2GroupMemberApplication {
+  groupId?: number;
+  creationDate?: string;
+  resolveState?: number;
+  resolveDate?: string;
+  resolvedByMembershipId?: number;
+  requestMessage?: string;
+  resolveMessage?: string;
+  destinyUserInfo?: GroupsV2GroupUserInfoCard;
+  bungieNetUserInfo?: UserUserInfoCard;
 }
-

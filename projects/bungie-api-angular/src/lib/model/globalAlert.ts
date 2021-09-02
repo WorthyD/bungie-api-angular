@@ -11,14 +11,12 @@
  */
 import { StreamInfo } from './streamInfo';
 
-
-export interface GlobalAlert { 
-    AlertKey?: string;
-    AlertHtml?: string;
-    AlertTimestamp?: string;
-    AlertLink?: string;
-    AlertLevel?: number;
-    AlertType?: number;
-    StreamInfo?: StreamInfo;
+export interface GlobalAlert {
+  AlertKey?: string;
+  AlertHtml?: string;
+  AlertTimestamp?: string;
+  AlertLink?: string;
+  AlertLevel?: number;
+  AlertType?: number;
+  StreamInfo?: StreamInfo;
 }
-

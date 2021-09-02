@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface EntitiesEntityActionResult { 
-    entityId?: number;
-    result?: number;
+export interface EntitiesEntityActionResult {
+  entityId?: number;
+  result?: number;
 }
-

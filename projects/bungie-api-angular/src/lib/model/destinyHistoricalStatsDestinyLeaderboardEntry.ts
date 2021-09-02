@@ -12,23 +12,21 @@
 import { DestinyHistoricalStatsDestinyHistoricalStatsValue } from './destinyHistoricalStatsDestinyHistoricalStatsValue';
 import { DestinyHistoricalStatsDestinyPlayer } from './destinyHistoricalStatsDestinyPlayer';
 
-
-export interface DestinyHistoricalStatsDestinyLeaderboardEntry { 
-    /**
-     * Where this player ranks on the leaderboard. A value of 1 is the top rank.
-     */
-    rank?: number;
-    /**
-     * Identity details of the player
-     */
-    player?: DestinyHistoricalStatsDestinyPlayer;
-    /**
-     * ID of the player\'s best character for the reported stat.
-     */
-    characterId?: number;
-    /**
-     * Value of the stat for this player
-     */
-    value?: DestinyHistoricalStatsDestinyHistoricalStatsValue;
+export interface DestinyHistoricalStatsDestinyLeaderboardEntry {
+  /**
+   * Where this player ranks on the leaderboard. A value of 1 is the top rank.
+   */
+  rank?: number;
+  /**
+   * Identity details of the player
+   */
+  player?: DestinyHistoricalStatsDestinyPlayer;
+  /**
+   * ID of the player\'s best character for the reported stat.
+   */
+  characterId?: number;
+  /**
+   * Value of the stat for this player
+   */
+  value?: DestinyHistoricalStatsDestinyHistoricalStatsValue;
 }
-

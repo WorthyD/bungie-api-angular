@@ -10,11 +10,9 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyRequestsActionsDestinyItemStateRequest { 
-    state?: boolean;
-    itemId?: number;
-    characterId?: number;
-    membershipType?: number;
+export interface DestinyRequestsActionsDestinyItemStateRequest {
+  state?: boolean;
+  itemId?: number;
+  characterId?: number;
+  membershipType?: number;
 }
-

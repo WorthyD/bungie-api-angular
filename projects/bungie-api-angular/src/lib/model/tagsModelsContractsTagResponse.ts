@@ -11,9 +11,7 @@
  */
 import { IgnoresIgnoreResponse } from './ignoresIgnoreResponse';
 
-
-export interface TagsModelsContractsTagResponse { 
-    tagText?: string;
-    ignoreStatus?: IgnoresIgnoreResponse;
+export interface TagsModelsContractsTagResponse {
+  tagText?: string;
+  ignoreStatus?: IgnoresIgnoreResponse;
 }
-

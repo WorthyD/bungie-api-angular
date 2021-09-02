@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyRequestsActionsDestinyCharacterActionRequest { 
-    characterId?: number;
-    membershipType?: number;
+export interface DestinyRequestsActionsDestinyCharacterActionRequest {
+  characterId?: number;
+  membershipType?: number;
 }
-

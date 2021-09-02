@@ -10,13 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * Representing external partners to which BNet users can link accounts, but that are not Account System credentials: partnerships that BNet uses exclusively for data.
  */
 export type PartnershipsPartnershipType = 0 | 1;
 
 export const PartnershipsPartnershipType = {
-    NUMBER_0: 0 as PartnershipsPartnershipType,
-    NUMBER_1: 1 as PartnershipsPartnershipType
+  NUMBER_0: 0 as PartnershipsPartnershipType,
+  NUMBER_1: 1 as PartnershipsPartnershipType
 };

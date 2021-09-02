@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * Indicates how a perk should be shown, or if it should be, in the game UI. Maybe useful for those of you trying to filter out internal-use-only perks (or for those of you trying to figure out what they do!)
  */
 export type DestinyItemPerkVisibility = 0 | 1 | 2;
 
 export const DestinyItemPerkVisibility = {
-    NUMBER_0: 0 as DestinyItemPerkVisibility,
-    NUMBER_1: 1 as DestinyItemPerkVisibility,
-    NUMBER_2: 2 as DestinyItemPerkVisibility
+  NUMBER_0: 0 as DestinyItemPerkVisibility,
+  NUMBER_1: 1 as DestinyItemPerkVisibility,
+  NUMBER_2: 2 as DestinyItemPerkVisibility
 };
-

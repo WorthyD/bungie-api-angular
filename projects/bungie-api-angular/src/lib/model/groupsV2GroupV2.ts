@@ -12,35 +12,33 @@
 import { GroupsV2GroupV2ClanInfoAndInvestment } from './groupsV2GroupV2ClanInfoAndInvestment';
 import { GroupsV2GroupFeatures } from './groupsV2GroupFeatures';
 
-
-export interface GroupsV2GroupV2 { 
-    groupId?: number;
-    name?: string;
-    groupType?: number;
-    membershipIdCreated?: number;
-    creationDate?: string;
-    modificationDate?: string;
-    about?: string;
-    tags?: Array<string>;
-    memberCount?: number;
-    isPublic?: boolean;
-    isPublicTopicAdminOnly?: boolean;
-    motto?: string;
-    allowChat?: boolean;
-    isDefaultPostPublic?: boolean;
-    chatSecurity?: number;
-    locale?: string;
-    avatarImageIndex?: number;
-    homepage?: number;
-    membershipOption?: number;
-    defaultPublicity?: number;
-    theme?: string;
-    bannerPath?: string;
-    avatarPath?: string;
-    conversationId?: number;
-    enableInvitationMessagingForAdmins?: boolean;
-    banExpireDate?: string;
-    features?: GroupsV2GroupFeatures;
-    clanInfo?: GroupsV2GroupV2ClanInfoAndInvestment;
+export interface GroupsV2GroupV2 {
+  groupId?: number;
+  name?: string;
+  groupType?: number;
+  membershipIdCreated?: number;
+  creationDate?: string;
+  modificationDate?: string;
+  about?: string;
+  tags?: Array<string>;
+  memberCount?: number;
+  isPublic?: boolean;
+  isPublicTopicAdminOnly?: boolean;
+  motto?: string;
+  allowChat?: boolean;
+  isDefaultPostPublic?: boolean;
+  chatSecurity?: number;
+  locale?: string;
+  avatarImageIndex?: number;
+  homepage?: number;
+  membershipOption?: number;
+  defaultPublicity?: number;
+  theme?: string;
+  bannerPath?: string;
+  avatarPath?: string;
+  conversationId?: number;
+  enableInvitationMessagingForAdmins?: boolean;
+  banExpireDate?: string;
+  features?: GroupsV2GroupFeatures;
+  clanInfo?: GroupsV2GroupV2ClanInfoAndInvestment;
 }
-

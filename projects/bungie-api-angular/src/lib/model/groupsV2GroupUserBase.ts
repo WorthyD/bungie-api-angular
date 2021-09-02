@@ -12,11 +12,9 @@
 import { GroupsV2GroupUserInfoCard } from './groupsV2GroupUserInfoCard';
 import { UserUserInfoCard } from './userUserInfoCard';
 
-
-export interface GroupsV2GroupUserBase { 
-    groupId?: number;
-    destinyUserInfo?: GroupsV2GroupUserInfoCard;
-    bungieNetUserInfo?: UserUserInfoCard;
-    joinDate?: string;
+export interface GroupsV2GroupUserBase {
+  groupId?: number;
+  destinyUserInfo?: GroupsV2GroupUserInfoCard;
+  bungieNetUserInfo?: UserUserInfoCard;
+  joinDate?: string;
 }
-

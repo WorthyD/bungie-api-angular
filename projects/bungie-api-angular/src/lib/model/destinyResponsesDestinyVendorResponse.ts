@@ -16,34 +16,32 @@ import { DictionaryComponentResponseOfint32AndDestinyVendorSaleItemComponent } f
 import { SingleComponentResponseOfDestinyCurrenciesComponent } from './singleComponentResponseOfDestinyCurrenciesComponent';
 import { DestinyItemComponentSetOfint32 } from './destinyItemComponentSetOfint32';
 
-
 /**
  * A response containing all of the components for a vendor.
  */
-export interface DestinyResponsesDestinyVendorResponse { 
-    /**
-     * The base properties of the vendor.  COMPONENT TYPE: Vendors
-     */
-    vendor?: SingleComponentResponseOfDestinyVendorComponent;
-    /**
-     * Categories that the vendor has available, and references to the sales therein.  COMPONENT TYPE: VendorCategories
-     */
-    categories?: SingleComponentResponseOfDestinyVendorCategoriesComponent;
-    /**
-     * Sales, keyed by the vendorItemIndex of the item being sold.  COMPONENT TYPE: VendorSales
-     */
-    sales?: DictionaryComponentResponseOfint32AndDestinyVendorSaleItemComponent;
-    /**
-     * Item components, keyed by the vendorItemIndex of the active sale items.  COMPONENT TYPE: [See inside the DestinyItemComponentSet contract for component types.]
-     */
-    itemComponents?: DestinyItemComponentSetOfint32;
-    /**
-     * A \"lookup\" convenience component that can be used to quickly check if the character has access to items that can be used for purchasing.  COMPONENT TYPE: CurrencyLookups
-     */
-    currencyLookups?: SingleComponentResponseOfDestinyCurrenciesComponent;
-    /**
-     * A map of string variable values by hash for this character context.  COMPONENT TYPE: StringVariables
-     */
-    stringVariables?: SingleComponentResponseOfDestinyStringVariablesComponent;
+export interface DestinyResponsesDestinyVendorResponse {
+  /**
+   * The base properties of the vendor.  COMPONENT TYPE: Vendors
+   */
+  vendor?: SingleComponentResponseOfDestinyVendorComponent;
+  /**
+   * Categories that the vendor has available, and references to the sales therein.  COMPONENT TYPE: VendorCategories
+   */
+  categories?: SingleComponentResponseOfDestinyVendorCategoriesComponent;
+  /**
+   * Sales, keyed by the vendorItemIndex of the item being sold.  COMPONENT TYPE: VendorSales
+   */
+  sales?: DictionaryComponentResponseOfint32AndDestinyVendorSaleItemComponent;
+  /**
+   * Item components, keyed by the vendorItemIndex of the active sale items.  COMPONENT TYPE: [See inside the DestinyItemComponentSet contract for component types.]
+   */
+  itemComponents?: DestinyItemComponentSetOfint32;
+  /**
+   * A \"lookup\" convenience component that can be used to quickly check if the character has access to items that can be used for purchasing.  COMPONENT TYPE: CurrencyLookups
+   */
+  currencyLookups?: SingleComponentResponseOfDestinyCurrenciesComponent;
+  /**
+   * A map of string variable values by hash for this character context.  COMPONENT TYPE: StringVariables
+   */
+  stringVariables?: SingleComponentResponseOfDestinyStringVariablesComponent;
 }
-

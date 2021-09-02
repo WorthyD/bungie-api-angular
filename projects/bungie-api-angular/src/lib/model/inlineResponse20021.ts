@@ -11,14 +11,12 @@
  */
 import { GroupsV2GroupOptionalConversation } from './groupsV2GroupOptionalConversation';
 
-
-export interface InlineResponse20021 { 
-    Response?: Array<GroupsV2GroupOptionalConversation>;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse20021 {
+  Response?: Array<GroupsV2GroupOptionalConversation>;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

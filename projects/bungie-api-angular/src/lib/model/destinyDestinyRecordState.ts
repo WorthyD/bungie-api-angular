@@ -10,20 +10,18 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * A Flags enumeration/bitmask where each bit represents a possible state that a Record/Triumph can be in.
  */
 export type DestinyDestinyRecordState = 0 | 1 | 2 | 4 | 8 | 16 | 32 | 64;
 
 export const DestinyDestinyRecordState = {
-    NUMBER_0: 0 as DestinyDestinyRecordState,
-    NUMBER_1: 1 as DestinyDestinyRecordState,
-    NUMBER_2: 2 as DestinyDestinyRecordState,
-    NUMBER_4: 4 as DestinyDestinyRecordState,
-    NUMBER_8: 8 as DestinyDestinyRecordState,
-    NUMBER_16: 16 as DestinyDestinyRecordState,
-    NUMBER_32: 32 as DestinyDestinyRecordState,
-    NUMBER_64: 64 as DestinyDestinyRecordState
+  NUMBER_0: 0 as DestinyDestinyRecordState,
+  NUMBER_1: 1 as DestinyDestinyRecordState,
+  NUMBER_2: 2 as DestinyDestinyRecordState,
+  NUMBER_4: 4 as DestinyDestinyRecordState,
+  NUMBER_8: 8 as DestinyDestinyRecordState,
+  NUMBER_16: 16 as DestinyDestinyRecordState,
+  NUMBER_32: 32 as DestinyDestinyRecordState,
+  NUMBER_64: 64 as DestinyDestinyRecordState
 };
-

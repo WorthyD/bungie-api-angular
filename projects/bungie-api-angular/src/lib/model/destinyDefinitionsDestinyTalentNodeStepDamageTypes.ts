@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
 export type DestinyDefinitionsDestinyTalentNodeStepDamageTypes = 0 | 1 | 2 | 4 | 8 | 15;
 
 export const DestinyDefinitionsDestinyTalentNodeStepDamageTypes = {
-    NUMBER_0: 0 as DestinyDefinitionsDestinyTalentNodeStepDamageTypes,
-    NUMBER_1: 1 as DestinyDefinitionsDestinyTalentNodeStepDamageTypes,
-    NUMBER_2: 2 as DestinyDefinitionsDestinyTalentNodeStepDamageTypes,
-    NUMBER_4: 4 as DestinyDefinitionsDestinyTalentNodeStepDamageTypes,
-    NUMBER_8: 8 as DestinyDefinitionsDestinyTalentNodeStepDamageTypes,
-    NUMBER_15: 15 as DestinyDefinitionsDestinyTalentNodeStepDamageTypes
+  NUMBER_0: 0 as DestinyDefinitionsDestinyTalentNodeStepDamageTypes,
+  NUMBER_1: 1 as DestinyDefinitionsDestinyTalentNodeStepDamageTypes,
+  NUMBER_2: 2 as DestinyDefinitionsDestinyTalentNodeStepDamageTypes,
+  NUMBER_4: 4 as DestinyDefinitionsDestinyTalentNodeStepDamageTypes,
+  NUMBER_8: 8 as DestinyDefinitionsDestinyTalentNodeStepDamageTypes,
+  NUMBER_15: 15 as DestinyDefinitionsDestinyTalentNodeStepDamageTypes
 };
-

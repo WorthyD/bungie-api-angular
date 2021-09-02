@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface GroupsV2GroupBanRequest { 
-    comment?: string;
-    length?: number;
+export interface GroupsV2GroupBanRequest {
+  comment?: string;
+  length?: number;
 }
-

@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * The localized properties of the requirementsDisplay, allowing information about the requirement or item being featured to be seen.
  */
-export interface DestinyDefinitionsDestinyVendorRequirementDisplayEntryDefinition { 
-    icon?: string;
-    name?: string;
-    source?: string;
-    type?: string;
+export interface DestinyDefinitionsDestinyVendorRequirementDisplayEntryDefinition {
+  icon?: string;
+  name?: string;
+  source?: string;
+  type?: string;
 }
-

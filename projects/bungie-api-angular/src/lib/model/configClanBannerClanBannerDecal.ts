@@ -10,10 +10,8 @@
  * Do not edit the class manually.
  */
 
-
-export interface ConfigClanBannerClanBannerDecal { 
-    identifier?: string;
-    foregroundPath?: string;
-    backgroundPath?: string;
+export interface ConfigClanBannerClanBannerDecal {
+  identifier?: string;
+  foregroundPath?: string;
+  backgroundPath?: string;
 }
-

@@ -11,13 +11,11 @@
  */
 import { DestinyComponentsPresentationDestinyPresentationNodesComponent } from './destinyComponentsPresentationDestinyPresentationNodesComponent';
 
-
-export interface SingleComponentResponseOfDestinyPresentationNodesComponent { 
-    data?: DestinyComponentsPresentationDestinyPresentationNodesComponent;
-    privacy?: number;
-    /**
-     * If true, this component is disabled.
-     */
-    disabled?: boolean;
+export interface SingleComponentResponseOfDestinyPresentationNodesComponent {
+  data?: DestinyComponentsPresentationDestinyPresentationNodesComponent;
+  privacy?: number;
+  /**
+   * If true, this component is disabled.
+   */
+  disabled?: boolean;
 }
-

@@ -11,9 +11,7 @@
  */
 import { DestinyHistoricalStatsDestinyHistoricalStatsByPeriod } from './destinyHistoricalStatsDestinyHistoricalStatsByPeriod';
 
-
-export interface DestinyHistoricalStatsDestinyHistoricalStatsWithMerged { 
-    results?: { [key: string]: DestinyHistoricalStatsDestinyHistoricalStatsByPeriod; };
-    merged?: DestinyHistoricalStatsDestinyHistoricalStatsByPeriod;
+export interface DestinyHistoricalStatsDestinyHistoricalStatsWithMerged {
+  results?: { [key: string]: DestinyHistoricalStatsDestinyHistoricalStatsByPeriod };
+  merged?: DestinyHistoricalStatsDestinyHistoricalStatsByPeriod;
 }
-

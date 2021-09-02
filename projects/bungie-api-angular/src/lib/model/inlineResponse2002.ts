@@ -11,14 +11,12 @@
  */
 import { UserGeneralUser } from './userGeneralUser';
 
-
-export interface InlineResponse2002 { 
-    Response?: UserGeneralUser;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse2002 {
+  Response?: UserGeneralUser;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

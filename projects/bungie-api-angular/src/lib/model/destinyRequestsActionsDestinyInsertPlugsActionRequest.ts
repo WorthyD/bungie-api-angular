@@ -11,21 +11,19 @@
  */
 import { DestinyRequestsActionsDestinyInsertPlugsRequestEntry } from './destinyRequestsActionsDestinyInsertPlugsRequestEntry';
 
-
-export interface DestinyRequestsActionsDestinyInsertPlugsActionRequest { 
-    /**
-     * Action token provided by the AwaGetActionToken API call.
-     */
-    actionToken?: string;
-    /**
-     * The instance ID of the item having a plug inserted. Only instanced items can have sockets.
-     */
-    itemInstanceId?: number;
-    /**
-     * The plugs being inserted.
-     */
-    plug?: DestinyRequestsActionsDestinyInsertPlugsRequestEntry;
-    characterId?: number;
-    membershipType?: number;
+export interface DestinyRequestsActionsDestinyInsertPlugsActionRequest {
+  /**
+   * Action token provided by the AwaGetActionToken API call.
+   */
+  actionToken?: string;
+  /**
+   * The instance ID of the item having a plug inserted. Only instanced items can have sockets.
+   */
+  itemInstanceId?: number;
+  /**
+   * The plugs being inserted.
+   */
+  plug?: DestinyRequestsActionsDestinyInsertPlugsRequestEntry;
+  characterId?: number;
+  membershipType?: number;
 }
-

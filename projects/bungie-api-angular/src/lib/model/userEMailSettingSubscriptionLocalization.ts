@@ -10,17 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * Localized text relevant to a given EMail setting in a given localization. Extra settings specifically for subscriptions.
  */
-export interface UserEMailSettingSubscriptionLocalization { 
-    unknownUserDescription?: string;
-    registeredUserDescription?: string;
-    unregisteredUserDescription?: string;
-    unknownUserActionText?: string;
-    knownUserActionText?: string;
-    title?: string;
-    description?: string;
+export interface UserEMailSettingSubscriptionLocalization {
+  unknownUserDescription?: string;
+  registeredUserDescription?: string;
+  unregisteredUserDescription?: string;
+  unknownUserActionText?: string;
+  knownUserActionText?: string;
+  title?: string;
+  description?: string;
 }
-

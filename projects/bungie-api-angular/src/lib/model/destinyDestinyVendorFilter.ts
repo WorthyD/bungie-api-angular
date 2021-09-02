@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * Indicates the type of filter to apply to Vendor results.
  */
 export type DestinyDestinyVendorFilter = 0 | 1;
 
 export const DestinyDestinyVendorFilter = {
-    NUMBER_0: 0 as DestinyDestinyVendorFilter,
-    NUMBER_1: 1 as DestinyDestinyVendorFilter
+  NUMBER_0: 0 as DestinyDestinyVendorFilter,
+  NUMBER_1: 1 as DestinyDestinyVendorFilter
 };
-

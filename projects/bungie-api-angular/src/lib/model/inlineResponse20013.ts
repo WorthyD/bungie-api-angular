@@ -11,14 +11,12 @@
  */
 import { TagsModelsContractsTagResponse } from './tagsModelsContractsTagResponse';
 
-
-export interface InlineResponse20013 { 
-    Response?: Array<TagsModelsContractsTagResponse>;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse20013 {
+  Response?: Array<TagsModelsContractsTagResponse>;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

@@ -11,14 +11,12 @@
  */
 import { DestinyDestinyEquipItemResults } from './destinyDestinyEquipItemResults';
 
-
-export interface InlineResponse20046 { 
-    Response?: DestinyDestinyEquipItemResults;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse20046 {
+  Response?: DestinyDestinyEquipItemResults;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

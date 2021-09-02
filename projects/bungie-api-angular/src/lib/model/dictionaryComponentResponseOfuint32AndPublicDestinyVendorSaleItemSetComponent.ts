@@ -11,13 +11,11 @@
  */
 import { DestinyResponsesPublicDestinyVendorSaleItemSetComponent } from './destinyResponsesPublicDestinyVendorSaleItemSetComponent';
 
-
-export interface DictionaryComponentResponseOfuint32AndPublicDestinyVendorSaleItemSetComponent { 
-    data?: { [key: string]: DestinyResponsesPublicDestinyVendorSaleItemSetComponent; };
-    privacy?: number;
-    /**
-     * If true, this component is disabled.
-     */
-    disabled?: boolean;
+export interface DictionaryComponentResponseOfuint32AndPublicDestinyVendorSaleItemSetComponent {
+  data?: { [key: string]: DestinyResponsesPublicDestinyVendorSaleItemSetComponent };
+  privacy?: number;
+  /**
+   * If true, this component is disabled.
+   */
+  disabled?: boolean;
 }
-

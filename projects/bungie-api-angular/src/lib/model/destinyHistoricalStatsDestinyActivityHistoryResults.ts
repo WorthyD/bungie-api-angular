@@ -11,11 +11,9 @@
  */
 import { DestinyHistoricalStatsDestinyHistoricalStatsPeriodGroup } from './destinyHistoricalStatsDestinyHistoricalStatsPeriodGroup';
 
-
-export interface DestinyHistoricalStatsDestinyActivityHistoryResults { 
-    /**
-     * List of activities, the most recent activity first.
-     */
-    activities?: Array<DestinyHistoricalStatsDestinyHistoricalStatsPeriodGroup>;
+export interface DestinyHistoricalStatsDestinyActivityHistoryResults {
+  /**
+   * List of activities, the most recent activity first.
+   */
+  activities?: Array<DestinyHistoricalStatsDestinyHistoricalStatsPeriodGroup>;
 }
-

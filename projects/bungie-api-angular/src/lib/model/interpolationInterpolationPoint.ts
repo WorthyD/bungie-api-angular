@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface InterpolationInterpolationPoint { 
-    value?: number;
-    weight?: number;
+export interface InterpolationInterpolationPoint {
+  value?: number;
+  weight?: number;
 }
-

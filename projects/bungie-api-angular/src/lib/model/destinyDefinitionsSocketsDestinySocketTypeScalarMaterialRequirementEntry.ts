@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDefinitionsSocketsDestinySocketTypeScalarMaterialRequirementEntry { 
-    currencyItemHash?: number;
-    scalarValue?: number;
+export interface DestinyDefinitionsSocketsDestinySocketTypeScalarMaterialRequirementEntry {
+  currencyItemHash?: number;
+  scalarValue?: number;
 }
-

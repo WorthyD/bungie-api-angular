@@ -12,10 +12,8 @@
 import { DestinyDefinitionsRecordsDestinyRecordIntervalObjective } from './destinyDefinitionsRecordsDestinyRecordIntervalObjective';
 import { DestinyDefinitionsRecordsDestinyRecordIntervalRewards } from './destinyDefinitionsRecordsDestinyRecordIntervalRewards';
 
-
-export interface DestinyDefinitionsRecordsDestinyRecordIntervalBlock { 
-    intervalObjectives?: Array<DestinyDefinitionsRecordsDestinyRecordIntervalObjective>;
-    intervalRewards?: Array<DestinyDefinitionsRecordsDestinyRecordIntervalRewards>;
-    originalObjectiveArrayInsertionIndex?: number;
+export interface DestinyDefinitionsRecordsDestinyRecordIntervalBlock {
+  intervalObjectives?: Array<DestinyDefinitionsRecordsDestinyRecordIntervalObjective>;
+  intervalRewards?: Array<DestinyDefinitionsRecordsDestinyRecordIntervalRewards>;
+  originalObjectiveArrayInsertionIndex?: number;
 }
-

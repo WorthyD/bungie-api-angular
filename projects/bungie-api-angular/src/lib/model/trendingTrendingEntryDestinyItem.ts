@@ -10,8 +10,6 @@
  * Do not edit the class manually.
  */
 
-
-export interface TrendingTrendingEntryDestinyItem { 
-    itemHash?: number;
+export interface TrendingTrendingEntryDestinyItem {
+  itemHash?: number;
 }
-

@@ -10,12 +10,10 @@
  * Do not edit the class manually.
  */
 
-
 export type FireteamFireteamPublicSearchOption = 0 | 1 | 2;
 
 export const FireteamFireteamPublicSearchOption = {
-    NUMBER_0: 0 as FireteamFireteamPublicSearchOption,
-    NUMBER_1: 1 as FireteamFireteamPublicSearchOption,
-    NUMBER_2: 2 as FireteamFireteamPublicSearchOption
+  NUMBER_0: 0 as FireteamFireteamPublicSearchOption,
+  NUMBER_1: 1 as FireteamFireteamPublicSearchOption,
+  NUMBER_2: 2 as FireteamFireteamPublicSearchOption
 };
-

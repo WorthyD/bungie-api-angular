@@ -11,14 +11,12 @@
  */
 import { DestinyHistoricalStatsDestinyClanAggregateStat } from './destinyHistoricalStatsDestinyClanAggregateStat';
 
-
-export interface InlineResponse20051 { 
-    Response?: Array<DestinyHistoricalStatsDestinyClanAggregateStat>;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse20051 {
+  Response?: Array<DestinyHistoricalStatsDestinyClanAggregateStat>;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

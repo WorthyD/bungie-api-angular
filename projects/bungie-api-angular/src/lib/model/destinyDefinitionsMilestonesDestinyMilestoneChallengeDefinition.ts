@@ -10,11 +10,9 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDefinitionsMilestonesDestinyMilestoneChallengeDefinition { 
-    /**
-     * The challenge related to this milestone.
-     */
-    challengeObjectiveHash?: number;
+export interface DestinyDefinitionsMilestonesDestinyMilestoneChallengeDefinition {
+  /**
+   * The challenge related to this milestone.
+   */
+  challengeObjectiveHash?: number;
 }
-

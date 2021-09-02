@@ -11,8 +11,6 @@
  */
 import { DestinyDestinyItemQuantity } from './destinyDestinyItemQuantity';
 
-
-export interface DestinyDefinitionsRecordsDestinyRecordIntervalRewards { 
-    intervalRewardItems?: Array<DestinyDestinyItemQuantity>;
+export interface DestinyDefinitionsRecordsDestinyRecordIntervalRewards {
+  intervalRewardItems?: Array<DestinyDestinyItemQuantity>;
 }
-

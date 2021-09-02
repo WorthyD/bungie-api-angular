@@ -11,11 +11,9 @@
  */
 import { DestinyCharacterDestinyItemPeerView } from './destinyCharacterDestinyItemPeerView';
 
-
 /**
  * A minimal view of a character\'s equipped items, for the purpose of rendering a summary screen or showing the character in 3D.
  */
-export interface DestinyCharacterDestinyCharacterPeerView { 
-    equipment?: Array<DestinyCharacterDestinyItemPeerView>;
+export interface DestinyCharacterDestinyCharacterPeerView {
+  equipment?: Array<DestinyCharacterDestinyItemPeerView>;
 }
-

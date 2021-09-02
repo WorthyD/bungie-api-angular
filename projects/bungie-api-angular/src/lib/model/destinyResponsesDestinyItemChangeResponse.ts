@@ -12,16 +12,14 @@
 import { DestinyResponsesDestinyItemResponse } from './destinyResponsesDestinyItemResponse';
 import { DestinyEntitiesItemsDestinyItemComponent } from './destinyEntitiesItemsDestinyItemComponent';
 
-
-export interface DestinyResponsesDestinyItemChangeResponse { 
-    item?: DestinyResponsesDestinyItemResponse;
-    /**
-     * Items that appeared in the inventory possibly as a result of an action.
-     */
-    addedInventoryItems?: Array<DestinyEntitiesItemsDestinyItemComponent>;
-    /**
-     * Items that disappeared from the inventory possibly as a result of an action.
-     */
-    removedInventoryItems?: Array<DestinyEntitiesItemsDestinyItemComponent>;
+export interface DestinyResponsesDestinyItemChangeResponse {
+  item?: DestinyResponsesDestinyItemResponse;
+  /**
+   * Items that appeared in the inventory possibly as a result of an action.
+   */
+  addedInventoryItems?: Array<DestinyEntitiesItemsDestinyItemComponent>;
+  /**
+   * Items that disappeared from the inventory possibly as a result of an action.
+   */
+  removedInventoryItems?: Array<DestinyEntitiesItemsDestinyItemComponent>;
 }
-

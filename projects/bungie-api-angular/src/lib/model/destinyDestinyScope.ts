@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * There\'s a lot of places where we need to know scope on more than just a profile or character level. For everything else, there\'s this more generic sense of scope.
  */
 export type DestinyDestinyScope = 0 | 1;
 
 export const DestinyDestinyScope = {
-    NUMBER_0: 0 as DestinyDestinyScope,
-    NUMBER_1: 1 as DestinyDestinyScope
+  NUMBER_0: 0 as DestinyDestinyScope,
+  NUMBER_1: 1 as DestinyDestinyScope
 };
-

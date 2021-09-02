@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface GroupsV2GroupOptionalConversationAddRequest { 
-    chatName?: string;
-    chatSecurity?: number;
+export interface GroupsV2GroupOptionalConversationAddRequest {
+  chatName?: string;
+  chatSecurity?: number;
 }
-

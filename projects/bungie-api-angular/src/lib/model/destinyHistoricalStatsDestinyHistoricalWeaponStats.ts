@@ -11,15 +11,13 @@
  */
 import { DestinyHistoricalStatsDestinyHistoricalStatsValue } from './destinyHistoricalStatsDestinyHistoricalStatsValue';
 
-
-export interface DestinyHistoricalStatsDestinyHistoricalWeaponStats { 
-    /**
-     * The hash ID of the item definition that describes the weapon.
-     */
-    referenceId?: number;
-    /**
-     * Collection of stats for the period.
-     */
-    values?: { [key: string]: DestinyHistoricalStatsDestinyHistoricalStatsValue; };
+export interface DestinyHistoricalStatsDestinyHistoricalWeaponStats {
+  /**
+   * The hash ID of the item definition that describes the weapon.
+   */
+  referenceId?: number;
+  /**
+   * Collection of stats for the period.
+   */
+  values?: { [key: string]: DestinyHistoricalStatsDestinyHistoricalStatsValue };
 }
-

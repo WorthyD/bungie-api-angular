@@ -10,13 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 export type SocialFriendsPlatformFriendType = 0 | 1 | 2 | 3;
 
 export const SocialFriendsPlatformFriendType = {
-    NUMBER_0: 0 as SocialFriendsPlatformFriendType,
-    NUMBER_1: 1 as SocialFriendsPlatformFriendType,
-    NUMBER_2: 2 as SocialFriendsPlatformFriendType,
-    NUMBER_3: 3 as SocialFriendsPlatformFriendType
+  NUMBER_0: 0 as SocialFriendsPlatformFriendType,
+  NUMBER_1: 1 as SocialFriendsPlatformFriendType,
+  NUMBER_2: 2 as SocialFriendsPlatformFriendType,
+  NUMBER_3: 3 as SocialFriendsPlatformFriendType
 };
-

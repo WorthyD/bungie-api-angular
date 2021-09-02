@@ -10,11 +10,9 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDefinitionsDestinyVendorGroupReference { 
-    /**
-     * The DestinyVendorGroupDefinition to which this Vendor can belong.
-     */
-    vendorGroupHash?: number;
+export interface DestinyDefinitionsDestinyVendorGroupReference {
+  /**
+   * The DestinyVendorGroupDefinition to which this Vendor can belong.
+   */
+  vendorGroupHash?: number;
 }
-

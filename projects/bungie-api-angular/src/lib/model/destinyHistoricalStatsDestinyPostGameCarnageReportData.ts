@@ -13,27 +13,25 @@ import { DestinyHistoricalStatsDestinyPostGameCarnageReportEntry } from './desti
 import { DestinyHistoricalStatsDestinyPostGameCarnageReportTeamEntry } from './destinyHistoricalStatsDestinyPostGameCarnageReportTeamEntry';
 import { DestinyHistoricalStatsDestinyHistoricalStatsActivity } from './destinyHistoricalStatsDestinyHistoricalStatsActivity';
 
-
-export interface DestinyHistoricalStatsDestinyPostGameCarnageReportData { 
-    /**
-     * Date and time for the activity.
-     */
-    period?: string;
-    /**
-     * If this activity has \"phases\", this is the phase at which the activity was started.
-     */
-    startingPhaseIndex?: number;
-    /**
-     * Details about the activity.
-     */
-    activityDetails?: DestinyHistoricalStatsDestinyHistoricalStatsActivity;
-    /**
-     * Collection of players and their data for this activity.
-     */
-    entries?: Array<DestinyHistoricalStatsDestinyPostGameCarnageReportEntry>;
-    /**
-     * Collection of stats for the player in this activity.
-     */
-    teams?: Array<DestinyHistoricalStatsDestinyPostGameCarnageReportTeamEntry>;
+export interface DestinyHistoricalStatsDestinyPostGameCarnageReportData {
+  /**
+   * Date and time for the activity.
+   */
+  period?: string;
+  /**
+   * If this activity has \"phases\", this is the phase at which the activity was started.
+   */
+  startingPhaseIndex?: number;
+  /**
+   * Details about the activity.
+   */
+  activityDetails?: DestinyHistoricalStatsDestinyHistoricalStatsActivity;
+  /**
+   * Collection of players and their data for this activity.
+   */
+  entries?: Array<DestinyHistoricalStatsDestinyPostGameCarnageReportEntry>;
+  /**
+   * Collection of stats for the player in this activity.
+   */
+  teams?: Array<DestinyHistoricalStatsDestinyPostGameCarnageReportTeamEntry>;
 }
-

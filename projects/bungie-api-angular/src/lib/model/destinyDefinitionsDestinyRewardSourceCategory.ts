@@ -10,16 +10,14 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * BNet\'s custom categorization of reward sources. We took a look at the existing ways that items could be spawned, and tried to make high-level categorizations of them. This needs to be re-evaluated for Destiny 2.
  */
 export type DestinyDefinitionsDestinyRewardSourceCategory = 0 | 1 | 2 | 3;
 
 export const DestinyDefinitionsDestinyRewardSourceCategory = {
-    NUMBER_0: 0 as DestinyDefinitionsDestinyRewardSourceCategory,
-    NUMBER_1: 1 as DestinyDefinitionsDestinyRewardSourceCategory,
-    NUMBER_2: 2 as DestinyDefinitionsDestinyRewardSourceCategory,
-    NUMBER_3: 3 as DestinyDefinitionsDestinyRewardSourceCategory
+  NUMBER_0: 0 as DestinyDefinitionsDestinyRewardSourceCategory,
+  NUMBER_1: 1 as DestinyDefinitionsDestinyRewardSourceCategory,
+  NUMBER_2: 2 as DestinyDefinitionsDestinyRewardSourceCategory,
+  NUMBER_3: 3 as DestinyDefinitionsDestinyRewardSourceCategory
 };
-

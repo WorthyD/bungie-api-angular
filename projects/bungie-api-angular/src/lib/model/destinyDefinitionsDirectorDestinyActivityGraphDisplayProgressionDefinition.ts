@@ -10,12 +10,10 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * When a Graph needs to show active Progressions, this defines those objectives as well as an identifier.
  */
-export interface DestinyDefinitionsDirectorDestinyActivityGraphDisplayProgressionDefinition { 
-    id?: number;
-    progressionHash?: number;
+export interface DestinyDefinitionsDirectorDestinyActivityGraphDisplayProgressionDefinition {
+  id?: number;
+  progressionHash?: number;
 }
-

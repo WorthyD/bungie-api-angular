@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 export type DestinyDestinyPresentationNodeType = 0 | 1 | 2 | 3 | 4;
 
 export const DestinyDestinyPresentationNodeType = {
-    NUMBER_0: 0 as DestinyDestinyPresentationNodeType,
-    NUMBER_1: 1 as DestinyDestinyPresentationNodeType,
-    NUMBER_2: 2 as DestinyDestinyPresentationNodeType,
-    NUMBER_3: 3 as DestinyDestinyPresentationNodeType,
-    NUMBER_4: 4 as DestinyDestinyPresentationNodeType
+  NUMBER_0: 0 as DestinyDestinyPresentationNodeType,
+  NUMBER_1: 1 as DestinyDestinyPresentationNodeType,
+  NUMBER_2: 2 as DestinyDestinyPresentationNodeType,
+  NUMBER_3: 3 as DestinyDestinyPresentationNodeType,
+  NUMBER_4: 4 as DestinyDestinyPresentationNodeType
 };
-

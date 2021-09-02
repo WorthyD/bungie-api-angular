@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDefinitionsDestinyGearArtArrangementReference { 
-    classHash?: number;
-    artArrangementHash?: number;
+export interface DestinyDefinitionsDestinyGearArtArrangementReference {
+  classHash?: number;
+  artArrangementHash?: number;
 }
-

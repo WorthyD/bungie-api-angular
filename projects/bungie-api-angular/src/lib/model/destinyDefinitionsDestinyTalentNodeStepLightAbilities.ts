@@ -10,17 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 export type DestinyDefinitionsDestinyTalentNodeStepLightAbilities = 0 | 1 | 2 | 4 | 8 | 16 | 32 | 63;
 
 export const DestinyDefinitionsDestinyTalentNodeStepLightAbilities = {
-    NUMBER_0: 0 as DestinyDefinitionsDestinyTalentNodeStepLightAbilities,
-    NUMBER_1: 1 as DestinyDefinitionsDestinyTalentNodeStepLightAbilities,
-    NUMBER_2: 2 as DestinyDefinitionsDestinyTalentNodeStepLightAbilities,
-    NUMBER_4: 4 as DestinyDefinitionsDestinyTalentNodeStepLightAbilities,
-    NUMBER_8: 8 as DestinyDefinitionsDestinyTalentNodeStepLightAbilities,
-    NUMBER_16: 16 as DestinyDefinitionsDestinyTalentNodeStepLightAbilities,
-    NUMBER_32: 32 as DestinyDefinitionsDestinyTalentNodeStepLightAbilities,
-    NUMBER_63: 63 as DestinyDefinitionsDestinyTalentNodeStepLightAbilities
+  NUMBER_0: 0 as DestinyDefinitionsDestinyTalentNodeStepLightAbilities,
+  NUMBER_1: 1 as DestinyDefinitionsDestinyTalentNodeStepLightAbilities,
+  NUMBER_2: 2 as DestinyDefinitionsDestinyTalentNodeStepLightAbilities,
+  NUMBER_4: 4 as DestinyDefinitionsDestinyTalentNodeStepLightAbilities,
+  NUMBER_8: 8 as DestinyDefinitionsDestinyTalentNodeStepLightAbilities,
+  NUMBER_16: 16 as DestinyDefinitionsDestinyTalentNodeStepLightAbilities,
+  NUMBER_32: 32 as DestinyDefinitionsDestinyTalentNodeStepLightAbilities,
+  NUMBER_63: 63 as DestinyDefinitionsDestinyTalentNodeStepLightAbilities
 };
-

@@ -10,8 +10,6 @@
  * Do not edit the class manually.
  */
 
-
-export interface GroupsV2GroupApplicationRequest { 
-    message?: string;
+export interface GroupsV2GroupApplicationRequest {
+  message?: string;
 }
-

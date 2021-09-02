@@ -11,9 +11,7 @@
  */
 import { UserUserMembership } from './userUserMembership';
 
-
-export interface GroupsV2GroupApplicationListRequest { 
-    memberships?: Array<UserUserMembership>;
-    message?: string;
+export interface GroupsV2GroupApplicationListRequest {
+  memberships?: Array<UserUserMembership>;
+  message?: string;
 }
-

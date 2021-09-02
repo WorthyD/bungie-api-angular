@@ -11,11 +11,9 @@
  */
 import { DestinyDefinitionsDestinyActivityLoadoutRequirement } from './destinyDefinitionsDestinyActivityLoadoutRequirement';
 
-
-export interface DestinyDefinitionsDestinyActivityLoadoutRequirementSet { 
-    /**
-     * The set of requirements that will be applied on the activity if this requirement set is active.
-     */
-    requirements?: Array<DestinyDefinitionsDestinyActivityLoadoutRequirement>;
+export interface DestinyDefinitionsDestinyActivityLoadoutRequirementSet {
+  /**
+   * The set of requirements that will be applied on the activity if this requirement set is active.
+   */
+  requirements?: Array<DestinyDefinitionsDestinyActivityLoadoutRequirement>;
 }
-

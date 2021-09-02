@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDefinitionsDestinyObjectiveDisplayProperties { 
-    /**
-     * The activity associated with this objective in the context of this item, if any.
-     */
-    activityHash?: number;
-    /**
-     * If true, the game shows this objective on item preview screens.
-     */
-    displayOnItemPreviewScreen?: boolean;
+export interface DestinyDefinitionsDestinyObjectiveDisplayProperties {
+  /**
+   * The activity associated with this objective in the context of this item, if any.
+   */
+  activityHash?: number;
+  /**
+   * If true, the game shows this objective on item preview screens.
+   */
+  displayOnItemPreviewScreen?: boolean;
 }
-

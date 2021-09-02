@@ -11,11 +11,9 @@
  */
 import { DestinyArtifactsDestinyArtifactTier } from './destinyArtifactsDestinyArtifactTier';
 
-
-export interface DestinyArtifactsDestinyArtifactCharacterScoped { 
-    artifactHash?: number;
-    pointsUsed?: number;
-    resetCount?: number;
-    tiers?: Array<DestinyArtifactsDestinyArtifactTier>;
+export interface DestinyArtifactsDestinyArtifactCharacterScoped {
+  artifactHash?: number;
+  pointsUsed?: number;
+  resetCount?: number;
+  tiers?: Array<DestinyArtifactsDestinyArtifactTier>;
 }
-

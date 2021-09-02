@@ -10,8 +10,6 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDefinitionsPresentationDestinyPresentationNodeChildEntry { 
-    presentationNodeHash?: number;
+export interface DestinyDefinitionsPresentationDestinyPresentationNodeChildEntry {
+  presentationNodeHash?: number;
 }
-

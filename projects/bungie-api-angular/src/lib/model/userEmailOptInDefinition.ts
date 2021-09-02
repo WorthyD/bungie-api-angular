@@ -11,26 +11,24 @@
  */
 import { UserEmailSubscriptionDefinition } from './userEmailSubscriptionDefinition';
 
-
 /**
  * Defines a single opt-in category: a wide-scoped permission to send emails for the subject related to the opt-in.
  */
-export interface UserEmailOptInDefinition { 
-    /**
-     * The unique identifier for this opt-in category.
-     */
-    name?: string;
-    /**
-     * The flag value for this opt-in category. For historical reasons, this is defined as a flags enum.
-     */
-    value?: number;
-    /**
-     * If true, this opt-in setting should be set by default in situations where accounts are created without explicit choices about what they\'re opting into.
-     */
-    setByDefault?: boolean;
-    /**
-     * Information about the dependent subscriptions for this opt-in.
-     */
-    dependentSubscriptions?: Array<UserEmailSubscriptionDefinition>;
+export interface UserEmailOptInDefinition {
+  /**
+   * The unique identifier for this opt-in category.
+   */
+  name?: string;
+  /**
+   * The flag value for this opt-in category. For historical reasons, this is defined as a flags enum.
+   */
+  value?: number;
+  /**
+   * If true, this opt-in setting should be set by default in situations where accounts are created without explicit choices about what they\'re opting into.
+   */
+  setByDefault?: boolean;
+  /**
+   * Information about the dependent subscriptions for this opt-in.
+   */
+  dependentSubscriptions?: Array<UserEmailSubscriptionDefinition>;
 }
-

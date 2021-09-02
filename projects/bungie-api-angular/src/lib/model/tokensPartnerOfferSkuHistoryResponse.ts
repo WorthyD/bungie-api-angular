@@ -11,14 +11,12 @@
  */
 import { TokensPartnerOfferHistoryResponse } from './tokensPartnerOfferHistoryResponse';
 
-
-export interface TokensPartnerOfferSkuHistoryResponse { 
-    SkuIdentifier?: string;
-    LocalizedName?: string;
-    LocalizedDescription?: string;
-    ClaimDate?: string;
-    AllOffersApplied?: boolean;
-    TransactionId?: string;
-    SkuOffers?: Array<TokensPartnerOfferHistoryResponse>;
+export interface TokensPartnerOfferSkuHistoryResponse {
+  SkuIdentifier?: string;
+  LocalizedName?: string;
+  LocalizedDescription?: string;
+  ClaimDate?: string;
+  AllOffersApplied?: boolean;
+  TransactionId?: string;
+  SkuOffers?: Array<TokensPartnerOfferHistoryResponse>;
 }
-

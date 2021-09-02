@@ -11,14 +11,12 @@
  */
 import { DestinyHistoricalStatsDestinyLeaderboard } from './destinyHistoricalStatsDestinyLeaderboard';
 
-
-export interface InlineResponse20050 { 
-    Response?: { [key: string]: { [key: string]: DestinyHistoricalStatsDestinyLeaderboard; }; };
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse20050 {
+  Response?: { [key: string]: { [key: string]: DestinyHistoricalStatsDestinyLeaderboard } };
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

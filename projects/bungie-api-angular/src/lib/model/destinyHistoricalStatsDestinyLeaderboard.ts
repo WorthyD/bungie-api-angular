@@ -11,9 +11,7 @@
  */
 import { DestinyHistoricalStatsDestinyLeaderboardEntry } from './destinyHistoricalStatsDestinyLeaderboardEntry';
 
-
-export interface DestinyHistoricalStatsDestinyLeaderboard { 
-    statId?: string;
-    entries?: Array<DestinyHistoricalStatsDestinyLeaderboardEntry>;
+export interface DestinyHistoricalStatsDestinyLeaderboard {
+  statId?: string;
+  entries?: Array<DestinyHistoricalStatsDestinyLeaderboardEntry>;
 }
-

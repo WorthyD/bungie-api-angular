@@ -12,16 +12,14 @@
 import { DestinyDefinitionsDestinyUnlockExpressionDefinition } from './destinyDefinitionsDestinyUnlockExpressionDefinition';
 import { DestinyDefinitionsDirectorDestinyLinkedGraphEntryDefinition } from './destinyDefinitionsDirectorDestinyLinkedGraphEntryDefinition';
 
-
 /**
  * This describes links between the current graph and others, as well as when that link is relevant.
  */
-export interface DestinyDefinitionsDirectorDestinyLinkedGraphDefinition { 
-    description?: string;
-    name?: string;
-    unlockExpression?: DestinyDefinitionsDestinyUnlockExpressionDefinition;
-    linkedGraphId?: number;
-    linkedGraphs?: Array<DestinyDefinitionsDirectorDestinyLinkedGraphEntryDefinition>;
-    overview?: string;
+export interface DestinyDefinitionsDirectorDestinyLinkedGraphDefinition {
+  description?: string;
+  name?: string;
+  unlockExpression?: DestinyDefinitionsDestinyUnlockExpressionDefinition;
+  linkedGraphId?: number;
+  linkedGraphs?: Array<DestinyDefinitionsDirectorDestinyLinkedGraphEntryDefinition>;
+  overview?: string;
 }
-

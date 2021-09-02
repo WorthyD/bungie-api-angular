@@ -10,29 +10,26 @@
  * Do not edit the class manually.
  */
 
-
-export interface SocialFriendsPlatformFriend { 
-    platformDisplayName?: string;
-    friendPlatform?: number;
-    destinyMembershipId?: number;
-    destinyMembershipType?: SocialFriendsPlatformFriend.DestinyMembershipTypeEnum;
-    bungieNetMembershipId?: number;
-    bungieGlobalDisplayName?: string;
-    bungieGlobalDisplayNameCode?: number;
+export interface SocialFriendsPlatformFriend {
+  platformDisplayName?: string;
+  friendPlatform?: number;
+  destinyMembershipId?: number;
+  destinyMembershipType?: SocialFriendsPlatformFriend.DestinyMembershipTypeEnum;
+  bungieNetMembershipId?: number;
+  bungieGlobalDisplayName?: string;
+  bungieGlobalDisplayNameCode?: number;
 }
 export namespace SocialFriendsPlatformFriend {
-    export type DestinyMembershipTypeEnum = 0 | 1 | 2 | 3 | 4 | 5 | 10 | 254 | -1;
-    export const DestinyMembershipTypeEnum = {
-        NUMBER_0: 0 as DestinyMembershipTypeEnum,
-        NUMBER_1: 1 as DestinyMembershipTypeEnum,
-        NUMBER_2: 2 as DestinyMembershipTypeEnum,
-        NUMBER_3: 3 as DestinyMembershipTypeEnum,
-        NUMBER_4: 4 as DestinyMembershipTypeEnum,
-        NUMBER_5: 5 as DestinyMembershipTypeEnum,
-        NUMBER_10: 10 as DestinyMembershipTypeEnum,
-        NUMBER_254: 254 as DestinyMembershipTypeEnum,
-        NUMBER_MINUS_1: -1 as DestinyMembershipTypeEnum
-    };
+  export type DestinyMembershipTypeEnum = 0 | 1 | 2 | 3 | 4 | 5 | 10 | 254 | -1;
+  export const DestinyMembershipTypeEnum = {
+    NUMBER_0: 0 as DestinyMembershipTypeEnum,
+    NUMBER_1: 1 as DestinyMembershipTypeEnum,
+    NUMBER_2: 2 as DestinyMembershipTypeEnum,
+    NUMBER_3: 3 as DestinyMembershipTypeEnum,
+    NUMBER_4: 4 as DestinyMembershipTypeEnum,
+    NUMBER_5: 5 as DestinyMembershipTypeEnum,
+    NUMBER_10: 10 as DestinyMembershipTypeEnum,
+    NUMBER_254: 254 as DestinyMembershipTypeEnum,
+    NUMBER_MINUS_1: -1 as DestinyMembershipTypeEnum
+  };
 }
-
-

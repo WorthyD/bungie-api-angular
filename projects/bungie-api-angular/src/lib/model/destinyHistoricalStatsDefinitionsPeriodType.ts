@@ -10,13 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 export type DestinyHistoricalStatsDefinitionsPeriodType = 0 | 1 | 2 | 3;
 
 export const DestinyHistoricalStatsDefinitionsPeriodType = {
-    NUMBER_0: 0 as DestinyHistoricalStatsDefinitionsPeriodType,
-    NUMBER_1: 1 as DestinyHistoricalStatsDefinitionsPeriodType,
-    NUMBER_2: 2 as DestinyHistoricalStatsDefinitionsPeriodType,
-    NUMBER_3: 3 as DestinyHistoricalStatsDefinitionsPeriodType
+  NUMBER_0: 0 as DestinyHistoricalStatsDefinitionsPeriodType,
+  NUMBER_1: 1 as DestinyHistoricalStatsDefinitionsPeriodType,
+  NUMBER_2: 2 as DestinyHistoricalStatsDefinitionsPeriodType,
+  NUMBER_3: 3 as DestinyHistoricalStatsDefinitionsPeriodType
 };
-

@@ -10,13 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * If this record has an expiration after which it cannot be earned, this is some information about that expiration.
  */
-export interface DestinyDefinitionsRecordsDestinyRecordExpirationBlock { 
-    hasExpiration?: boolean;
-    description?: string;
-    icon?: string;
+export interface DestinyDefinitionsRecordsDestinyRecordExpirationBlock {
+  hasExpiration?: boolean;
+  description?: string;
+  icon?: string;
 }
-

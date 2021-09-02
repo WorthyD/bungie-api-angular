@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface CommonModelsCoreSystem { 
-    enabled?: boolean;
-    parameters?: { [key: string]: string; };
+export interface CommonModelsCoreSystem {
+  enabled?: boolean;
+  parameters?: { [key: string]: string };
 }
-

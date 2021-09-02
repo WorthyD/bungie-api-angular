@@ -10,13 +10,11 @@
  * Do not edit the class manually.
  */
 
-
-export interface ContentModelsContentPreview { 
-    name?: string;
-    path?: string;
-    itemInSet?: boolean;
-    setTag?: string;
-    setNesting?: number;
-    useSetId?: number;
+export interface ContentModelsContentPreview {
+  name?: string;
+  path?: string;
+  itemInSet?: boolean;
+  setTag?: string;
+  setNesting?: number;
+  useSetId?: number;
 }
-

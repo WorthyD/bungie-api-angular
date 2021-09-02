@@ -10,10 +10,8 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDefinitionsDestinyActivityLoadoutRequirement { 
-    equipmentSlotHash?: number;
-    allowedEquippedItemHashes?: Array<number>;
-    allowedWeaponSubTypes?: Array<number>;
+export interface DestinyDefinitionsDestinyActivityLoadoutRequirement {
+  equipmentSlotHash?: number;
+  allowedEquippedItemHashes?: Array<number>;
+  allowedWeaponSubTypes?: Array<number>;
 }
-

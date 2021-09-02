@@ -10,10 +10,8 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDefinitionsAnimationsDestinyAnimationReference { 
-    animName?: string;
-    animIdentifier?: string;
-    path?: string;
+export interface DestinyDefinitionsAnimationsDestinyAnimationReference {
+  animName?: string;
+  animIdentifier?: string;
+  path?: string;
 }
-

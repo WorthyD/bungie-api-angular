@@ -11,8 +11,6 @@
  */
 import { DictionaryComponentResponseOfint32AndDestinyItemObjectivesComponent } from './dictionaryComponentResponseOfint32AndDestinyItemObjectivesComponent';
 
-
-export interface DestinyBaseItemComponentSetOfint32 { 
-    objectives?: DictionaryComponentResponseOfint32AndDestinyItemObjectivesComponent;
+export interface DestinyBaseItemComponentSetOfint32 {
+  objectives?: DictionaryComponentResponseOfint32AndDestinyItemObjectivesComponent;
 }
-

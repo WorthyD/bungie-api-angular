@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * The definition of a known, reusable plug that can be applied to a socket.
  */
-export interface DestinyDefinitionsDestinyItemSocketEntryPlugItemDefinition { 
-    /**
-     * The hash identifier of a DestinyInventoryItemDefinition representing the plug that can be inserted.
-     */
-    plugItemHash?: number;
+export interface DestinyDefinitionsDestinyItemSocketEntryPlugItemDefinition {
+  /**
+   * The hash identifier of a DestinyInventoryItemDefinition representing the plug that can be inserted.
+   */
+  plugItemHash?: number;
 }
-

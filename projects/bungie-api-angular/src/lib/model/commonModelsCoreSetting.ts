@@ -10,13 +10,11 @@
  * Do not edit the class manually.
  */
 
-
-export interface CommonModelsCoreSetting { 
-    identifier?: string;
-    isDefault?: boolean;
-    displayName?: string;
-    summary?: string;
-    imagePath?: string;
-    childSettings?: Array<CommonModelsCoreSetting>;
+export interface CommonModelsCoreSetting {
+  identifier?: string;
+  isDefault?: boolean;
+  displayName?: string;
+  summary?: string;
+  imagePath?: string;
+  childSettings?: Array<CommonModelsCoreSetting>;
 }
-

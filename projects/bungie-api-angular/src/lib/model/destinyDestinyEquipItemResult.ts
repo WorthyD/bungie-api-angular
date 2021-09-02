@@ -10,18 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * The results of an Equipping operation performed through the Destiny API.
  */
-export interface DestinyDestinyEquipItemResult { 
-    /**
-     * The instance ID of the item in question (all items that can be equipped must, but definition, be Instanced and thus have an Instance ID that you can use to refer to them)
-     */
-    itemInstanceId?: number;
-    /**
-     * A PlatformErrorCodes enum indicating whether it succeeded, and if it failed why.
-     */
-    equipStatus?: number;
+export interface DestinyDestinyEquipItemResult {
+  /**
+   * The instance ID of the item in question (all items that can be equipped must, but definition, be Instanced and thus have an Instance ID that you can use to refer to them)
+   */
+  itemInstanceId?: number;
+  /**
+   * A PlatformErrorCodes enum indicating whether it succeeded, and if it failed why.
+   */
+  equipStatus?: number;
 }
-

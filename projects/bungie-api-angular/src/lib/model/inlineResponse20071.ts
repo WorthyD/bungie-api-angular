@@ -11,14 +11,12 @@
  */
 import { CommonModelsCoreSettingsConfiguration } from './commonModelsCoreSettingsConfiguration';
 
-
-export interface InlineResponse20071 { 
-    Response?: CommonModelsCoreSettingsConfiguration;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse20071 {
+  Response?: CommonModelsCoreSettingsConfiguration;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

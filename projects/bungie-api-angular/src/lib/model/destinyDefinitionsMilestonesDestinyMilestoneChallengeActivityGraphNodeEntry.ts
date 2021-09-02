@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDefinitionsMilestonesDestinyMilestoneChallengeActivityGraphNodeEntry { 
-    activityGraphHash?: number;
-    activityGraphNodeHash?: number;
+export interface DestinyDefinitionsMilestonesDestinyMilestoneChallengeActivityGraphNodeEntry {
+  activityGraphHash?: number;
+  activityGraphNodeHash?: number;
 }
-

@@ -10,11 +10,9 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDefinitionsMilestonesDestinyMilestoneChallengeActivityPhase { 
-    /**
-     * The hash identifier of the activity\'s phase.
-     */
-    phaseHash?: number;
+export interface DestinyDefinitionsMilestonesDestinyMilestoneChallengeActivityPhase {
+  /**
+   * The hash identifier of the activity\'s phase.
+   */
+  phaseHash?: number;
 }
-

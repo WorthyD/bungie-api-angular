@@ -11,16 +11,14 @@
  */
 import { DestinyComponentsRecordsDestinyRecordComponent } from './destinyComponentsRecordsDestinyRecordComponent';
 
-
-export interface DestinyComponentsRecordsDestinyRecordsComponent { 
-    records?: { [key: string]: DestinyComponentsRecordsDestinyRecordComponent; };
-    /**
-     * The hash for the root presentation node definition of Triumph categories.
-     */
-    recordCategoriesRootNodeHash?: number;
-    /**
-     * The hash for the root presentation node definition of Triumph Seals.
-     */
-    recordSealsRootNodeHash?: number;
+export interface DestinyComponentsRecordsDestinyRecordsComponent {
+  records?: { [key: string]: DestinyComponentsRecordsDestinyRecordComponent };
+  /**
+   * The hash for the root presentation node definition of Triumph categories.
+   */
+  recordCategoriesRootNodeHash?: number;
+  /**
+   * The hash for the root presentation node definition of Triumph Seals.
+   */
+  recordSealsRootNodeHash?: number;
 }
-

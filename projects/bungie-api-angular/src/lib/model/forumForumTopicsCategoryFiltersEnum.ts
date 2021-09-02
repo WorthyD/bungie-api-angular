@@ -10,18 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 export type ForumForumTopicsCategoryFiltersEnum = 0 | 1 | 2 | 4 | 8 | 16 | 32 | 64 | 128;
 
 export const ForumForumTopicsCategoryFiltersEnum = {
-    NUMBER_0: 0 as ForumForumTopicsCategoryFiltersEnum,
-    NUMBER_1: 1 as ForumForumTopicsCategoryFiltersEnum,
-    NUMBER_2: 2 as ForumForumTopicsCategoryFiltersEnum,
-    NUMBER_4: 4 as ForumForumTopicsCategoryFiltersEnum,
-    NUMBER_8: 8 as ForumForumTopicsCategoryFiltersEnum,
-    NUMBER_16: 16 as ForumForumTopicsCategoryFiltersEnum,
-    NUMBER_32: 32 as ForumForumTopicsCategoryFiltersEnum,
-    NUMBER_64: 64 as ForumForumTopicsCategoryFiltersEnum,
-    NUMBER_128: 128 as ForumForumTopicsCategoryFiltersEnum
+  NUMBER_0: 0 as ForumForumTopicsCategoryFiltersEnum,
+  NUMBER_1: 1 as ForumForumTopicsCategoryFiltersEnum,
+  NUMBER_2: 2 as ForumForumTopicsCategoryFiltersEnum,
+  NUMBER_4: 4 as ForumForumTopicsCategoryFiltersEnum,
+  NUMBER_8: 8 as ForumForumTopicsCategoryFiltersEnum,
+  NUMBER_16: 16 as ForumForumTopicsCategoryFiltersEnum,
+  NUMBER_32: 32 as ForumForumTopicsCategoryFiltersEnum,
+  NUMBER_64: 64 as ForumForumTopicsCategoryFiltersEnum,
+  NUMBER_128: 128 as ForumForumTopicsCategoryFiltersEnum
 };
-

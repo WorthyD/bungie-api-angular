@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * When a vendor provides services, this is the localized name of those services.
  */
-export interface DestinyDefinitionsDestinyVendorServiceDefinition { 
-    /**
-     * The localized name of a service provided.
-     */
-    name?: string;
+export interface DestinyDefinitionsDestinyVendorServiceDefinition {
+  /**
+   * The localized name of a service provided.
+   */
+  name?: string;
 }
-

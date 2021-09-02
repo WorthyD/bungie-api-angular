@@ -11,18 +11,16 @@
  */
 import { DestinyEntitiesItemsDestinyItemComponent } from './destinyEntitiesItemsDestinyItemComponent';
 
-
 /**
  * A response containing all of the components for all requested vendors.
  */
-export interface DestinyResponsesInventoryChangedResponse { 
-    /**
-     * Items that appeared in the inventory possibly as a result of an action.
-     */
-    addedInventoryItems?: Array<DestinyEntitiesItemsDestinyItemComponent>;
-    /**
-     * Items that disappeared from the inventory possibly as a result of an action.
-     */
-    removedInventoryItems?: Array<DestinyEntitiesItemsDestinyItemComponent>;
+export interface DestinyResponsesInventoryChangedResponse {
+  /**
+   * Items that appeared in the inventory possibly as a result of an action.
+   */
+  addedInventoryItems?: Array<DestinyEntitiesItemsDestinyItemComponent>;
+  /**
+   * Items that disappeared from the inventory possibly as a result of an action.
+   */
+  removedInventoryItems?: Array<DestinyEntitiesItemsDestinyItemComponent>;
 }
-

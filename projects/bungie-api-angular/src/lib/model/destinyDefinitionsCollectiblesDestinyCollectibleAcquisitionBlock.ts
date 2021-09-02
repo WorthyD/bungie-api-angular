@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDefinitionsCollectiblesDestinyCollectibleAcquisitionBlock { 
-    acquireMaterialRequirementHash?: number;
-    acquireTimestampUnlockValueHash?: number;
+export interface DestinyDefinitionsCollectiblesDestinyCollectibleAcquisitionBlock {
+  acquireMaterialRequirementHash?: number;
+  acquireTimestampUnlockValueHash?: number;
 }
-

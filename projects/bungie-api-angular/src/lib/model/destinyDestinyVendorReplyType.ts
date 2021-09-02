@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * This determines the type of reply that a Vendor will have during an Interaction.
  */
 export type DestinyDestinyVendorReplyType = 0 | 1 | 2;
 
 export const DestinyDestinyVendorReplyType = {
-    NUMBER_0: 0 as DestinyDestinyVendorReplyType,
-    NUMBER_1: 1 as DestinyDestinyVendorReplyType,
-    NUMBER_2: 2 as DestinyDestinyVendorReplyType
+  NUMBER_0: 0 as DestinyDestinyVendorReplyType,
+  NUMBER_1: 1 as DestinyDestinyVendorReplyType,
+  NUMBER_2: 2 as DestinyDestinyVendorReplyType
 };
-

@@ -11,8 +11,6 @@
  */
 import { TrendingTrendingCategory } from './trendingTrendingCategory';
 
-
-export interface TrendingTrendingCategories { 
-    categories?: Array<TrendingTrendingCategory>;
+export interface TrendingTrendingCategories {
+  categories?: Array<TrendingTrendingCategory>;
 }
-

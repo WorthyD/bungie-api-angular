@@ -10,8 +10,6 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyRequestsActionsDestinyActionRequest { 
-    membershipType?: number;
+export interface DestinyRequestsActionsDestinyActionRequest {
+  membershipType?: number;
 }
-

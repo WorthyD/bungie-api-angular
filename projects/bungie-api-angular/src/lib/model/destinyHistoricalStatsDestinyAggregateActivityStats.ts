@@ -11,15 +11,13 @@
  */
 import { DestinyHistoricalStatsDestinyHistoricalStatsValue } from './destinyHistoricalStatsDestinyHistoricalStatsValue';
 
-
-export interface DestinyHistoricalStatsDestinyAggregateActivityStats { 
-    /**
-     * Hash ID that can be looked up in the DestinyActivityTable.
-     */
-    activityHash?: number;
-    /**
-     * Collection of stats for the player in this activity.
-     */
-    values?: { [key: string]: DestinyHistoricalStatsDestinyHistoricalStatsValue; };
+export interface DestinyHistoricalStatsDestinyAggregateActivityStats {
+  /**
+   * Hash ID that can be looked up in the DestinyActivityTable.
+   */
+  activityHash?: number;
+  /**
+   * Collection of stats for the player in this activity.
+   */
+  values?: { [key: string]: DestinyHistoricalStatsDestinyHistoricalStatsValue };
 }
-

@@ -13,31 +13,29 @@ import { DestinyHistoricalStatsDestinyHistoricalStatsValue } from './destinyHist
 import { DestinyHistoricalStatsDestinyPostGameCarnageReportExtendedData } from './destinyHistoricalStatsDestinyPostGameCarnageReportExtendedData';
 import { DestinyHistoricalStatsDestinyPlayer } from './destinyHistoricalStatsDestinyPlayer';
 
-
-export interface DestinyHistoricalStatsDestinyPostGameCarnageReportEntry { 
-    /**
-     * Standing of the player
-     */
-    standing?: number;
-    /**
-     * Score of the player if available
-     */
-    score?: DestinyHistoricalStatsDestinyHistoricalStatsValue;
-    /**
-     * Identity details of the player
-     */
-    player?: DestinyHistoricalStatsDestinyPlayer;
-    /**
-     * ID of the player\'s character used in the activity.
-     */
-    characterId?: number;
-    /**
-     * Collection of stats for the player in this activity.
-     */
-    values?: { [key: string]: DestinyHistoricalStatsDestinyHistoricalStatsValue; };
-    /**
-     * Extended data extracted from the activity blob.
-     */
-    extended?: DestinyHistoricalStatsDestinyPostGameCarnageReportExtendedData;
+export interface DestinyHistoricalStatsDestinyPostGameCarnageReportEntry {
+  /**
+   * Standing of the player
+   */
+  standing?: number;
+  /**
+   * Score of the player if available
+   */
+  score?: DestinyHistoricalStatsDestinyHistoricalStatsValue;
+  /**
+   * Identity details of the player
+   */
+  player?: DestinyHistoricalStatsDestinyPlayer;
+  /**
+   * ID of the player\'s character used in the activity.
+   */
+  characterId?: number;
+  /**
+   * Collection of stats for the player in this activity.
+   */
+  values?: { [key: string]: DestinyHistoricalStatsDestinyHistoricalStatsValue };
+  /**
+   * Extended data extracted from the activity blob.
+   */
+  extended?: DestinyHistoricalStatsDestinyPostGameCarnageReportExtendedData;
 }
-

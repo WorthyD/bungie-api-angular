@@ -10,21 +10,19 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * If the enum value is > 100, it is a \"special\" group that cannot be queried for directly (special cases apply to when they are returned, and are not relevant in general cases)
  */
 export type DestinyHistoricalStatsDefinitionsDestinyStatsGroupType = 0 | 1 | 2 | 3 | 100 | 101 | 102 | 103 | 104;
 
 export const DestinyHistoricalStatsDefinitionsDestinyStatsGroupType = {
-    NUMBER_0: 0 as DestinyHistoricalStatsDefinitionsDestinyStatsGroupType,
-    NUMBER_1: 1 as DestinyHistoricalStatsDefinitionsDestinyStatsGroupType,
-    NUMBER_2: 2 as DestinyHistoricalStatsDefinitionsDestinyStatsGroupType,
-    NUMBER_3: 3 as DestinyHistoricalStatsDefinitionsDestinyStatsGroupType,
-    NUMBER_100: 100 as DestinyHistoricalStatsDefinitionsDestinyStatsGroupType,
-    NUMBER_101: 101 as DestinyHistoricalStatsDefinitionsDestinyStatsGroupType,
-    NUMBER_102: 102 as DestinyHistoricalStatsDefinitionsDestinyStatsGroupType,
-    NUMBER_103: 103 as DestinyHistoricalStatsDefinitionsDestinyStatsGroupType,
-    NUMBER_104: 104 as DestinyHistoricalStatsDefinitionsDestinyStatsGroupType
+  NUMBER_0: 0 as DestinyHistoricalStatsDefinitionsDestinyStatsGroupType,
+  NUMBER_1: 1 as DestinyHistoricalStatsDefinitionsDestinyStatsGroupType,
+  NUMBER_2: 2 as DestinyHistoricalStatsDefinitionsDestinyStatsGroupType,
+  NUMBER_3: 3 as DestinyHistoricalStatsDefinitionsDestinyStatsGroupType,
+  NUMBER_100: 100 as DestinyHistoricalStatsDefinitionsDestinyStatsGroupType,
+  NUMBER_101: 101 as DestinyHistoricalStatsDefinitionsDestinyStatsGroupType,
+  NUMBER_102: 102 as DestinyHistoricalStatsDefinitionsDestinyStatsGroupType,
+  NUMBER_103: 103 as DestinyHistoricalStatsDefinitionsDestinyStatsGroupType,
+  NUMBER_104: 104 as DestinyHistoricalStatsDefinitionsDestinyStatsGroupType
 };
-

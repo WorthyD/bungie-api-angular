@@ -12,13 +12,11 @@
 import { DestinyHistoricalStatsDestinyHistoricalStatsValue } from './destinyHistoricalStatsDestinyHistoricalStatsValue';
 import { DestinyHistoricalStatsDestinyHistoricalStatsPeriodGroup } from './destinyHistoricalStatsDestinyHistoricalStatsPeriodGroup';
 
-
-export interface DestinyHistoricalStatsDestinyHistoricalStatsByPeriod { 
-    allTime?: { [key: string]: DestinyHistoricalStatsDestinyHistoricalStatsValue; };
-    allTimeTier1?: { [key: string]: DestinyHistoricalStatsDestinyHistoricalStatsValue; };
-    allTimeTier2?: { [key: string]: DestinyHistoricalStatsDestinyHistoricalStatsValue; };
-    allTimeTier3?: { [key: string]: DestinyHistoricalStatsDestinyHistoricalStatsValue; };
-    daily?: Array<DestinyHistoricalStatsDestinyHistoricalStatsPeriodGroup>;
-    monthly?: Array<DestinyHistoricalStatsDestinyHistoricalStatsPeriodGroup>;
+export interface DestinyHistoricalStatsDestinyHistoricalStatsByPeriod {
+  allTime?: { [key: string]: DestinyHistoricalStatsDestinyHistoricalStatsValue };
+  allTimeTier1?: { [key: string]: DestinyHistoricalStatsDestinyHistoricalStatsValue };
+  allTimeTier2?: { [key: string]: DestinyHistoricalStatsDestinyHistoricalStatsValue };
+  allTimeTier3?: { [key: string]: DestinyHistoricalStatsDestinyHistoricalStatsValue };
+  daily?: Array<DestinyHistoricalStatsDestinyHistoricalStatsPeriodGroup>;
+  monthly?: Array<DestinyHistoricalStatsDestinyHistoricalStatsPeriodGroup>;
 }
-

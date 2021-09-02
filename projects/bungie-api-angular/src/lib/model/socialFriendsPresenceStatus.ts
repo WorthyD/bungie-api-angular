@@ -10,11 +10,9 @@
  * Do not edit the class manually.
  */
 
-
 export type SocialFriendsPresenceStatus = 0 | 1;
 
 export const SocialFriendsPresenceStatus = {
-    NUMBER_0: 0 as SocialFriendsPresenceStatus,
-    NUMBER_1: 1 as SocialFriendsPresenceStatus
+  NUMBER_0: 0 as SocialFriendsPresenceStatus,
+  NUMBER_1: 1 as SocialFriendsPresenceStatus
 };
-

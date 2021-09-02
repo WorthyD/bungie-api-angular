@@ -11,13 +11,11 @@
  */
 import { ContentModelsTagMetadataItem } from './contentModelsTagMetadataItem';
 
-
-export interface ContentModelsTagMetadataDefinition { 
-    description?: string;
-    order?: number;
-    items?: Array<ContentModelsTagMetadataItem>;
-    datatype?: string;
-    name?: string;
-    isRequired?: boolean;
+export interface ContentModelsTagMetadataDefinition {
+  description?: string;
+  order?: number;
+  items?: Array<ContentModelsTagMetadataItem>;
+  datatype?: string;
+  name?: string;
+  isRequired?: boolean;
 }
-

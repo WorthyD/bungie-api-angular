@@ -12,10 +12,8 @@
 import { FireteamFireteamMember } from './fireteamFireteamMember';
 import { FireteamFireteamSummary } from './fireteamFireteamSummary';
 
-
-export interface FireteamFireteamResponse { 
-    Summary?: FireteamFireteamSummary;
-    Members?: Array<FireteamFireteamMember>;
-    Alternates?: Array<FireteamFireteamMember>;
+export interface FireteamFireteamResponse {
+  Summary?: FireteamFireteamSummary;
+  Members?: Array<FireteamFireteamMember>;
+  Alternates?: Array<FireteamFireteamMember>;
 }
-

@@ -10,11 +10,9 @@
  * Do not edit the class manually.
  */
 
-
 export type GlobalAlertType = 0 | 1;
 
 export const GlobalAlertType = {
-    NUMBER_0: 0 as GlobalAlertType,
-    NUMBER_1: 1 as GlobalAlertType
+  NUMBER_0: 0 as GlobalAlertType,
+  NUMBER_1: 1 as GlobalAlertType
 };
-

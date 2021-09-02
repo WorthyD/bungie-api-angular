@@ -10,13 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 export type SocialFriendsFriendRelationshipState = 0 | 1 | 2 | 3;
 
 export const SocialFriendsFriendRelationshipState = {
-    NUMBER_0: 0 as SocialFriendsFriendRelationshipState,
-    NUMBER_1: 1 as SocialFriendsFriendRelationshipState,
-    NUMBER_2: 2 as SocialFriendsFriendRelationshipState,
-    NUMBER_3: 3 as SocialFriendsFriendRelationshipState
+  NUMBER_0: 0 as SocialFriendsFriendRelationshipState,
+  NUMBER_1: 1 as SocialFriendsFriendRelationshipState,
+  NUMBER_2: 2 as SocialFriendsFriendRelationshipState,
+  NUMBER_3: 3 as SocialFriendsFriendRelationshipState
 };
-

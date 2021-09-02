@@ -10,19 +10,17 @@
  * Do not edit the class manually.
  */
 
-
 export type UserOptInFlags = 0 | 1 | 2 | 4 | 8 | 16 | 32 | 64 | 128 | 256;
 
 export const UserOptInFlags = {
-    NUMBER_0: 0 as UserOptInFlags,
-    NUMBER_1: 1 as UserOptInFlags,
-    NUMBER_2: 2 as UserOptInFlags,
-    NUMBER_4: 4 as UserOptInFlags,
-    NUMBER_8: 8 as UserOptInFlags,
-    NUMBER_16: 16 as UserOptInFlags,
-    NUMBER_32: 32 as UserOptInFlags,
-    NUMBER_64: 64 as UserOptInFlags,
-    NUMBER_128: 128 as UserOptInFlags,
-    NUMBER_256: 256 as UserOptInFlags
+  NUMBER_0: 0 as UserOptInFlags,
+  NUMBER_1: 1 as UserOptInFlags,
+  NUMBER_2: 2 as UserOptInFlags,
+  NUMBER_4: 4 as UserOptInFlags,
+  NUMBER_8: 8 as UserOptInFlags,
+  NUMBER_16: 16 as UserOptInFlags,
+  NUMBER_32: 32 as UserOptInFlags,
+  NUMBER_64: 64 as UserOptInFlags,
+  NUMBER_128: 128 as UserOptInFlags,
+  NUMBER_256: 256 as UserOptInFlags
 };
-

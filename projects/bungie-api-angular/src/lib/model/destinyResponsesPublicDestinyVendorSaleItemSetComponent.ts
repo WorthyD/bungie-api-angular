@@ -11,8 +11,6 @@
  */
 import { DestinyComponentsVendorsDestinyPublicVendorSaleItemComponent } from './destinyComponentsVendorsDestinyPublicVendorSaleItemComponent';
 
-
-export interface DestinyResponsesPublicDestinyVendorSaleItemSetComponent { 
-    saleItems?: { [key: string]: DestinyComponentsVendorsDestinyPublicVendorSaleItemComponent; };
+export interface DestinyResponsesPublicDestinyVendorSaleItemSetComponent {
+  saleItems?: { [key: string]: DestinyComponentsVendorsDestinyPublicVendorSaleItemComponent };
 }
-

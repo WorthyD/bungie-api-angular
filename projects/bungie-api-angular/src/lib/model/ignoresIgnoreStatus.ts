@@ -10,16 +10,14 @@
  * Do not edit the class manually.
  */
 
-
 export type IgnoresIgnoreStatus = 0 | 1 | 2 | 4 | 8 | 16 | 32;
 
 export const IgnoresIgnoreStatus = {
-    NUMBER_0: 0 as IgnoresIgnoreStatus,
-    NUMBER_1: 1 as IgnoresIgnoreStatus,
-    NUMBER_2: 2 as IgnoresIgnoreStatus,
-    NUMBER_4: 4 as IgnoresIgnoreStatus,
-    NUMBER_8: 8 as IgnoresIgnoreStatus,
-    NUMBER_16: 16 as IgnoresIgnoreStatus,
-    NUMBER_32: 32 as IgnoresIgnoreStatus
+  NUMBER_0: 0 as IgnoresIgnoreStatus,
+  NUMBER_1: 1 as IgnoresIgnoreStatus,
+  NUMBER_2: 2 as IgnoresIgnoreStatus,
+  NUMBER_4: 4 as IgnoresIgnoreStatus,
+  NUMBER_8: 8 as IgnoresIgnoreStatus,
+  NUMBER_16: 16 as IgnoresIgnoreStatus,
+  NUMBER_32: 32 as IgnoresIgnoreStatus
 };
-

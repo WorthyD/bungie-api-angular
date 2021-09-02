@@ -10,17 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * Represents the different states a progression reward item can be in.
  */
 export type DestinyDestinyProgressionRewardItemState = 0 | 1 | 2 | 4 | 8;
 
 export const DestinyDestinyProgressionRewardItemState = {
-    NUMBER_0: 0 as DestinyDestinyProgressionRewardItemState,
-    NUMBER_1: 1 as DestinyDestinyProgressionRewardItemState,
-    NUMBER_2: 2 as DestinyDestinyProgressionRewardItemState,
-    NUMBER_4: 4 as DestinyDestinyProgressionRewardItemState,
-    NUMBER_8: 8 as DestinyDestinyProgressionRewardItemState
+  NUMBER_0: 0 as DestinyDestinyProgressionRewardItemState,
+  NUMBER_1: 1 as DestinyDestinyProgressionRewardItemState,
+  NUMBER_2: 2 as DestinyDestinyProgressionRewardItemState,
+  NUMBER_4: 4 as DestinyDestinyProgressionRewardItemState,
+  NUMBER_8: 8 as DestinyDestinyProgressionRewardItemState
 };
-

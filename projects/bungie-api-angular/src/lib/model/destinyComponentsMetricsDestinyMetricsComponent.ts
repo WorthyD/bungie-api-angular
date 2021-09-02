@@ -11,9 +11,7 @@
  */
 import { DestinyComponentsMetricsDestinyMetricComponent } from './destinyComponentsMetricsDestinyMetricComponent';
 
-
-export interface DestinyComponentsMetricsDestinyMetricsComponent { 
-    metrics?: { [key: string]: DestinyComponentsMetricsDestinyMetricComponent; };
-    metricsRootNodeHash?: number;
+export interface DestinyComponentsMetricsDestinyMetricsComponent {
+  metrics?: { [key: string]: DestinyComponentsMetricsDestinyMetricComponent };
+  metricsRootNodeHash?: number;
 }
-

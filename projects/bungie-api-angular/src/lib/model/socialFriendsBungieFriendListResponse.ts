@@ -11,8 +11,6 @@
  */
 import { SocialFriendsBungieFriend } from './socialFriendsBungieFriend';
 
-
-export interface SocialFriendsBungieFriendListResponse { 
-    friends?: Array<SocialFriendsBungieFriend>;
+export interface SocialFriendsBungieFriendListResponse {
+  friends?: Array<SocialFriendsBungieFriend>;
 }
-

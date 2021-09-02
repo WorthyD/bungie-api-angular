@@ -10,16 +10,14 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * Whether you can transfer an item, and why not if you can\'t.
  */
 export type DestinyTransferStatuses = 0 | 1 | 2 | 4;
 
 export const DestinyTransferStatuses = {
-    NUMBER_0: 0 as DestinyTransferStatuses,
-    NUMBER_1: 1 as DestinyTransferStatuses,
-    NUMBER_2: 2 as DestinyTransferStatuses,
-    NUMBER_4: 4 as DestinyTransferStatuses
+  NUMBER_0: 0 as DestinyTransferStatuses,
+  NUMBER_1: 1 as DestinyTransferStatuses,
+  NUMBER_2: 2 as DestinyTransferStatuses,
+  NUMBER_4: 4 as DestinyTransferStatuses
 };
-

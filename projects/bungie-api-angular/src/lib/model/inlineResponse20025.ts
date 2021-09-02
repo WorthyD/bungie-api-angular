@@ -11,14 +11,12 @@
  */
 import { SearchResultOfGroupBan } from './searchResultOfGroupBan';
 
-
-export interface InlineResponse20025 { 
-    Response?: SearchResultOfGroupBan;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse20025 {
+  Response?: SearchResultOfGroupBan;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

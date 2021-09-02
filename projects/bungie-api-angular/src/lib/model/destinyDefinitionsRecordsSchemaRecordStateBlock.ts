@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDefinitionsRecordsSchemaRecordStateBlock { 
-    featuredPriority?: number;
-    obscuredString?: string;
+export interface DestinyDefinitionsRecordsSchemaRecordStateBlock {
+  featuredPriority?: number;
+  obscuredString?: string;
 }
-

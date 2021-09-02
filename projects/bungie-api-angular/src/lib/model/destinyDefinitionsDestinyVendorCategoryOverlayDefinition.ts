@@ -10,18 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * The details of an overlay prompt to show to a user. They are all fairly self-explanatory localized strings that can be shown.
  */
-export interface DestinyDefinitionsDestinyVendorCategoryOverlayDefinition { 
-    choiceDescription?: string;
-    description?: string;
-    icon?: string;
-    title?: string;
-    /**
-     * If this overlay has a currency item that it features, this is said featured item.
-     */
-    currencyItemHash?: number;
+export interface DestinyDefinitionsDestinyVendorCategoryOverlayDefinition {
+  choiceDescription?: string;
+  description?: string;
+  icon?: string;
+  title?: string;
+  /**
+   * If this overlay has a currency item that it features, this is said featured item.
+   */
+  currencyItemHash?: number;
 }
-

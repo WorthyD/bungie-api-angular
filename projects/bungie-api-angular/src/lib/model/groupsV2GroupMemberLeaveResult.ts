@@ -11,9 +11,7 @@
  */
 import { GroupsV2GroupV2 } from './groupsV2GroupV2';
 
-
-export interface GroupsV2GroupMemberLeaveResult { 
-    group?: GroupsV2GroupV2;
-    groupDeleted?: boolean;
+export interface GroupsV2GroupMemberLeaveResult {
+  group?: GroupsV2GroupV2;
+  groupDeleted?: boolean;
 }
-

@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 export type ForumForumTopicsQuickDateEnum = 0 | 1 | 2 | 3 | 4;
 
 export const ForumForumTopicsQuickDateEnum = {
-    NUMBER_0: 0 as ForumForumTopicsQuickDateEnum,
-    NUMBER_1: 1 as ForumForumTopicsQuickDateEnum,
-    NUMBER_2: 2 as ForumForumTopicsQuickDateEnum,
-    NUMBER_3: 3 as ForumForumTopicsQuickDateEnum,
-    NUMBER_4: 4 as ForumForumTopicsQuickDateEnum
+  NUMBER_0: 0 as ForumForumTopicsQuickDateEnum,
+  NUMBER_1: 1 as ForumForumTopicsQuickDateEnum,
+  NUMBER_2: 2 as ForumForumTopicsQuickDateEnum,
+  NUMBER_3: 3 as ForumForumTopicsQuickDateEnum,
+  NUMBER_4: 4 as ForumForumTopicsQuickDateEnum
 };
-

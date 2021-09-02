@@ -11,13 +11,11 @@
  */
 import { DestinyComponentsPlugSetsDestinyPlugSetsComponent } from './destinyComponentsPlugSetsDestinyPlugSetsComponent';
 
-
-export interface DictionaryComponentResponseOfint64AndDestinyPlugSetsComponent { 
-    data?: { [key: string]: DestinyComponentsPlugSetsDestinyPlugSetsComponent; };
-    privacy?: number;
-    /**
-     * If true, this component is disabled.
-     */
-    disabled?: boolean;
+export interface DictionaryComponentResponseOfint64AndDestinyPlugSetsComponent {
+  data?: { [key: string]: DestinyComponentsPlugSetsDestinyPlugSetsComponent };
+  privacy?: number;
+  /**
+   * If true, this component is disabled.
+   */
+  disabled?: boolean;
 }
-

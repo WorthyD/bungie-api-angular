@@ -10,12 +10,10 @@
  * Do not edit the class manually.
  */
 
-
-export interface ContentModelsTagMetadataItem { 
-    description?: string;
-    tagText?: string;
-    groups?: Array<string>;
-    isDefault?: boolean;
-    name?: string;
+export interface ContentModelsTagMetadataItem {
+  description?: string;
+  tagText?: string;
+  groups?: Array<string>;
+  isDefault?: boolean;
+  name?: string;
 }
-

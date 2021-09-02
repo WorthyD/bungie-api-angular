@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * The version definition currently just holds a reference to the power cap.
  */
-export interface DestinyDefinitionsDestinyItemVersionDefinition { 
-    /**
-     * A reference to the power cap for this item version.
-     */
-    powerCapHash?: number;
+export interface DestinyDefinitionsDestinyItemVersionDefinition {
+  /**
+   * A reference to the power cap for this item version.
+   */
+  powerCapHash?: number;
 }
-

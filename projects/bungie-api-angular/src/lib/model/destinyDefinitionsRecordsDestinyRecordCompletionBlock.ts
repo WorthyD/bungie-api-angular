@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDefinitionsRecordsDestinyRecordCompletionBlock { 
-    /**
-     * The number of objectives that must be completed before the objective is considered \"complete\"
-     */
-    partialCompletionObjectiveCountThreshold?: number;
-    ScoreValue?: number;
-    shouldFireToast?: boolean;
-    toastStyle?: number;
+export interface DestinyDefinitionsRecordsDestinyRecordCompletionBlock {
+  /**
+   * The number of objectives that must be completed before the objective is considered \"complete\"
+   */
+  partialCompletionObjectiveCountThreshold?: number;
+  ScoreValue?: number;
+  shouldFireToast?: boolean;
+  toastStyle?: number;
 }
-

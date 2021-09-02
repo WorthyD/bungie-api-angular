@@ -10,13 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 export type GlobalAlertLevel = 0 | 1 | 2 | 3;
 
 export const GlobalAlertLevel = {
-    NUMBER_0: 0 as GlobalAlertLevel,
-    NUMBER_1: 1 as GlobalAlertLevel,
-    NUMBER_2: 2 as GlobalAlertLevel,
-    NUMBER_3: 3 as GlobalAlertLevel
+  NUMBER_0: 0 as GlobalAlertLevel,
+  NUMBER_1: 1 as GlobalAlertLevel,
+  NUMBER_2: 2 as GlobalAlertLevel,
+  NUMBER_3: 3 as GlobalAlertLevel
 };
-

@@ -11,11 +11,9 @@
  */
 import { DestinyDestinyEquipItemResult } from './destinyDestinyEquipItemResult';
 
-
 /**
  * The results of a bulk Equipping operation performed through the Destiny API.
  */
-export interface DestinyDestinyEquipItemResults { 
-    equipResults?: Array<DestinyDestinyEquipItemResult>;
+export interface DestinyDestinyEquipItemResults {
+  equipResults?: Array<DestinyDestinyEquipItemResult>;
 }
-

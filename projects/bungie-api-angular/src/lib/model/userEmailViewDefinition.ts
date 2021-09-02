@@ -11,18 +11,16 @@
  */
 import { UserEmailViewDefinitionSetting } from './userEmailViewDefinitionSetting';
 
-
 /**
  * Represents a data-driven view for Email settings. Web/Mobile UI can use this data to show new EMail settings consistently without further manual work.
  */
-export interface UserEmailViewDefinition { 
-    /**
-     * The identifier for this view.
-     */
-    name?: string;
-    /**
-     * The ordered list of settings to show in this view.
-     */
-    viewSettings?: Array<UserEmailViewDefinitionSetting>;
+export interface UserEmailViewDefinition {
+  /**
+   * The identifier for this view.
+   */
+  name?: string;
+  /**
+   * The ordered list of settings to show in this view.
+   */
+  viewSettings?: Array<UserEmailViewDefinitionSetting>;
 }
-

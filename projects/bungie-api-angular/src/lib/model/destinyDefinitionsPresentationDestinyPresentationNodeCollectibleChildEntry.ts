@@ -10,8 +10,6 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDefinitionsPresentationDestinyPresentationNodeCollectibleChildEntry { 
-    collectibleHash?: number;
+export interface DestinyDefinitionsPresentationDestinyPresentationNodeCollectibleChildEntry {
+  collectibleHash?: number;
 }
-

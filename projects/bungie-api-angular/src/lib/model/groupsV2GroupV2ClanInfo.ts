@@ -11,12 +11,10 @@
  */
 import { GroupsV2ClanBanner } from './groupsV2ClanBanner';
 
-
 /**
  * This contract contains clan-specific group information. It does not include any investment data.
  */
-export interface GroupsV2GroupV2ClanInfo { 
-    clanCallsign?: string;
-    clanBannerData?: GroupsV2ClanBanner;
+export interface GroupsV2GroupV2ClanInfo {
+  clanCallsign?: string;
+  clanBannerData?: GroupsV2ClanBanner;
 }
-

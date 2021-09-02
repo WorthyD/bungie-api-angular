@@ -10,10 +10,8 @@
  * Do not edit the class manually.
  */
 
-
-export interface ConfigUserTheme { 
-    userThemeId?: number;
-    userThemeName?: string;
-    userThemeDescription?: string;
+export interface ConfigUserTheme {
+  userThemeId?: number;
+  userThemeName?: string;
+  userThemeDescription?: string;
 }
-

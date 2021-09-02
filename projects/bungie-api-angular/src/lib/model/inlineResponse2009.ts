@@ -11,14 +11,12 @@
  */
 import { SearchResultOfContentItemPublicContract } from './searchResultOfContentItemPublicContract';
 
-
-export interface InlineResponse2009 { 
-    Response?: SearchResultOfContentItemPublicContract;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse2009 {
+  Response?: SearchResultOfContentItemPublicContract;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

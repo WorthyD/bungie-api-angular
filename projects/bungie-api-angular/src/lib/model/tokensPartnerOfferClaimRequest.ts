@@ -10,10 +10,8 @@
  * Do not edit the class manually.
  */
 
-
-export interface TokensPartnerOfferClaimRequest { 
-    PartnerOfferId?: string;
-    BungieNetMembershipId?: number;
-    TransactionId?: string;
+export interface TokensPartnerOfferClaimRequest {
+  PartnerOfferId?: string;
+  BungieNetMembershipId?: number;
+  TransactionId?: string;
 }
-

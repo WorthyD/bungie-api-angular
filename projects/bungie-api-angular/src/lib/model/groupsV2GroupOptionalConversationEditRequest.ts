@@ -10,18 +10,15 @@
  * Do not edit the class manually.
  */
 
-
-export interface GroupsV2GroupOptionalConversationEditRequest { 
-    chatEnabled?: boolean;
-    chatName?: string;
-    chatSecurity?: GroupsV2GroupOptionalConversationEditRequest.ChatSecurityEnum;
+export interface GroupsV2GroupOptionalConversationEditRequest {
+  chatEnabled?: boolean;
+  chatName?: string;
+  chatSecurity?: GroupsV2GroupOptionalConversationEditRequest.ChatSecurityEnum;
 }
 export namespace GroupsV2GroupOptionalConversationEditRequest {
-    export type ChatSecurityEnum = 0 | 1;
-    export const ChatSecurityEnum = {
-        NUMBER_0: 0 as ChatSecurityEnum,
-        NUMBER_1: 1 as ChatSecurityEnum
-    };
+  export type ChatSecurityEnum = 0 | 1;
+  export const ChatSecurityEnum = {
+    NUMBER_0: 0 as ChatSecurityEnum,
+    NUMBER_1: 1 as ChatSecurityEnum
+  };
 }
-
-

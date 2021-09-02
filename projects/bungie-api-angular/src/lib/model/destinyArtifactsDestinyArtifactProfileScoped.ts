@@ -11,15 +11,13 @@
  */
 import { DestinyDestinyProgression } from './destinyDestinyProgression';
 
-
 /**
  * Represents a Seasonal Artifact and all data related to it for the requested Account.  It can be combined with Character-scoped data for a full picture of what a character has available/has chosen, or just these settings can be used for overview information.
  */
-export interface DestinyArtifactsDestinyArtifactProfileScoped { 
-    artifactHash?: number;
-    pointProgression?: DestinyDestinyProgression;
-    pointsAcquired?: number;
-    powerBonusProgression?: DestinyDestinyProgression;
-    powerBonus?: number;
+export interface DestinyArtifactsDestinyArtifactProfileScoped {
+  artifactHash?: number;
+  pointProgression?: DestinyDestinyProgression;
+  pointsAcquired?: number;
+  powerBonusProgression?: DestinyDestinyProgression;
+  powerBonus?: number;
 }
-

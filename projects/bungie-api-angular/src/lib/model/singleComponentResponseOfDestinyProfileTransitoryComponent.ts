@@ -11,13 +11,11 @@
  */
 import { DestinyComponentsProfilesDestinyProfileTransitoryComponent } from './destinyComponentsProfilesDestinyProfileTransitoryComponent';
 
-
-export interface SingleComponentResponseOfDestinyProfileTransitoryComponent { 
-    data?: DestinyComponentsProfilesDestinyProfileTransitoryComponent;
-    privacy?: number;
-    /**
-     * If true, this component is disabled.
-     */
-    disabled?: boolean;
+export interface SingleComponentResponseOfDestinyProfileTransitoryComponent {
+  data?: DestinyComponentsProfilesDestinyProfileTransitoryComponent;
+  privacy?: number;
+  /**
+   * If true, this component is disabled.
+   */
+  disabled?: boolean;
 }
-

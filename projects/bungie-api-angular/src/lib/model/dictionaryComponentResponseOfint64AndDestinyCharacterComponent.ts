@@ -11,13 +11,11 @@
  */
 import { DestinyEntitiesCharactersDestinyCharacterComponent } from './destinyEntitiesCharactersDestinyCharacterComponent';
 
-
-export interface DictionaryComponentResponseOfint64AndDestinyCharacterComponent { 
-    data?: { [key: string]: DestinyEntitiesCharactersDestinyCharacterComponent; };
-    privacy?: number;
-    /**
-     * If true, this component is disabled.
-     */
-    disabled?: boolean;
+export interface DictionaryComponentResponseOfint64AndDestinyCharacterComponent {
+  data?: { [key: string]: DestinyEntitiesCharactersDestinyCharacterComponent };
+  privacy?: number;
+  /**
+   * If true, this component is disabled.
+   */
+  disabled?: boolean;
 }
-

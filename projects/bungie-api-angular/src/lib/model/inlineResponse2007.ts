@@ -11,14 +11,12 @@
  */
 import { ContentModelsContentTypeDescription } from './contentModelsContentTypeDescription';
 
-
-export interface InlineResponse2007 { 
-    Response?: ContentModelsContentTypeDescription;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse2007 {
+  Response?: ContentModelsContentTypeDescription;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

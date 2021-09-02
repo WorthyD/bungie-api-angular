@@ -11,10 +11,8 @@
  */
 import { ForumPollResult } from './forumPollResult';
 
-
-export interface ForumPollResponse { 
-    topicId?: number;
-    results?: Array<ForumPollResult>;
-    totalVotes?: number;
+export interface ForumPollResponse {
+  topicId?: number;
+  results?: Array<ForumPollResult>;
+  totalVotes?: number;
 }
-

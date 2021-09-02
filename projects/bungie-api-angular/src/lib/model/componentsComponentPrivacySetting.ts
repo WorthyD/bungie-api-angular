@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * A set of flags for reason(s) why the component populated in the way that it did. Inspect the individual flags for the reasons.
  */
 export type ComponentsComponentPrivacySetting = 0 | 1 | 2;
 
 export const ComponentsComponentPrivacySetting = {
-    NUMBER_0: 0 as ComponentsComponentPrivacySetting,
-    NUMBER_1: 1 as ComponentsComponentPrivacySetting,
-    NUMBER_2: 2 as ComponentsComponentPrivacySetting
+  NUMBER_0: 0 as ComponentsComponentPrivacySetting,
+  NUMBER_1: 1 as ComponentsComponentPrivacySetting,
+  NUMBER_2: 2 as ComponentsComponentPrivacySetting
 };
-

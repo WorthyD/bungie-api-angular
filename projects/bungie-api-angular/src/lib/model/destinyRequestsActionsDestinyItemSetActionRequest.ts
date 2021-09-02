@@ -10,10 +10,8 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyRequestsActionsDestinyItemSetActionRequest { 
-    itemIds?: Array<number>;
-    characterId?: number;
-    membershipType?: number;
+export interface DestinyRequestsActionsDestinyItemSetActionRequest {
+  itemIds?: Array<number>;
+  characterId?: number;
+  membershipType?: number;
 }
-

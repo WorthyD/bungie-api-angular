@@ -11,8 +11,6 @@
  */
 import { DestinyComponentsPresentationDestinyPresentationNodeComponent } from './destinyComponentsPresentationDestinyPresentationNodeComponent';
 
-
-export interface DestinyComponentsPresentationDestinyPresentationNodesComponent { 
-    nodes?: { [key: string]: DestinyComponentsPresentationDestinyPresentationNodeComponent; };
+export interface DestinyComponentsPresentationDestinyPresentationNodesComponent {
+  nodes?: { [key: string]: DestinyComponentsPresentationDestinyPresentationNodeComponent };
 }
-

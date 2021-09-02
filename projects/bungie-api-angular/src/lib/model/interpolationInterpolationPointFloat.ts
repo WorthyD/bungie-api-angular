@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface InterpolationInterpolationPointFloat { 
-    value?: number;
-    weight?: number;
+export interface InterpolationInterpolationPointFloat {
+  value?: number;
+  weight?: number;
 }
-

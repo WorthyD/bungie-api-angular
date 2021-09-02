@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
 export type ForumForumPostPopularity = 0 | 1 | 2 | 3 | 4 | 5;
 
 export const ForumForumPostPopularity = {
-    NUMBER_0: 0 as ForumForumPostPopularity,
-    NUMBER_1: 1 as ForumForumPostPopularity,
-    NUMBER_2: 2 as ForumForumPostPopularity,
-    NUMBER_3: 3 as ForumForumPostPopularity,
-    NUMBER_4: 4 as ForumForumPostPopularity,
-    NUMBER_5: 5 as ForumForumPostPopularity
+  NUMBER_0: 0 as ForumForumPostPopularity,
+  NUMBER_1: 1 as ForumForumPostPopularity,
+  NUMBER_2: 2 as ForumForumPostPopularity,
+  NUMBER_3: 3 as ForumForumPostPopularity,
+  NUMBER_4: 4 as ForumForumPostPopularity,
+  NUMBER_5: 5 as ForumForumPostPopularity
 };
-

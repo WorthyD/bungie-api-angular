@@ -10,13 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 export type DestinyItemBindStatus = 0 | 1 | 2 | 3;
 
 export const DestinyItemBindStatus = {
-    NUMBER_0: 0 as DestinyItemBindStatus,
-    NUMBER_1: 1 as DestinyItemBindStatus,
-    NUMBER_2: 2 as DestinyItemBindStatus,
-    NUMBER_3: 3 as DestinyItemBindStatus
+  NUMBER_0: 0 as DestinyItemBindStatus,
+  NUMBER_1: 1 as DestinyItemBindStatus,
+  NUMBER_2: 2 as DestinyItemBindStatus,
+  NUMBER_3: 3 as DestinyItemBindStatus
 };
-

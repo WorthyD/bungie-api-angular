@@ -11,13 +11,11 @@
  */
 import { DestinyEntitiesItemsDestinyItemTalentGridComponent } from './destinyEntitiesItemsDestinyItemTalentGridComponent';
 
-
-export interface SingleComponentResponseOfDestinyItemTalentGridComponent { 
-    data?: DestinyEntitiesItemsDestinyItemTalentGridComponent;
-    privacy?: number;
-    /**
-     * If true, this component is disabled.
-     */
-    disabled?: boolean;
+export interface SingleComponentResponseOfDestinyItemTalentGridComponent {
+  data?: DestinyEntitiesItemsDestinyItemTalentGridComponent;
+  privacy?: number;
+  /**
+   * If true, this component is disabled.
+   */
+  disabled?: boolean;
 }
-

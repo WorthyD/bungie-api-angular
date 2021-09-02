@@ -10,11 +10,10 @@
  * Do not edit the class manually.
  */
 
-
 export type ApplicationsOAuthApplicationType = 0 | 1 | 2;
 
 export const ApplicationsOAuthApplicationType = {
-    NUMBER_0: 0 as ApplicationsOAuthApplicationType,
-    NUMBER_1: 1 as ApplicationsOAuthApplicationType,
-    NUMBER_2: 2 as ApplicationsOAuthApplicationType
+  NUMBER_0: 0 as ApplicationsOAuthApplicationType,
+  NUMBER_1: 1 as ApplicationsOAuthApplicationType,
+  NUMBER_2: 2 as ApplicationsOAuthApplicationType
 };

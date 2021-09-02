@@ -11,11 +11,9 @@
  */
 import { DestinyHistoricalStatsDestinyAggregateActivityStats } from './destinyHistoricalStatsDestinyAggregateActivityStats';
 
-
-export interface DestinyHistoricalStatsDestinyAggregateActivityResults { 
-    /**
-     * List of all activities the player has participated in.
-     */
-    activities?: Array<DestinyHistoricalStatsDestinyAggregateActivityStats>;
+export interface DestinyHistoricalStatsDestinyAggregateActivityResults {
+  /**
+   * List of all activities the player has participated in.
+   */
+  activities?: Array<DestinyHistoricalStatsDestinyAggregateActivityStats>;
 }
-

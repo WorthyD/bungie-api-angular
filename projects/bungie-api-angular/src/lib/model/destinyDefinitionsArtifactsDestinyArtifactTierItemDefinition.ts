@@ -10,11 +10,9 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDefinitionsArtifactsDestinyArtifactTierItemDefinition { 
-    /**
-     * The identifier of the Plug Item unlocked by activating this item in the Artifact.
-     */
-    itemHash?: number;
+export interface DestinyDefinitionsArtifactsDestinyArtifactTierItemDefinition {
+  /**
+   * The identifier of the Plug Item unlocked by activating this item in the Artifact.
+   */
+  itemHash?: number;
 }
-

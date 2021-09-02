@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyConfigGearAssetDataBaseDefinition { 
-    version?: number;
-    path?: string;
+export interface DestinyConfigGearAssetDataBaseDefinition {
+  version?: number;
+  path?: string;
 }
-

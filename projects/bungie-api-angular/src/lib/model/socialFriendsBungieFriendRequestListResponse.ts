@@ -11,9 +11,7 @@
  */
 import { SocialFriendsBungieFriend } from './socialFriendsBungieFriend';
 
-
-export interface SocialFriendsBungieFriendRequestListResponse { 
-    incomingRequests?: Array<SocialFriendsBungieFriend>;
-    outgoingRequests?: Array<SocialFriendsBungieFriend>;
+export interface SocialFriendsBungieFriendRequestListResponse {
+  incomingRequests?: Array<SocialFriendsBungieFriend>;
+  outgoingRequests?: Array<SocialFriendsBungieFriend>;
 }
-

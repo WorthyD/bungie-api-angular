@@ -11,14 +11,12 @@
  */
 import { UserModelsGetCredentialTypesForAccountResponse } from './userModelsGetCredentialTypesForAccountResponse';
 
-
-export interface InlineResponse2003 { 
-    Response?: Array<UserModelsGetCredentialTypesForAccountResponse>;
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse2003 {
+  Response?: Array<UserModelsGetCredentialTypesForAccountResponse>;
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

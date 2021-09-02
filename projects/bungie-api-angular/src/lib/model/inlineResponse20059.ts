@@ -11,14 +11,12 @@
  */
 import { DestinyMilestonesDestinyPublicMilestone } from './destinyMilestonesDestinyPublicMilestone';
 
-
-export interface InlineResponse20059 { 
-    Response?: { [key: string]: DestinyMilestonesDestinyPublicMilestone; };
-    ErrorCode?: number;
-    ThrottleSeconds?: number;
-    ErrorStatus?: string;
-    Message?: string;
-    MessageData?: { [key: string]: string; };
-    DetailedErrorTrace?: string;
+export interface InlineResponse20059 {
+  Response?: { [key: string]: DestinyMilestonesDestinyPublicMilestone };
+  ErrorCode?: number;
+  ThrottleSeconds?: number;
+  ErrorStatus?: string;
+  Message?: string;
+  MessageData?: { [key: string]: string };
+  DetailedErrorTrace?: string;
 }
-

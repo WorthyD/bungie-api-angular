@@ -10,12 +10,10 @@
  * Do not edit the class manually.
  */
 
-
 export type DestinyHistoricalStatsDefinitionsDestinyStatsMergeMethod = 0 | 1 | 2;
 
 export const DestinyHistoricalStatsDefinitionsDestinyStatsMergeMethod = {
-    NUMBER_0: 0 as DestinyHistoricalStatsDefinitionsDestinyStatsMergeMethod,
-    NUMBER_1: 1 as DestinyHistoricalStatsDefinitionsDestinyStatsMergeMethod,
-    NUMBER_2: 2 as DestinyHistoricalStatsDefinitionsDestinyStatsMergeMethod
+  NUMBER_0: 0 as DestinyHistoricalStatsDefinitionsDestinyStatsMergeMethod,
+  NUMBER_1: 1 as DestinyHistoricalStatsDefinitionsDestinyStatsMergeMethod,
+  NUMBER_2: 2 as DestinyHistoricalStatsDefinitionsDestinyStatsMergeMethod
 };
-

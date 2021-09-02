@@ -10,9 +10,7 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDefinitionsRecordsDestinyRecordIntervalObjective { 
-    intervalObjectiveHash?: number;
-    intervalScoreValue?: number;
+export interface DestinyDefinitionsRecordsDestinyRecordIntervalObjective {
+  intervalObjectiveHash?: number;
+  intervalScoreValue?: number;
 }
-

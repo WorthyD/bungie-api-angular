@@ -10,8 +10,6 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyDefinitionsDirectorDestinyLinkedGraphEntryDefinition { 
-    activityGraphHash?: number;
+export interface DestinyDefinitionsDirectorDestinyLinkedGraphEntryDefinition {
+  activityGraphHash?: number;
 }
-

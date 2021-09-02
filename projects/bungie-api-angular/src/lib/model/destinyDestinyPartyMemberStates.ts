@@ -10,17 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * A flags enumeration that represents a Fireteam Member\'s status.
  */
 export type DestinyDestinyPartyMemberStates = 0 | 1 | 2 | 4 | 8;
 
 export const DestinyDestinyPartyMemberStates = {
-    NUMBER_0: 0 as DestinyDestinyPartyMemberStates,
-    NUMBER_1: 1 as DestinyDestinyPartyMemberStates,
-    NUMBER_2: 2 as DestinyDestinyPartyMemberStates,
-    NUMBER_4: 4 as DestinyDestinyPartyMemberStates,
-    NUMBER_8: 8 as DestinyDestinyPartyMemberStates
+  NUMBER_0: 0 as DestinyDestinyPartyMemberStates,
+  NUMBER_1: 1 as DestinyDestinyPartyMemberStates,
+  NUMBER_2: 2 as DestinyDestinyPartyMemberStates,
+  NUMBER_4: 4 as DestinyDestinyPartyMemberStates,
+  NUMBER_8: 8 as DestinyDestinyPartyMemberStates
 };
-

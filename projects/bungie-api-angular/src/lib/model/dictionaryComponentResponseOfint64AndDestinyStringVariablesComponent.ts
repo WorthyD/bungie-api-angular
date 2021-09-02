@@ -11,13 +11,11 @@
  */
 import { DestinyComponentsStringVariablesDestinyStringVariablesComponent } from './destinyComponentsStringVariablesDestinyStringVariablesComponent';
 
-
-export interface DictionaryComponentResponseOfint64AndDestinyStringVariablesComponent { 
-    data?: { [key: string]: DestinyComponentsStringVariablesDestinyStringVariablesComponent; };
-    privacy?: number;
-    /**
-     * If true, this component is disabled.
-     */
-    disabled?: boolean;
+export interface DictionaryComponentResponseOfint64AndDestinyStringVariablesComponent {
+  data?: { [key: string]: DestinyComponentsStringVariablesDestinyStringVariablesComponent };
+  privacy?: number;
+  /**
+   * If true, this component is disabled.
+   */
+  disabled?: boolean;
 }
-

@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * The base class for any component-returning object that may need to indicate information about the state of the component being returned.
  */
-export interface ComponentsComponentResponse { 
-    privacy?: number;
-    /**
-     * If true, this component is disabled.
-     */
-    disabled?: boolean;
+export interface ComponentsComponentResponse {
+  privacy?: number;
+  /**
+   * If true, this component is disabled.
+   */
+  disabled?: boolean;
 }
-

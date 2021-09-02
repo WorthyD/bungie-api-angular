@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
-export interface DestinyConfigImagePyramidEntry { 
-    /**
-     * The name of the subfolder where these images are located.
-     */
-    name?: string;
-    /**
-     * The factor by which the original image size has been reduced.
-     */
-    factor?: number;
+export interface DestinyConfigImagePyramidEntry {
+  /**
+   * The name of the subfolder where these images are located.
+   */
+  name?: string;
+  /**
+   * The factor by which the original image size has been reduced.
+   */
+  factor?: number;
 }
-

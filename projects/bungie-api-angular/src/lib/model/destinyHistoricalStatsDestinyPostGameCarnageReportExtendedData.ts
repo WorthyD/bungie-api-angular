@@ -12,15 +12,13 @@
 import { DestinyHistoricalStatsDestinyHistoricalStatsValue } from './destinyHistoricalStatsDestinyHistoricalStatsValue';
 import { DestinyHistoricalStatsDestinyHistoricalWeaponStats } from './destinyHistoricalStatsDestinyHistoricalWeaponStats';
 
-
-export interface DestinyHistoricalStatsDestinyPostGameCarnageReportExtendedData { 
-    /**
-     * List of weapons and their perspective values.
-     */
-    weapons?: Array<DestinyHistoricalStatsDestinyHistoricalWeaponStats>;
-    /**
-     * Collection of stats for the player in this activity.
-     */
-    values?: { [key: string]: DestinyHistoricalStatsDestinyHistoricalStatsValue; };
+export interface DestinyHistoricalStatsDestinyPostGameCarnageReportExtendedData {
+  /**
+   * List of weapons and their perspective values.
+   */
+  weapons?: Array<DestinyHistoricalStatsDestinyHistoricalWeaponStats>;
+  /**
+   * Collection of stats for the player in this activity.
+   */
+  values?: { [key: string]: DestinyHistoricalStatsDestinyHistoricalStatsValue };
 }
-

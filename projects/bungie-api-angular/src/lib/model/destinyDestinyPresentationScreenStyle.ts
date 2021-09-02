@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
 /**
  * A hint for what screen should be shown when this presentation node is clicked into. How you use this is your UI is up to you.
  */
 export type DestinyDestinyPresentationScreenStyle = 0 | 1 | 2;
 
 export const DestinyDestinyPresentationScreenStyle = {
-    NUMBER_0: 0 as DestinyDestinyPresentationScreenStyle,
-    NUMBER_1: 1 as DestinyDestinyPresentationScreenStyle,
-    NUMBER_2: 2 as DestinyDestinyPresentationScreenStyle
+  NUMBER_0: 0 as DestinyDestinyPresentationScreenStyle,
+  NUMBER_1: 1 as DestinyDestinyPresentationScreenStyle,
+  NUMBER_2: 2 as DestinyDestinyPresentationScreenStyle
 };
-
