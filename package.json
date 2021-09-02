@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "patch-code-gen": "node patch-code-gen.js",
-    "swagger-gen": "openapi-generator-cli generate -g typescript-angular -o projects/bungie-api-angular/src/lib -i https://raw.githubusercontent.com/Bungie-net/api/master/openapi-2.json --skip-validate-spec"
+    "swagger-gen": "openapi-generator-cli generate -g typescript-angular -o projects/bungie-api-angular/src/lib -i https://raw.githubusercontent.com/Bungie-net/api/master/openapi-2.json --skip-validate-spec && prettier --write \"projects/bungie-api-angular/**/*.ts\""
   },
   "private": true,
   "dependencies": {
