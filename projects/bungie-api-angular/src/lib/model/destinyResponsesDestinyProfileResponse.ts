@@ -39,7 +39,7 @@ import { SingleComponentResponseOfDestinyProfileTransitoryComponent } from './si
 
 
 /**
- * The Response for GetDestinyProfile, with components for character and item-level data.
+ * The response for GetDestinyProfile, with components for character and item-level data.
  */
 export interface DestinyResponsesDestinyProfileResponse { 
     /**

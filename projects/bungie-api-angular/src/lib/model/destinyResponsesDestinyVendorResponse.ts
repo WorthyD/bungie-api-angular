@@ -18,7 +18,7 @@ import { DestinyItemComponentSetOfint32 } from './destinyItemComponentSetOfint32
 
 
 /**
- * A Response containing all of the components for a vendor.
+ * A response containing all of the components for a vendor.
  */
 export interface DestinyResponsesDestinyVendorResponse { 
     /**

@@ -22,7 +22,7 @@ import { SingleComponentResponseOfDestinyItemRenderComponent } from './singleCom
 
 
 /**
- * The Response object for retrieving an individual instanced item. None of these components are relevant for an item that doesn\'t have an \"itemInstanceId\": for those, get your information from the DestinyInventoryDefinition.
+ * The response object for retrieving an individual instanced item. None of these components are relevant for an item that doesn\'t have an \"itemInstanceId\": for those, get your information from the DestinyInventoryDefinition.
  */
 export interface DestinyResponsesDestinyItemResponse { 
     /**
