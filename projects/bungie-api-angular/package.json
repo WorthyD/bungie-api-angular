@@ -1,6 +1,6 @@
 {
   "name": "bungie-api-angular",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "peerDependencies": {
     "@angular/common": "^12.2.4",
     "@angular/core": "^12.2.4"

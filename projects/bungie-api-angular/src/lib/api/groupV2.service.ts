@@ -16,7 +16,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse, HttpEvent, HttpParam
 import { CustomHttpParameterCodec } from '../encoder';
 import { Observable } from 'rxjs';
 
-import { InlineResponse20012 } from '../model/models';
+import { GroupsV2GroupQuery, InlineResponse20012 } from '../model/models';
 import { InlineResponse20015 } from '../model/models';
 import { InlineResponse20016 } from '../model/models';
 import { InlineResponse20017 } from '../model/models';
@@ -2222,25 +2222,33 @@ export class GroupV2Service {
    * @param reportProgress flag to report request and response progress.
    */
   public groupV2GroupSearch(
+    body: GroupsV2GroupQuery,
     observe?: 'body',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: '*/*' }
   ): Observable<InlineResponse20019>;
   public groupV2GroupSearch(
+    body: GroupsV2GroupQuery,
     observe?: 'response',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: '*/*' }
   ): Observable<HttpResponse<InlineResponse20019>>;
   public groupV2GroupSearch(
+    body: GroupsV2GroupQuery,
     observe?: 'events',
     reportProgress?: boolean,
     options?: { httpHeaderAccept?: '*/*' }
   ): Observable<HttpEvent<InlineResponse20019>>;
   public groupV2GroupSearch(
+    body: GroupsV2GroupQuery,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
+    if (body === null || body === undefined) {
+      throw new Error('Required parameter body was null or undefined when calling groupV2GroupSearch.');
+    }
+
     let headers = this.defaultHeaders;
 
     let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
@@ -2258,7 +2266,7 @@ export class GroupV2Service {
       responseType = 'text';
     }
 
-    return this.httpClient.post<InlineResponse20019>(`${this.configuration.basePath}/GroupV2/Search/`, null, {
+    return this.httpClient.post<InlineResponse20019>(`${this.configuration.basePath}/GroupV2/Search/`, body, {
       responseType: <any>responseType,
       withCredentials: this.configuration.withCredentials,
       headers: headers,
