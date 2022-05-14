@@ -18,5 +18,6 @@ export * from './lib/api/fireteam.service';
 export * from './lib/api/forum.service';
 export * from './lib/api/groupV2.service';
 export * from './lib/api/preview.service';
+export * from './lib/api/tokens.service';
 export * from './lib/api/trending.service';
 export * from './lib/api/user.service';
