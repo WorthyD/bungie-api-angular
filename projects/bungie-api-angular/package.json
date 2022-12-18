@@ -1,9 +1,7 @@
 {
   "name": "bungie-api-angular",
-  "version": "0.5.1",
+  "version": "0.6.1",
   "peerDependencies": {
-    "@angular/common": "~13.3.6",
-    "@angular/core": "~13.3.6"
   },
   "author": "Daniel Worthy",
   "license": "MIT",

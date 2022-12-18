@@ -1,4 +1,4 @@
-import { HttpParameterCodec } from '@angular/common/http';
+import { HttpParameterCodec } from "@angular/common/http";
 
 export interface ConfigurationParameters {
   /**
@@ -58,16 +58,22 @@ export class Configuration {
     }
 
     // init default apiKey credential
-    if (!this.credentials['apiKey']) {
-      this.credentials['apiKey'] = () => {
-        return this.apiKeys['apiKey'] || this.apiKeys['X-API-Key'];
+    if (!this.credentials["apiKey"]) {
+      this.credentials["apiKey"] = () => {
+        if (this.apiKeys === null || this.apiKeys === undefined) {
+          return undefined;
+        } else {
+          return this.apiKeys["apiKey"] || this.apiKeys["X-API-Key"];
+        }
       };
     }
 
     // init default oauth2 credential
-    if (!this.credentials['oauth2']) {
-      this.credentials['oauth2'] = () => {
-        return typeof this.accessToken === 'function' ? this.accessToken() : this.accessToken;
+    if (!this.credentials["oauth2"]) {
+      this.credentials["oauth2"] = () => {
+        return typeof this.accessToken === "function"
+          ? this.accessToken()
+          : this.accessToken;
       };
     }
   }
@@ -121,12 +127,19 @@ export class Configuration {
    * @return True if the given MIME is JSON, false otherwise.
    */
   public isJsonMime(mime: string): boolean {
-    const jsonMime: RegExp = new RegExp('^(application/json|[^;/ \t]+/[^;/ \t]+[+]json)[ \t]*(;.*)?$', 'i');
-    return mime !== null && (jsonMime.test(mime) || mime.toLowerCase() === 'application/json-patch+json');
+    const jsonMime: RegExp = new RegExp(
+      "^(application/json|[^;/ \t]+/[^;/ \t]+[+]json)[ \t]*(;.*)?$",
+      "i"
+    );
+    return (
+      mime !== null &&
+      (jsonMime.test(mime) ||
+        mime.toLowerCase() === "application/json-patch+json")
+    );
   }
 
   public lookupCredential(key: string): string | undefined {
     const value = this.credentials[key];
-    return typeof value === 'function' ? value() : value;
+    return typeof value === "function" ? value() : value;
   }
 }
