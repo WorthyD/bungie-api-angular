@@ -11,65 +11,38 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional } from "@angular/core";
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpParams,
-  HttpResponse,
-  HttpEvent,
-  HttpParameterCodec,
-  HttpContext,
-} from "@angular/common/http";
-import { CustomHttpParameterCodec } from "../encoder";
-import { Observable } from "rxjs";
+import { Inject, Injectable, Optional } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse, HttpEvent, HttpParameterCodec } from '@angular/common/http';
+import { CustomHttpParameterCodec } from '../encoder';
+import { Observable } from 'rxjs';
 
-// @ts-ignore
-import { ForumGetTopicForContent200Response } from "../model/forumGetTopicForContent200Response";
-// @ts-ignore
-import { GroupV2ApproveAllPending200Response } from "../model/groupV2ApproveAllPending200Response";
-// @ts-ignore
-import { GroupV2EditGroup200Response } from "../model/groupV2EditGroup200Response";
-// @ts-ignore
-import { GroupV2GetAvailableThemes200Response } from "../model/groupV2GetAvailableThemes200Response";
-// @ts-ignore
-import { GroupV2GetBannedMembersOfGroup200Response } from "../model/groupV2GetBannedMembersOfGroup200Response";
-// @ts-ignore
-import { GroupV2GetGroup200Response } from "../model/groupV2GetGroup200Response";
-// @ts-ignore
-import { GroupV2GetGroupOptionalConversations200Response } from "../model/groupV2GetGroupOptionalConversations200Response";
-// @ts-ignore
-import { GroupV2GetGroupsForMember200Response } from "../model/groupV2GetGroupsForMember200Response";
-// @ts-ignore
-import { GroupV2GetMembersOfGroup200Response } from "../model/groupV2GetMembersOfGroup200Response";
-// @ts-ignore
-import { GroupV2GetPendingMemberships200Response } from "../model/groupV2GetPendingMemberships200Response";
-// @ts-ignore
-import { GroupV2GetPotentialGroupsForMember200Response } from "../model/groupV2GetPotentialGroupsForMember200Response";
-// @ts-ignore
-import { GroupV2GetRecommendedGroups200Response } from "../model/groupV2GetRecommendedGroups200Response";
-// @ts-ignore
-import { GroupV2GetUserClanInviteSetting200Response } from "../model/groupV2GetUserClanInviteSetting200Response";
-// @ts-ignore
-import { GroupV2GroupSearch200Response } from "../model/groupV2GroupSearch200Response";
-// @ts-ignore
-import { GroupV2IndividualGroupInvite200Response } from "../model/groupV2IndividualGroupInvite200Response";
-// @ts-ignore
-import { GroupV2KickMember200Response } from "../model/groupV2KickMember200Response";
-// @ts-ignore
-import { GroupV2RecoverGroupForFounder200Response } from "../model/groupV2RecoverGroupForFounder200Response";
-// @ts-ignore
-import { UserGetSanitizedPlatformDisplayNames200Response } from "../model/userGetSanitizedPlatformDisplayNames200Response";
+import { GroupsV2GroupQuery, InlineResponse20012 } from '../model/models';
+import { InlineResponse20015 } from '../model/models';
+import { InlineResponse20016 } from '../model/models';
+import { InlineResponse20017 } from '../model/models';
+import { InlineResponse20018 } from '../model/models';
+import { InlineResponse20019 } from '../model/models';
+import { InlineResponse20020 } from '../model/models';
+import { InlineResponse20021 } from '../model/models';
+import { InlineResponse20022 } from '../model/models';
+import { InlineResponse20023 } from '../model/models';
+import { InlineResponse20024 } from '../model/models';
+import { InlineResponse20025 } from '../model/models';
+import { InlineResponse20026 } from '../model/models';
+import { InlineResponse20027 } from '../model/models';
+import { InlineResponse20028 } from '../model/models';
+import { InlineResponse20029 } from '../model/models';
+import { InlineResponse20030 } from '../model/models';
+import { InlineResponse20031 } from '../model/models';
 
-// @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS } from "../variables";
-import { Configuration } from "../configuration";
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
+import { Configuration } from '../configuration';
 
 @Injectable({
   providedIn: "root",
 })
 export class GroupV2Service {
-  protected basePath = "https://www.bungie.net/Platform";
+  protected basePath = 'https://www.bungie.net/Platform';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
   public encoder: HttpParameterCodec;
@@ -82,8 +55,8 @@ export class GroupV2Service {
     if (configuration) {
       this.configuration = configuration;
     }
-    if (typeof this.configuration.basePath !== "string") {
-      if (typeof basePath !== "string") {
+    if (typeof this.configuration.basePath !== 'string') {
+      if (typeof basePath !== 'string') {
         basePath = this.basePath;
       }
       this.configuration.basePath = basePath;
@@ -91,13 +64,8 @@ export class GroupV2Service {
     this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
   }
 
-  // @ts-ignore
-  private addToHttpParams(
-    httpParams: HttpParams,
-    value: any,
-    key?: string
-  ): HttpParams {
-    if (typeof value === "object" && value instanceof Date === false) {
+  private addToHttpParams(httpParams: HttpParams, value: any, key?: string): HttpParams {
+    if (typeof value === 'object' && value instanceof Date === false) {
       httpParams = this.addToHttpParamsRecursive(httpParams, value);
     } else {
       httpParams = this.addToHttpParamsRecursive(httpParams, value, key);
@@ -105,44 +73,29 @@ export class GroupV2Service {
     return httpParams;
   }
 
-  private addToHttpParamsRecursive(
-    httpParams: HttpParams,
-    value?: any,
-    key?: string
-  ): HttpParams {
+  private addToHttpParamsRecursive(httpParams: HttpParams, value?: any, key?: string): HttpParams {
     if (value == null) {
       return httpParams;
     }
 
-    if (typeof value === "object") {
+    if (typeof value === 'object') {
       if (Array.isArray(value)) {
-        (value as any[]).forEach(
-          (elem) =>
-            (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key))
-        );
+        (value as any[]).forEach((elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key)));
       } else if (value instanceof Date) {
         if (key != null) {
-          httpParams = httpParams.append(
-            key,
-            (value as Date).toISOString().substr(0, 10)
-          );
+          httpParams = httpParams.append(key, (value as Date).toISOString().substr(0, 10));
         } else {
-          throw Error("key may not be null if value is Date");
+          throw Error('key may not be null if value is Date');
         }
       } else {
         Object.keys(value).forEach(
-          (k) =>
-            (httpParams = this.addToHttpParamsRecursive(
-              httpParams,
-              value[k],
-              key != null ? `${key}.${k}` : k
-            ))
+          (k) => (httpParams = this.addToHttpParamsRecursive(httpParams, value[k], key != null ? `${key}.${k}` : k))
         );
       }
     } else if (key != null) {
       httpParams = httpParams.append(key, value);
     } else {
-      throw Error("key may not be null if value is not object or array");
+      throw Error('key may not be null if value is not object or array');
     }
     return httpParams;
   }
@@ -159,100 +112,76 @@ export class GroupV2Service {
     founderIdNew: number,
     groupId: number,
     membershipType: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2GetUserClanInviteSetting200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20017>;
   public groupV2AbdicateFoundership(
     founderIdNew: number,
     groupId: number,
     membershipType: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2GetUserClanInviteSetting200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20017>>;
   public groupV2AbdicateFoundership(
     founderIdNew: number,
     groupId: number,
     membershipType: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2GetUserClanInviteSetting200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20017>>;
   public groupV2AbdicateFoundership(
     founderIdNew: number,
     groupId: number,
     membershipType: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (founderIdNew === null || founderIdNew === undefined) {
-      throw new Error(
-        "Required parameter founderIdNew was null or undefined when calling groupV2AbdicateFoundership."
-      );
+      throw new Error('Required parameter founderIdNew was null or undefined when calling groupV2AbdicateFoundership.');
     }
     if (groupId === null || groupId === undefined) {
-      throw new Error(
-        "Required parameter groupId was null or undefined when calling groupV2AbdicateFoundership."
-      );
+      throw new Error('Required parameter groupId was null or undefined when calling groupV2AbdicateFoundership.');
     }
     if (membershipType === null || membershipType === undefined) {
       throw new Error(
-        "Required parameter membershipType was null or undefined when calling groupV2AbdicateFoundership."
+        'Required parameter membershipType was null or undefined when calling groupV2AbdicateFoundership.'
       );
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.post<GroupV2GetUserClanInviteSetting200Response>(
+    return this.httpClient.post<InlineResponse20017>(
       `${this.configuration.basePath}/GroupV2/${encodeURIComponent(
         String(groupId)
-      )}/Admin/AbdicateFoundership/${encodeURIComponent(
-        String(membershipType)
-      )}/${encodeURIComponent(String(founderIdNew))}/`,
+      )}/Admin/AbdicateFoundership/${encodeURIComponent(String(membershipType))}/${encodeURIComponent(
+        String(founderIdNew)
+      )}/`,
       null,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -265,92 +194,65 @@ export class GroupV2Service {
    */
   public groupV2AddOptionalConversation(
     groupId: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<ForumGetTopicForContent200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20012>;
   public groupV2AddOptionalConversation(
     groupId: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<ForumGetTopicForContent200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20012>>;
   public groupV2AddOptionalConversation(
     groupId: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<ForumGetTopicForContent200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20012>>;
   public groupV2AddOptionalConversation(
     groupId: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (groupId === null || groupId === undefined) {
-      throw new Error(
-        "Required parameter groupId was null or undefined when calling groupV2AddOptionalConversation."
-      );
+      throw new Error('Required parameter groupId was null or undefined when calling groupV2AddOptionalConversation.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.post<ForumGetTopicForContent200Response>(
-      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(
-        String(groupId)
-      )}/OptionalConversations/Add/`,
+    return this.httpClient.post<InlineResponse20012>(
+      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(String(groupId))}/OptionalConversations/Add/`,
       null,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -363,92 +265,65 @@ export class GroupV2Service {
    */
   public groupV2ApproveAllPending(
     groupId: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2ApproveAllPending200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20027>;
   public groupV2ApproveAllPending(
     groupId: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2ApproveAllPending200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20027>>;
   public groupV2ApproveAllPending(
     groupId: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2ApproveAllPending200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20027>>;
   public groupV2ApproveAllPending(
     groupId: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (groupId === null || groupId === undefined) {
-      throw new Error(
-        "Required parameter groupId was null or undefined when calling groupV2ApproveAllPending."
-      );
+      throw new Error('Required parameter groupId was null or undefined when calling groupV2ApproveAllPending.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.post<GroupV2ApproveAllPending200Response>(
-      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(
-        String(groupId)
-      )}/Members/ApproveAll/`,
+    return this.httpClient.post<InlineResponse20027>(
+      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(String(groupId))}/Members/ApproveAll/`,
       null,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -465,110 +340,79 @@ export class GroupV2Service {
     groupId: number,
     membershipId: number,
     membershipType: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2GetUserClanInviteSetting200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20017>;
   public groupV2ApprovePending(
     groupId: number,
     membershipId: number,
     membershipType: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2GetUserClanInviteSetting200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20017>>;
   public groupV2ApprovePending(
     groupId: number,
     membershipId: number,
     membershipType: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2GetUserClanInviteSetting200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20017>>;
   public groupV2ApprovePending(
     groupId: number,
     membershipId: number,
     membershipType: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (groupId === null || groupId === undefined) {
-      throw new Error(
-        "Required parameter groupId was null or undefined when calling groupV2ApprovePending."
-      );
+      throw new Error('Required parameter groupId was null or undefined when calling groupV2ApprovePending.');
     }
     if (membershipId === null || membershipId === undefined) {
-      throw new Error(
-        "Required parameter membershipId was null or undefined when calling groupV2ApprovePending."
-      );
+      throw new Error('Required parameter membershipId was null or undefined when calling groupV2ApprovePending.');
     }
     if (membershipType === null || membershipType === undefined) {
-      throw new Error(
-        "Required parameter membershipType was null or undefined when calling groupV2ApprovePending."
-      );
+      throw new Error('Required parameter membershipType was null or undefined when calling groupV2ApprovePending.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.post<GroupV2GetUserClanInviteSetting200Response>(
+    return this.httpClient.post<InlineResponse20017>(
       `${this.configuration.basePath}/GroupV2/${encodeURIComponent(
         String(groupId)
-      )}/Members/Approve/${encodeURIComponent(
-        String(membershipType)
-      )}/${encodeURIComponent(String(membershipId))}/`,
+      )}/Members/Approve/${encodeURIComponent(String(membershipType))}/${encodeURIComponent(String(membershipId))}/`,
       null,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -581,92 +425,65 @@ export class GroupV2Service {
    */
   public groupV2ApprovePendingForList(
     groupId: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2ApproveAllPending200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20027>;
   public groupV2ApprovePendingForList(
     groupId: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2ApproveAllPending200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20027>>;
   public groupV2ApprovePendingForList(
     groupId: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2ApproveAllPending200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20027>>;
   public groupV2ApprovePendingForList(
     groupId: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (groupId === null || groupId === undefined) {
-      throw new Error(
-        "Required parameter groupId was null or undefined when calling groupV2ApprovePendingForList."
-      );
+      throw new Error('Required parameter groupId was null or undefined when calling groupV2ApprovePendingForList.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.post<GroupV2ApproveAllPending200Response>(
-      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(
-        String(groupId)
-      )}/Members/ApproveList/`,
+    return this.httpClient.post<InlineResponse20027>(
+      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(String(groupId))}/Members/ApproveList/`,
       null,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -683,110 +500,79 @@ export class GroupV2Service {
     groupId: number,
     membershipId: number,
     membershipType: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2EditGroup200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20022>;
   public groupV2BanMember(
     groupId: number,
     membershipId: number,
     membershipType: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2EditGroup200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20022>>;
   public groupV2BanMember(
     groupId: number,
     membershipId: number,
     membershipType: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2EditGroup200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20022>>;
   public groupV2BanMember(
     groupId: number,
     membershipId: number,
     membershipType: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (groupId === null || groupId === undefined) {
-      throw new Error(
-        "Required parameter groupId was null or undefined when calling groupV2BanMember."
-      );
+      throw new Error('Required parameter groupId was null or undefined when calling groupV2BanMember.');
     }
     if (membershipId === null || membershipId === undefined) {
-      throw new Error(
-        "Required parameter membershipId was null or undefined when calling groupV2BanMember."
-      );
+      throw new Error('Required parameter membershipId was null or undefined when calling groupV2BanMember.');
     }
     if (membershipType === null || membershipType === undefined) {
-      throw new Error(
-        "Required parameter membershipType was null or undefined when calling groupV2BanMember."
-      );
+      throw new Error('Required parameter membershipType was null or undefined when calling groupV2BanMember.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.post<GroupV2EditGroup200Response>(
-      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(
-        String(groupId)
-      )}/Members/${encodeURIComponent(
+    return this.httpClient.post<InlineResponse20022>(
+      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(String(groupId))}/Members/${encodeURIComponent(
         String(membershipType)
       )}/${encodeURIComponent(String(membershipId))}/Ban/`,
       null,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -799,92 +585,65 @@ export class GroupV2Service {
    */
   public groupV2DenyAllPending(
     groupId: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2ApproveAllPending200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20027>;
   public groupV2DenyAllPending(
     groupId: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2ApproveAllPending200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20027>>;
   public groupV2DenyAllPending(
     groupId: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2ApproveAllPending200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20027>>;
   public groupV2DenyAllPending(
     groupId: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (groupId === null || groupId === undefined) {
-      throw new Error(
-        "Required parameter groupId was null or undefined when calling groupV2DenyAllPending."
-      );
+      throw new Error('Required parameter groupId was null or undefined when calling groupV2DenyAllPending.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.post<GroupV2ApproveAllPending200Response>(
-      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(
-        String(groupId)
-      )}/Members/DenyAll/`,
+    return this.httpClient.post<InlineResponse20027>(
+      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(String(groupId))}/Members/DenyAll/`,
       null,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -897,92 +656,65 @@ export class GroupV2Service {
    */
   public groupV2DenyPendingForList(
     groupId: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2ApproveAllPending200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20027>;
   public groupV2DenyPendingForList(
     groupId: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2ApproveAllPending200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20027>>;
   public groupV2DenyPendingForList(
     groupId: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2ApproveAllPending200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20027>>;
   public groupV2DenyPendingForList(
     groupId: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (groupId === null || groupId === undefined) {
-      throw new Error(
-        "Required parameter groupId was null or undefined when calling groupV2DenyPendingForList."
-      );
+      throw new Error('Required parameter groupId was null or undefined when calling groupV2DenyPendingForList.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.post<GroupV2ApproveAllPending200Response>(
-      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(
-        String(groupId)
-      )}/Members/DenyList/`,
+    return this.httpClient.post<InlineResponse20027>(
+      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(String(groupId))}/Members/DenyList/`,
       null,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -995,92 +727,65 @@ export class GroupV2Service {
    */
   public groupV2EditClanBanner(
     groupId: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2EditGroup200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20022>;
   public groupV2EditClanBanner(
     groupId: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2EditGroup200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20022>>;
   public groupV2EditClanBanner(
     groupId: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2EditGroup200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20022>>;
   public groupV2EditClanBanner(
     groupId: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (groupId === null || groupId === undefined) {
-      throw new Error(
-        "Required parameter groupId was null or undefined when calling groupV2EditClanBanner."
-      );
+      throw new Error('Required parameter groupId was null or undefined when calling groupV2EditClanBanner.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.post<GroupV2EditGroup200Response>(
-      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(
-        String(groupId)
-      )}/EditClanBanner/`,
+    return this.httpClient.post<InlineResponse20022>(
+      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(String(groupId))}/EditClanBanner/`,
       null,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -1093,92 +798,65 @@ export class GroupV2Service {
    */
   public groupV2EditFounderOptions(
     groupId: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2EditGroup200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20022>;
   public groupV2EditFounderOptions(
     groupId: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2EditGroup200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20022>>;
   public groupV2EditFounderOptions(
     groupId: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2EditGroup200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20022>>;
   public groupV2EditFounderOptions(
     groupId: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (groupId === null || groupId === undefined) {
-      throw new Error(
-        "Required parameter groupId was null or undefined when calling groupV2EditFounderOptions."
-      );
+      throw new Error('Required parameter groupId was null or undefined when calling groupV2EditFounderOptions.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.post<GroupV2EditGroup200Response>(
-      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(
-        String(groupId)
-      )}/EditFounderOptions/`,
+    return this.httpClient.post<InlineResponse20022>(
+      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(String(groupId))}/EditFounderOptions/`,
       null,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -1191,92 +869,65 @@ export class GroupV2Service {
    */
   public groupV2EditGroup(
     groupId: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2EditGroup200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20022>;
   public groupV2EditGroup(
     groupId: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2EditGroup200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20022>>;
   public groupV2EditGroup(
     groupId: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2EditGroup200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20022>>;
   public groupV2EditGroup(
     groupId: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (groupId === null || groupId === undefined) {
-      throw new Error(
-        "Required parameter groupId was null or undefined when calling groupV2EditGroup."
-      );
+      throw new Error('Required parameter groupId was null or undefined when calling groupV2EditGroup.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.post<GroupV2EditGroup200Response>(
-      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(
-        String(groupId)
-      )}/Edit/`,
+    return this.httpClient.post<InlineResponse20022>(
+      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(String(groupId))}/Edit/`,
       null,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -1295,120 +946,87 @@ export class GroupV2Service {
     membershipId: number,
     membershipType: number,
     memberType: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2EditGroup200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20022>;
   public groupV2EditGroupMembership(
     groupId: number,
     membershipId: number,
     membershipType: number,
     memberType: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2EditGroup200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20022>>;
   public groupV2EditGroupMembership(
     groupId: number,
     membershipId: number,
     membershipType: number,
     memberType: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2EditGroup200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20022>>;
   public groupV2EditGroupMembership(
     groupId: number,
     membershipId: number,
     membershipType: number,
     memberType: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (groupId === null || groupId === undefined) {
-      throw new Error(
-        "Required parameter groupId was null or undefined when calling groupV2EditGroupMembership."
-      );
+      throw new Error('Required parameter groupId was null or undefined when calling groupV2EditGroupMembership.');
     }
     if (membershipId === null || membershipId === undefined) {
-      throw new Error(
-        "Required parameter membershipId was null or undefined when calling groupV2EditGroupMembership."
-      );
+      throw new Error('Required parameter membershipId was null or undefined when calling groupV2EditGroupMembership.');
     }
     if (membershipType === null || membershipType === undefined) {
       throw new Error(
-        "Required parameter membershipType was null or undefined when calling groupV2EditGroupMembership."
+        'Required parameter membershipType was null or undefined when calling groupV2EditGroupMembership.'
       );
     }
     if (memberType === null || memberType === undefined) {
-      throw new Error(
-        "Required parameter memberType was null or undefined when calling groupV2EditGroupMembership."
-      );
+      throw new Error('Required parameter memberType was null or undefined when calling groupV2EditGroupMembership.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.post<GroupV2EditGroup200Response>(
-      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(
-        String(groupId)
-      )}/Members/${encodeURIComponent(
+    return this.httpClient.post<InlineResponse20022>(
+      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(String(groupId))}/Members/${encodeURIComponent(
         String(membershipType)
-      )}/${encodeURIComponent(
-        String(membershipId)
-      )}/SetMembershipType/${encodeURIComponent(String(memberType))}/`,
+      )}/${encodeURIComponent(String(membershipId))}/SetMembershipType/${encodeURIComponent(String(memberType))}/`,
       null,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -1423,102 +1041,75 @@ export class GroupV2Service {
   public groupV2EditOptionalConversation(
     conversationId: number,
     groupId: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<ForumGetTopicForContent200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20012>;
   public groupV2EditOptionalConversation(
     conversationId: number,
     groupId: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<ForumGetTopicForContent200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20012>>;
   public groupV2EditOptionalConversation(
     conversationId: number,
     groupId: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<ForumGetTopicForContent200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20012>>;
   public groupV2EditOptionalConversation(
     conversationId: number,
     groupId: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (conversationId === null || conversationId === undefined) {
       throw new Error(
-        "Required parameter conversationId was null or undefined when calling groupV2EditOptionalConversation."
+        'Required parameter conversationId was null or undefined when calling groupV2EditOptionalConversation.'
       );
     }
     if (groupId === null || groupId === undefined) {
-      throw new Error(
-        "Required parameter groupId was null or undefined when calling groupV2EditOptionalConversation."
-      );
+      throw new Error('Required parameter groupId was null or undefined when calling groupV2EditOptionalConversation.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.post<ForumGetTopicForContent200Response>(
+    return this.httpClient.post<InlineResponse20012>(
       `${this.configuration.basePath}/GroupV2/${encodeURIComponent(
         String(groupId)
-      )}/OptionalConversations/Edit/${encodeURIComponent(
-        String(conversationId)
-      )}/`,
+      )}/OptionalConversations/Edit/${encodeURIComponent(String(conversationId))}/`,
       null,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -1533,89 +1124,67 @@ export class GroupV2Service {
   public groupV2GetAdminsAndFounderOfGroup(
     currentpage: number,
     groupId: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2GetMembersOfGroup200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20023>;
   public groupV2GetAdminsAndFounderOfGroup(
     currentpage: number,
     groupId: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2GetMembersOfGroup200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20023>>;
   public groupV2GetAdminsAndFounderOfGroup(
     currentpage: number,
     groupId: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2GetMembersOfGroup200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20023>>;
   public groupV2GetAdminsAndFounderOfGroup(
     currentpage: number,
     groupId: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (currentpage === null || currentpage === undefined) {
       throw new Error(
-        "Required parameter currentpage was null or undefined when calling groupV2GetAdminsAndFounderOfGroup."
+        'Required parameter currentpage was null or undefined when calling groupV2GetAdminsAndFounderOfGroup.'
       );
     }
     if (groupId === null || groupId === undefined) {
       throw new Error(
-        "Required parameter groupId was null or undefined when calling groupV2GetAdminsAndFounderOfGroup."
+        'Required parameter groupId was null or undefined when calling groupV2GetAdminsAndFounderOfGroup.'
       );
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.get<GroupV2GetMembersOfGroup200Response>(
-      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(
-        String(groupId)
-      )}/AdminsAndFounder/`,
+    return this.httpClient.get<InlineResponse20023>(
+      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(String(groupId))}/AdminsAndFounder/`,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -1626,72 +1195,49 @@ export class GroupV2Service {
    * @param reportProgress flag to report request and response progress.
    */
   public groupV2GetAvailableAvatars(
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<UserGetSanitizedPlatformDisplayNames200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20015>;
   public groupV2GetAvailableAvatars(
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<UserGetSanitizedPlatformDisplayNames200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20015>>;
   public groupV2GetAvailableAvatars(
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<UserGetSanitizedPlatformDisplayNames200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20015>>;
   public groupV2GetAvailableAvatars(
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.get<UserGetSanitizedPlatformDisplayNames200Response>(
-      `${this.configuration.basePath}/GroupV2/GetAvailableAvatars/`,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    return this.httpClient.get<InlineResponse20015>(`${this.configuration.basePath}/GroupV2/GetAvailableAvatars/`, {
+      responseType: <any>responseType,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+      observe: observe,
+      reportProgress: reportProgress
+    });
   }
 
   /**
@@ -1700,72 +1246,49 @@ export class GroupV2Service {
    * @param reportProgress flag to report request and response progress.
    */
   public groupV2GetAvailableThemes(
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2GetAvailableThemes200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20016>;
   public groupV2GetAvailableThemes(
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2GetAvailableThemes200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20016>>;
   public groupV2GetAvailableThemes(
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2GetAvailableThemes200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20016>>;
   public groupV2GetAvailableThemes(
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.get<GroupV2GetAvailableThemes200Response>(
-      `${this.configuration.basePath}/GroupV2/GetAvailableThemes/`,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    return this.httpClient.get<InlineResponse20016>(`${this.configuration.basePath}/GroupV2/GetAvailableThemes/`, {
+      responseType: <any>responseType,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+      observe: observe,
+      reportProgress: reportProgress
+    });
   }
 
   /**
@@ -1778,99 +1301,72 @@ export class GroupV2Service {
   public groupV2GetBannedMembersOfGroup(
     currentpage: number,
     groupId: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2GetBannedMembersOfGroup200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20025>;
   public groupV2GetBannedMembersOfGroup(
     currentpage: number,
     groupId: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2GetBannedMembersOfGroup200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20025>>;
   public groupV2GetBannedMembersOfGroup(
     currentpage: number,
     groupId: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2GetBannedMembersOfGroup200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20025>>;
   public groupV2GetBannedMembersOfGroup(
     currentpage: number,
     groupId: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (currentpage === null || currentpage === undefined) {
       throw new Error(
-        "Required parameter currentpage was null or undefined when calling groupV2GetBannedMembersOfGroup."
+        'Required parameter currentpage was null or undefined when calling groupV2GetBannedMembersOfGroup.'
       );
     }
     if (groupId === null || groupId === undefined) {
-      throw new Error(
-        "Required parameter groupId was null or undefined when calling groupV2GetBannedMembersOfGroup."
-      );
+      throw new Error('Required parameter groupId was null or undefined when calling groupV2GetBannedMembersOfGroup.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.get<GroupV2GetBannedMembersOfGroup200Response>(
-      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(
-        String(groupId)
-      )}/Banned/`,
+    return this.httpClient.get<InlineResponse20025>(
+      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(String(groupId))}/Banned/`,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -1883,81 +1379,57 @@ export class GroupV2Service {
    */
   public groupV2GetGroup(
     groupId: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2GetGroup200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20020>;
   public groupV2GetGroup(
     groupId: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2GetGroup200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20020>>;
   public groupV2GetGroup(
     groupId: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2GetGroup200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20020>>;
   public groupV2GetGroup(
     groupId: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (groupId === null || groupId === undefined) {
-      throw new Error(
-        "Required parameter groupId was null or undefined when calling groupV2GetGroup."
-      );
+      throw new Error('Required parameter groupId was null or undefined when calling groupV2GetGroup.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.get<GroupV2GetGroup200Response>(
-      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(
-        String(groupId)
-      )}/`,
+    return this.httpClient.get<InlineResponse20020>(
+      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(String(groupId))}/`,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -1972,89 +1444,65 @@ export class GroupV2Service {
   public groupV2GetGroupByName(
     groupName: string,
     groupType: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2GetGroup200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20020>;
   public groupV2GetGroupByName(
     groupName: string,
     groupType: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2GetGroup200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20020>>;
   public groupV2GetGroupByName(
     groupName: string,
     groupType: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2GetGroup200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20020>>;
   public groupV2GetGroupByName(
     groupName: string,
     groupType: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (groupName === null || groupName === undefined) {
-      throw new Error(
-        "Required parameter groupName was null or undefined when calling groupV2GetGroupByName."
-      );
+      throw new Error('Required parameter groupName was null or undefined when calling groupV2GetGroupByName.');
     }
     if (groupType === null || groupType === undefined) {
-      throw new Error(
-        "Required parameter groupType was null or undefined when calling groupV2GetGroupByName."
-      );
+      throw new Error('Required parameter groupType was null or undefined when calling groupV2GetGroupByName.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.get<GroupV2GetGroup200Response>(
-      `${this.configuration.basePath}/GroupV2/Name/${encodeURIComponent(
-        String(groupName)
-      )}/${encodeURIComponent(String(groupType))}/`,
+    return this.httpClient.get<InlineResponse20020>(
+      `${this.configuration.basePath}/GroupV2/Name/${encodeURIComponent(String(groupName))}/${encodeURIComponent(
+        String(groupType)
+      )}/`,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -2065,73 +1513,49 @@ export class GroupV2Service {
    * @param reportProgress flag to report request and response progress.
    */
   public groupV2GetGroupByNameV2(
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2GetGroup200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20020>;
   public groupV2GetGroupByNameV2(
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2GetGroup200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20020>>;
   public groupV2GetGroupByNameV2(
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2GetGroup200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20020>>;
   public groupV2GetGroupByNameV2(
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.post<GroupV2GetGroup200Response>(
-      `${this.configuration.basePath}/GroupV2/NameV2/`,
-      null,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    return this.httpClient.post<InlineResponse20020>(`${this.configuration.basePath}/GroupV2/NameV2/`, null, {
+      responseType: <any>responseType,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+      observe: observe,
+      reportProgress: reportProgress
+    });
   }
 
   /**
@@ -2142,81 +1566,59 @@ export class GroupV2Service {
    */
   public groupV2GetGroupOptionalConversations(
     groupId: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2GetGroupOptionalConversations200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20021>;
   public groupV2GetGroupOptionalConversations(
     groupId: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2GetGroupOptionalConversations200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20021>>;
   public groupV2GetGroupOptionalConversations(
     groupId: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2GetGroupOptionalConversations200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20021>>;
   public groupV2GetGroupOptionalConversations(
     groupId: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (groupId === null || groupId === undefined) {
       throw new Error(
-        "Required parameter groupId was null or undefined when calling groupV2GetGroupOptionalConversations."
+        'Required parameter groupId was null or undefined when calling groupV2GetGroupOptionalConversations.'
       );
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.get<GroupV2GetGroupOptionalConversations200Response>(
-      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(
-        String(groupId)
-      )}/OptionalConversations/`,
+    return this.httpClient.get<InlineResponse20021>(
+      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(String(groupId))}/OptionalConversations/`,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -2235,107 +1637,79 @@ export class GroupV2Service {
     groupType: number,
     membershipId: number,
     membershipType: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2GetGroupsForMember200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20028>;
   public groupV2GetGroupsForMember(
     filter: number,
     groupType: number,
     membershipId: number,
     membershipType: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2GetGroupsForMember200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20028>>;
   public groupV2GetGroupsForMember(
     filter: number,
     groupType: number,
     membershipId: number,
     membershipType: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2GetGroupsForMember200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20028>>;
   public groupV2GetGroupsForMember(
     filter: number,
     groupType: number,
     membershipId: number,
     membershipType: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (filter === null || filter === undefined) {
-      throw new Error(
-        "Required parameter filter was null or undefined when calling groupV2GetGroupsForMember."
-      );
+      throw new Error('Required parameter filter was null or undefined when calling groupV2GetGroupsForMember.');
     }
     if (groupType === null || groupType === undefined) {
-      throw new Error(
-        "Required parameter groupType was null or undefined when calling groupV2GetGroupsForMember."
-      );
+      throw new Error('Required parameter groupType was null or undefined when calling groupV2GetGroupsForMember.');
     }
     if (membershipId === null || membershipId === undefined) {
-      throw new Error(
-        "Required parameter membershipId was null or undefined when calling groupV2GetGroupsForMember."
-      );
+      throw new Error('Required parameter membershipId was null or undefined when calling groupV2GetGroupsForMember.');
     }
     if (membershipType === null || membershipType === undefined) {
       throw new Error(
-        "Required parameter membershipType was null or undefined when calling groupV2GetGroupsForMember."
+        'Required parameter membershipType was null or undefined when calling groupV2GetGroupsForMember.'
       );
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.get<GroupV2GetGroupsForMember200Response>(
-      `${this.configuration.basePath}/GroupV2/User/${encodeURIComponent(
-        String(membershipType)
-      )}/${encodeURIComponent(String(membershipId))}/${encodeURIComponent(
-        String(filter)
-      )}/${encodeURIComponent(String(groupType))}/`,
+    return this.httpClient.get<InlineResponse20028>(
+      `${this.configuration.basePath}/GroupV2/User/${encodeURIComponent(String(membershipType))}/${encodeURIComponent(
+        String(membershipId)
+      )}/${encodeURIComponent(String(filter))}/${encodeURIComponent(String(groupType))}/`,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -2350,99 +1724,72 @@ export class GroupV2Service {
   public groupV2GetInvitedIndividuals(
     currentpage: number,
     groupId: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2GetPendingMemberships200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20026>;
   public groupV2GetInvitedIndividuals(
     currentpage: number,
     groupId: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2GetPendingMemberships200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20026>>;
   public groupV2GetInvitedIndividuals(
     currentpage: number,
     groupId: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2GetPendingMemberships200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20026>>;
   public groupV2GetInvitedIndividuals(
     currentpage: number,
     groupId: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (currentpage === null || currentpage === undefined) {
       throw new Error(
-        "Required parameter currentpage was null or undefined when calling groupV2GetInvitedIndividuals."
+        'Required parameter currentpage was null or undefined when calling groupV2GetInvitedIndividuals.'
       );
     }
     if (groupId === null || groupId === undefined) {
-      throw new Error(
-        "Required parameter groupId was null or undefined when calling groupV2GetInvitedIndividuals."
-      );
+      throw new Error('Required parameter groupId was null or undefined when calling groupV2GetInvitedIndividuals.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.get<GroupV2GetPendingMemberships200Response>(
-      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(
-        String(groupId)
-      )}/Members/InvitedIndividuals/`,
+    return this.httpClient.get<InlineResponse20026>(
+      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(String(groupId))}/Members/InvitedIndividuals/`,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -2461,112 +1808,78 @@ export class GroupV2Service {
     groupId: number,
     memberType?: number,
     nameSearch?: string,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2GetMembersOfGroup200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20023>;
   public groupV2GetMembersOfGroup(
     currentpage: number,
     groupId: number,
     memberType?: number,
     nameSearch?: string,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2GetMembersOfGroup200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20023>>;
   public groupV2GetMembersOfGroup(
     currentpage: number,
     groupId: number,
     memberType?: number,
     nameSearch?: string,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2GetMembersOfGroup200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20023>>;
   public groupV2GetMembersOfGroup(
     currentpage: number,
     groupId: number,
     memberType?: number,
     nameSearch?: string,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (currentpage === null || currentpage === undefined) {
-      throw new Error(
-        "Required parameter currentpage was null or undefined when calling groupV2GetMembersOfGroup."
-      );
+      throw new Error('Required parameter currentpage was null or undefined when calling groupV2GetMembersOfGroup.');
     }
     if (groupId === null || groupId === undefined) {
-      throw new Error(
-        "Required parameter groupId was null or undefined when calling groupV2GetMembersOfGroup."
-      );
+      throw new Error('Required parameter groupId was null or undefined when calling groupV2GetMembersOfGroup.');
     }
 
-    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
+    let queryParameters = new HttpParams({ encoder: this.encoder });
     if (memberType !== undefined && memberType !== null) {
-      localVarQueryParameters = this.addToHttpParams(
-        localVarQueryParameters,
-        <any>memberType,
-        "memberType"
-      );
+      queryParameters = this.addToHttpParams(queryParameters, <any>memberType, 'memberType');
     }
     if (nameSearch !== undefined && nameSearch !== null) {
-      localVarQueryParameters = this.addToHttpParams(
-        localVarQueryParameters,
-        <any>nameSearch,
-        "nameSearch"
-      );
+      queryParameters = this.addToHttpParams(queryParameters, <any>nameSearch, 'nameSearch');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.get<GroupV2GetMembersOfGroup200Response>(
-      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(
-        String(groupId)
-      )}/Members/`,
+    return this.httpClient.get<InlineResponse20023>(
+      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(String(groupId))}/Members/`,
       {
-        context: localVarHttpContext,
-        params: localVarQueryParameters,
-        responseType: <any>responseType_,
+        params: queryParameters,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -2581,99 +1894,72 @@ export class GroupV2Service {
   public groupV2GetPendingMemberships(
     currentpage: number,
     groupId: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2GetPendingMemberships200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20026>;
   public groupV2GetPendingMemberships(
     currentpage: number,
     groupId: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2GetPendingMemberships200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20026>>;
   public groupV2GetPendingMemberships(
     currentpage: number,
     groupId: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2GetPendingMemberships200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20026>>;
   public groupV2GetPendingMemberships(
     currentpage: number,
     groupId: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (currentpage === null || currentpage === undefined) {
       throw new Error(
-        "Required parameter currentpage was null or undefined when calling groupV2GetPendingMemberships."
+        'Required parameter currentpage was null or undefined when calling groupV2GetPendingMemberships.'
       );
     }
     if (groupId === null || groupId === undefined) {
-      throw new Error(
-        "Required parameter groupId was null or undefined when calling groupV2GetPendingMemberships."
-      );
+      throw new Error('Required parameter groupId was null or undefined when calling groupV2GetPendingMemberships.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.get<GroupV2GetPendingMemberships200Response>(
-      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(
-        String(groupId)
-      )}/Members/Pending/`,
+    return this.httpClient.get<InlineResponse20026>(
+      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(String(groupId))}/Members/Pending/`,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -2692,109 +1978,87 @@ export class GroupV2Service {
     groupType: number,
     membershipId: number,
     membershipType: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2GetPotentialGroupsForMember200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20030>;
   public groupV2GetPotentialGroupsForMember(
     filter: number,
     groupType: number,
     membershipId: number,
     membershipType: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2GetPotentialGroupsForMember200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20030>>;
   public groupV2GetPotentialGroupsForMember(
     filter: number,
     groupType: number,
     membershipId: number,
     membershipType: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2GetPotentialGroupsForMember200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20030>>;
   public groupV2GetPotentialGroupsForMember(
     filter: number,
     groupType: number,
     membershipId: number,
     membershipType: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (filter === null || filter === undefined) {
       throw new Error(
-        "Required parameter filter was null or undefined when calling groupV2GetPotentialGroupsForMember."
+        'Required parameter filter was null or undefined when calling groupV2GetPotentialGroupsForMember.'
       );
     }
     if (groupType === null || groupType === undefined) {
       throw new Error(
-        "Required parameter groupType was null or undefined when calling groupV2GetPotentialGroupsForMember."
+        'Required parameter groupType was null or undefined when calling groupV2GetPotentialGroupsForMember.'
       );
     }
     if (membershipId === null || membershipId === undefined) {
       throw new Error(
-        "Required parameter membershipId was null or undefined when calling groupV2GetPotentialGroupsForMember."
+        'Required parameter membershipId was null or undefined when calling groupV2GetPotentialGroupsForMember.'
       );
     }
     if (membershipType === null || membershipType === undefined) {
       throw new Error(
-        "Required parameter membershipType was null or undefined when calling groupV2GetPotentialGroupsForMember."
+        'Required parameter membershipType was null or undefined when calling groupV2GetPotentialGroupsForMember.'
       );
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.get<GroupV2GetPotentialGroupsForMember200Response>(
-      `${
-        this.configuration.basePath
-      }/GroupV2/User/Potential/${encodeURIComponent(
+    return this.httpClient.get<InlineResponse20030>(
+      `${this.configuration.basePath}/GroupV2/User/Potential/${encodeURIComponent(
         String(membershipType)
-      )}/${encodeURIComponent(String(membershipId))}/${encodeURIComponent(
-        String(filter)
-      )}/${encodeURIComponent(String(groupType))}/`,
+      )}/${encodeURIComponent(String(membershipId))}/${encodeURIComponent(String(filter))}/${encodeURIComponent(
+        String(groupType)
+      )}/`,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -2809,100 +2073,75 @@ export class GroupV2Service {
   public groupV2GetRecommendedGroups(
     createDateRange: number,
     groupType: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2GetRecommendedGroups200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20018>;
   public groupV2GetRecommendedGroups(
     createDateRange: number,
     groupType: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2GetRecommendedGroups200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20018>>;
   public groupV2GetRecommendedGroups(
     createDateRange: number,
     groupType: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2GetRecommendedGroups200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20018>>;
   public groupV2GetRecommendedGroups(
     createDateRange: number,
     groupType: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (createDateRange === null || createDateRange === undefined) {
       throw new Error(
-        "Required parameter createDateRange was null or undefined when calling groupV2GetRecommendedGroups."
+        'Required parameter createDateRange was null or undefined when calling groupV2GetRecommendedGroups.'
       );
     }
     if (groupType === null || groupType === undefined) {
-      throw new Error(
-        "Required parameter groupType was null or undefined when calling groupV2GetRecommendedGroups."
-      );
+      throw new Error('Required parameter groupType was null or undefined when calling groupV2GetRecommendedGroups.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.post<GroupV2GetRecommendedGroups200Response>(
-      `${this.configuration.basePath}/GroupV2/Recommended/${encodeURIComponent(
-        String(groupType)
-      )}/${encodeURIComponent(String(createDateRange))}/`,
+    return this.httpClient.post<InlineResponse20018>(
+      `${this.configuration.basePath}/GroupV2/Recommended/${encodeURIComponent(String(groupType))}/${encodeURIComponent(
+        String(createDateRange)
+      )}/`,
       null,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -2915,91 +2154,64 @@ export class GroupV2Service {
    */
   public groupV2GetUserClanInviteSetting(
     mType: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2GetUserClanInviteSetting200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20017>;
   public groupV2GetUserClanInviteSetting(
     mType: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2GetUserClanInviteSetting200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20017>>;
   public groupV2GetUserClanInviteSetting(
     mType: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2GetUserClanInviteSetting200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20017>>;
   public groupV2GetUserClanInviteSetting(
     mType: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (mType === null || mType === undefined) {
-      throw new Error(
-        "Required parameter mType was null or undefined when calling groupV2GetUserClanInviteSetting."
-      );
+      throw new Error('Required parameter mType was null or undefined when calling groupV2GetUserClanInviteSetting.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.get<GroupV2GetUserClanInviteSetting200Response>(
-      `${
-        this.configuration.basePath
-      }/GroupV2/GetUserClanInviteSetting/${encodeURIComponent(String(mType))}/`,
+    return this.httpClient.get<InlineResponse20017>(
+      `${this.configuration.basePath}/GroupV2/GetUserClanInviteSetting/${encodeURIComponent(String(mType))}/`,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -3010,73 +2222,57 @@ export class GroupV2Service {
    * @param reportProgress flag to report request and response progress.
    */
   public groupV2GroupSearch(
-    observe?: "body",
+    body: GroupsV2GroupQuery,
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2GroupSearch200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20019>;
   public groupV2GroupSearch(
-    observe?: "response",
+    body: GroupsV2GroupQuery,
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2GroupSearch200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20019>>;
   public groupV2GroupSearch(
-    observe?: "events",
+    body: GroupsV2GroupQuery,
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2GroupSearch200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20019>>;
   public groupV2GroupSearch(
-    observe: any = "body",
+    body: GroupsV2GroupQuery,
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
-    let localVarHeaders = this.defaultHeaders;
+    if (body === null || body === undefined) {
+      throw new Error('Required parameter body was null or undefined when calling groupV2GroupSearch.');
+    }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let headers = this.defaultHeaders;
+
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.post<GroupV2GroupSearch200Response>(
-      `${this.configuration.basePath}/GroupV2/Search/`,
-      null,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    return this.httpClient.post<InlineResponse20019>(`${this.configuration.basePath}/GroupV2/Search/`, body, {
+      responseType: <any>responseType,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+      observe: observe,
+      reportProgress: reportProgress
+    });
   }
 
   /**
@@ -3091,110 +2287,85 @@ export class GroupV2Service {
     groupId: number,
     membershipId: number,
     membershipType: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2IndividualGroupInvite200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20031>;
   public groupV2IndividualGroupInvite(
     groupId: number,
     membershipId: number,
     membershipType: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2IndividualGroupInvite200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20031>>;
   public groupV2IndividualGroupInvite(
     groupId: number,
     membershipId: number,
     membershipType: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2IndividualGroupInvite200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20031>>;
   public groupV2IndividualGroupInvite(
     groupId: number,
     membershipId: number,
     membershipType: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (groupId === null || groupId === undefined) {
-      throw new Error(
-        "Required parameter groupId was null or undefined when calling groupV2IndividualGroupInvite."
-      );
+      throw new Error('Required parameter groupId was null or undefined when calling groupV2IndividualGroupInvite.');
     }
     if (membershipId === null || membershipId === undefined) {
       throw new Error(
-        "Required parameter membershipId was null or undefined when calling groupV2IndividualGroupInvite."
+        'Required parameter membershipId was null or undefined when calling groupV2IndividualGroupInvite.'
       );
     }
     if (membershipType === null || membershipType === undefined) {
       throw new Error(
-        "Required parameter membershipType was null or undefined when calling groupV2IndividualGroupInvite."
+        'Required parameter membershipType was null or undefined when calling groupV2IndividualGroupInvite.'
       );
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.post<GroupV2IndividualGroupInvite200Response>(
+    return this.httpClient.post<InlineResponse20031>(
       `${this.configuration.basePath}/GroupV2/${encodeURIComponent(
         String(groupId)
-      )}/Members/IndividualInvite/${encodeURIComponent(
-        String(membershipType)
-      )}/${encodeURIComponent(String(membershipId))}/`,
+      )}/Members/IndividualInvite/${encodeURIComponent(String(membershipType))}/${encodeURIComponent(
+        String(membershipId)
+      )}/`,
       null,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -3211,110 +2382,87 @@ export class GroupV2Service {
     groupId: number,
     membershipId: number,
     membershipType: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2IndividualGroupInvite200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20031>;
   public groupV2IndividualGroupInviteCancel(
     groupId: number,
     membershipId: number,
     membershipType: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2IndividualGroupInvite200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20031>>;
   public groupV2IndividualGroupInviteCancel(
     groupId: number,
     membershipId: number,
     membershipType: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2IndividualGroupInvite200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20031>>;
   public groupV2IndividualGroupInviteCancel(
     groupId: number,
     membershipId: number,
     membershipType: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (groupId === null || groupId === undefined) {
       throw new Error(
-        "Required parameter groupId was null or undefined when calling groupV2IndividualGroupInviteCancel."
+        'Required parameter groupId was null or undefined when calling groupV2IndividualGroupInviteCancel.'
       );
     }
     if (membershipId === null || membershipId === undefined) {
       throw new Error(
-        "Required parameter membershipId was null or undefined when calling groupV2IndividualGroupInviteCancel."
+        'Required parameter membershipId was null or undefined when calling groupV2IndividualGroupInviteCancel.'
       );
     }
     if (membershipType === null || membershipType === undefined) {
       throw new Error(
-        "Required parameter membershipType was null or undefined when calling groupV2IndividualGroupInviteCancel."
+        'Required parameter membershipType was null or undefined when calling groupV2IndividualGroupInviteCancel.'
       );
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.post<GroupV2IndividualGroupInvite200Response>(
+    return this.httpClient.post<InlineResponse20031>(
       `${this.configuration.basePath}/GroupV2/${encodeURIComponent(
         String(groupId)
-      )}/Members/IndividualInviteCancel/${encodeURIComponent(
-        String(membershipType)
-      )}/${encodeURIComponent(String(membershipId))}/`,
+      )}/Members/IndividualInviteCancel/${encodeURIComponent(String(membershipType))}/${encodeURIComponent(
+        String(membershipId)
+      )}/`,
       null,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -3331,110 +2479,79 @@ export class GroupV2Service {
     groupId: number,
     membershipId: number,
     membershipType: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2KickMember200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20024>;
   public groupV2KickMember(
     groupId: number,
     membershipId: number,
     membershipType: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2KickMember200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20024>>;
   public groupV2KickMember(
     groupId: number,
     membershipId: number,
     membershipType: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2KickMember200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20024>>;
   public groupV2KickMember(
     groupId: number,
     membershipId: number,
     membershipType: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (groupId === null || groupId === undefined) {
-      throw new Error(
-        "Required parameter groupId was null or undefined when calling groupV2KickMember."
-      );
+      throw new Error('Required parameter groupId was null or undefined when calling groupV2KickMember.');
     }
     if (membershipId === null || membershipId === undefined) {
-      throw new Error(
-        "Required parameter membershipId was null or undefined when calling groupV2KickMember."
-      );
+      throw new Error('Required parameter membershipId was null or undefined when calling groupV2KickMember.');
     }
     if (membershipType === null || membershipType === undefined) {
-      throw new Error(
-        "Required parameter membershipType was null or undefined when calling groupV2KickMember."
-      );
+      throw new Error('Required parameter membershipType was null or undefined when calling groupV2KickMember.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.post<GroupV2KickMember200Response>(
-      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(
-        String(groupId)
-      )}/Members/${encodeURIComponent(
+    return this.httpClient.post<InlineResponse20024>(
+      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(String(groupId))}/Members/${encodeURIComponent(
         String(membershipType)
       )}/${encodeURIComponent(String(membershipId))}/Kick/`,
       null,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -3451,99 +2568,75 @@ export class GroupV2Service {
     groupType: number,
     membershipId: number,
     membershipType: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2RecoverGroupForFounder200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20029>;
   public groupV2RecoverGroupForFounder(
     groupType: number,
     membershipId: number,
     membershipType: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2RecoverGroupForFounder200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20029>>;
   public groupV2RecoverGroupForFounder(
     groupType: number,
     membershipId: number,
     membershipType: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2RecoverGroupForFounder200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20029>>;
   public groupV2RecoverGroupForFounder(
     groupType: number,
     membershipId: number,
     membershipType: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (groupType === null || groupType === undefined) {
-      throw new Error(
-        "Required parameter groupType was null or undefined when calling groupV2RecoverGroupForFounder."
-      );
+      throw new Error('Required parameter groupType was null or undefined when calling groupV2RecoverGroupForFounder.');
     }
     if (membershipId === null || membershipId === undefined) {
       throw new Error(
-        "Required parameter membershipId was null or undefined when calling groupV2RecoverGroupForFounder."
+        'Required parameter membershipId was null or undefined when calling groupV2RecoverGroupForFounder.'
       );
     }
     if (membershipType === null || membershipType === undefined) {
       throw new Error(
-        "Required parameter membershipType was null or undefined when calling groupV2RecoverGroupForFounder."
+        'Required parameter membershipType was null or undefined when calling groupV2RecoverGroupForFounder.'
       );
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.get<GroupV2RecoverGroupForFounder200Response>(
+    return this.httpClient.get<InlineResponse20029>(
       `${this.configuration.basePath}/GroupV2/Recover/${encodeURIComponent(
         String(membershipType)
-      )}/${encodeURIComponent(String(membershipId))}/${encodeURIComponent(
-        String(groupType)
-      )}/`,
+      )}/${encodeURIComponent(String(membershipId))}/${encodeURIComponent(String(groupType))}/`,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -3560,110 +2653,79 @@ export class GroupV2Service {
     groupId: number,
     membershipId: number,
     membershipType: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2EditGroup200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20022>;
   public groupV2UnbanMember(
     groupId: number,
     membershipId: number,
     membershipType: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2EditGroup200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20022>>;
   public groupV2UnbanMember(
     groupId: number,
     membershipId: number,
     membershipType: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2EditGroup200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20022>>;
   public groupV2UnbanMember(
     groupId: number,
     membershipId: number,
     membershipType: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (groupId === null || groupId === undefined) {
-      throw new Error(
-        "Required parameter groupId was null or undefined when calling groupV2UnbanMember."
-      );
+      throw new Error('Required parameter groupId was null or undefined when calling groupV2UnbanMember.');
     }
     if (membershipId === null || membershipId === undefined) {
-      throw new Error(
-        "Required parameter membershipId was null or undefined when calling groupV2UnbanMember."
-      );
+      throw new Error('Required parameter membershipId was null or undefined when calling groupV2UnbanMember.');
     }
     if (membershipType === null || membershipType === undefined) {
-      throw new Error(
-        "Required parameter membershipType was null or undefined when calling groupV2UnbanMember."
-      );
+      throw new Error('Required parameter membershipType was null or undefined when calling groupV2UnbanMember.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.post<GroupV2EditGroup200Response>(
-      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(
-        String(groupId)
-      )}/Members/${encodeURIComponent(
+    return this.httpClient.post<InlineResponse20022>(
+      `${this.configuration.basePath}/GroupV2/${encodeURIComponent(String(groupId))}/Members/${encodeURIComponent(
         String(membershipType)
       )}/${encodeURIComponent(String(membershipId))}/Unban/`,
       null,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }

@@ -42,6 +42,5 @@ export const BungieCredentialType = {
   NUMBER_12: 12 as BungieCredentialType,
   NUMBER_14: 14 as BungieCredentialType,
   NUMBER_16: 16 as BungieCredentialType,
-  NUMBER_18: 18 as BungieCredentialType,
-  NUMBER_20: 20 as BungieCredentialType,
+  NUMBER_18: 18 as BungieCredentialType
 };

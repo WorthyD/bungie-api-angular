@@ -85,6 +85,8 @@ export class DefaultService {
     if (value == null) {
       return httpParams;
     }
+    return httpParams;
+  }
 
     if (typeof value === "object") {
       if (Array.isArray(value)) {

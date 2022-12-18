@@ -17,5 +17,5 @@ export const ApplicationsApplicationStatus = {
   NUMBER_1: 1 as ApplicationsApplicationStatus,
   NUMBER_2: 2 as ApplicationsApplicationStatus,
   NUMBER_3: 3 as ApplicationsApplicationStatus,
-  NUMBER_4: 4 as ApplicationsApplicationStatus,
+  NUMBER_4: 4 as ApplicationsApplicationStatus
 };

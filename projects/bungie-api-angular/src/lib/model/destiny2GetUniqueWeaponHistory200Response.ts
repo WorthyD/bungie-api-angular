@@ -11,7 +11,7 @@
  */
 import { DestinyHistoricalStatsDestinyHistoricalWeaponStatsData } from "./destinyHistoricalStatsDestinyHistoricalWeaponStatsData";
 
-export interface Destiny2GetUniqueWeaponHistory200Response {
+export interface InlineResponse20056 {
   Response?: DestinyHistoricalStatsDestinyHistoricalWeaponStatsData;
   ErrorCode?: number;
   ThrottleSeconds?: number;

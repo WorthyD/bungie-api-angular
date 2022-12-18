@@ -79,6 +79,17 @@ export class CommunityContentService {
     if (value == null) {
       return httpParams;
     }
+    this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
+  }
+
+  private addToHttpParams(httpParams: HttpParams, value: any, key?: string): HttpParams {
+    if (typeof value === 'object' && value instanceof Date === false) {
+      httpParams = this.addToHttpParamsRecursive(httpParams, value);
+    } else {
+      httpParams = this.addToHttpParamsRecursive(httpParams, value, key);
+    }
+    return httpParams;
+  }
 
     if (typeof value === "object") {
       if (Array.isArray(value)) {

@@ -20,7 +20,6 @@ export interface CommonModelsCoreSettingsConfiguration {
   ignoreReasons?: Array<CommonModelsCoreSetting>;
   forumCategories?: Array<CommonModelsCoreSetting>;
   groupAvatars?: Array<CommonModelsCoreSetting>;
-  defaultGroupTheme?: CommonModelsCoreSetting;
   destinyMembershipTypes?: Array<CommonModelsCoreSetting>;
   recruitmentPlatformTags?: Array<CommonModelsCoreSetting>;
   recruitmentMiscTags?: Array<CommonModelsCoreSetting>;

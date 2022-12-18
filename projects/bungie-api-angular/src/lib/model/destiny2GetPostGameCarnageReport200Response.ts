@@ -11,7 +11,7 @@
  */
 import { DestinyHistoricalStatsDestinyPostGameCarnageReportData } from "./destinyHistoricalStatsDestinyPostGameCarnageReportData";
 
-export interface Destiny2GetPostGameCarnageReport200Response {
+export interface InlineResponse20048 {
   Response?: DestinyHistoricalStatsDestinyPostGameCarnageReportData;
   ErrorCode?: number;
   ThrottleSeconds?: number;

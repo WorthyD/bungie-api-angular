@@ -171,6 +171,8 @@ export class ContentService {
         "Required parameter locale was null or undefined when calling contentGetContentById."
       );
     }
+    return httpParams;
+  }
 
     let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (head !== undefined && head !== null) {

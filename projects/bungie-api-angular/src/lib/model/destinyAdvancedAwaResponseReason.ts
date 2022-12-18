@@ -16,5 +16,5 @@ export const DestinyAdvancedAwaResponseReason = {
   NUMBER_0: 0 as DestinyAdvancedAwaResponseReason,
   NUMBER_1: 1 as DestinyAdvancedAwaResponseReason,
   NUMBER_2: 2 as DestinyAdvancedAwaResponseReason,
-  NUMBER_3: 3 as DestinyAdvancedAwaResponseReason,
+  NUMBER_3: 3 as DestinyAdvancedAwaResponseReason
 };

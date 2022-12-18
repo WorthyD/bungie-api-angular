@@ -23,10 +23,7 @@ export interface CommonModelsDestiny2CoreSettings {
   medalsRootNodeHash?: number;
   exoticCatalystsRootNodeHash?: number;
   loreRootNodeHash?: number;
-  craftingRootNodeHash?: number;
   currentRankProgressionHashes?: Array<number>;
-  insertPlugFreeProtectedPlugItemHashes?: Array<number>;
-  insertPlugFreeBlockedSocketTypeHashes?: Array<number>;
   undiscoveredCollectibleImage?: string;
   ammoTypeHeavyIcon?: string;
   ammoTypeSpecialIcon?: string;

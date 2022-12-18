@@ -10,8 +10,8 @@
  * Do not edit the class manually.
  */
 
-export interface ContentSearchHelpArticles200Response {
-  Response?: object;
+export interface InlineResponse20022 {
+  Response?: number;
   ErrorCode?: number;
   ThrottleSeconds?: number;
   ErrorStatus?: string;

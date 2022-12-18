@@ -15,5 +15,5 @@ export type ApplicationsDeveloperRole = 0 | 1 | 2;
 export const ApplicationsDeveloperRole = {
   NUMBER_0: 0 as ApplicationsDeveloperRole,
   NUMBER_1: 1 as ApplicationsDeveloperRole,
-  NUMBER_2: 2 as ApplicationsDeveloperRole,
+  NUMBER_2: 2 as ApplicationsDeveloperRole
 };

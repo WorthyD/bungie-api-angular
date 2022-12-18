@@ -11,7 +11,7 @@
  */
 import { DestinyResponsesDestinyCollectibleNodeDetailResponse } from "./destinyResponsesDestinyCollectibleNodeDetailResponse";
 
-export interface Destiny2GetCollectibleNodeDetails200Response {
+export interface InlineResponse20045 {
   Response?: DestinyResponsesDestinyCollectibleNodeDetailResponse;
   ErrorCode?: number;
   ThrottleSeconds?: number;

@@ -11,35 +11,23 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional } from "@angular/core";
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpParams,
-  HttpResponse,
-  HttpEvent,
-  HttpParameterCodec,
-  HttpContext,
-} from "@angular/common/http";
-import { CustomHttpParameterCodec } from "../encoder";
-import { Observable } from "rxjs";
+import { Inject, Injectable, Optional } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse, HttpEvent, HttpParameterCodec } from '@angular/common/http';
+import { CustomHttpParameterCodec } from '../encoder';
+import { Observable } from 'rxjs';
 
-// @ts-ignore
-import { TrendingGetTrendingCategories200Response } from "../model/trendingGetTrendingCategories200Response";
-// @ts-ignore
-import { TrendingGetTrendingCategory200Response } from "../model/trendingGetTrendingCategory200Response";
-// @ts-ignore
-import { TrendingGetTrendingEntryDetail200Response } from "../model/trendingGetTrendingEntryDetail200Response";
+import { InlineResponse20062 } from '../model/models';
+import { InlineResponse20063 } from '../model/models';
+import { InlineResponse20064 } from '../model/models';
 
-// @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS } from "../variables";
-import { Configuration } from "../configuration";
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
+import { Configuration } from '../configuration';
 
 @Injectable({
   providedIn: "root",
 })
 export class TrendingService {
-  protected basePath = "https://www.bungie.net/Platform";
+  protected basePath = 'https://www.bungie.net/Platform';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
   public encoder: HttpParameterCodec;
@@ -52,8 +40,8 @@ export class TrendingService {
     if (configuration) {
       this.configuration = configuration;
     }
-    if (typeof this.configuration.basePath !== "string") {
-      if (typeof basePath !== "string") {
+    if (typeof this.configuration.basePath !== 'string') {
+      if (typeof basePath !== 'string') {
         basePath = this.basePath;
       }
       this.configuration.basePath = basePath;
@@ -61,13 +49,8 @@ export class TrendingService {
     this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
   }
 
-  // @ts-ignore
-  private addToHttpParams(
-    httpParams: HttpParams,
-    value: any,
-    key?: string
-  ): HttpParams {
-    if (typeof value === "object" && value instanceof Date === false) {
+  private addToHttpParams(httpParams: HttpParams, value: any, key?: string): HttpParams {
+    if (typeof value === 'object' && value instanceof Date === false) {
       httpParams = this.addToHttpParamsRecursive(httpParams, value);
     } else {
       httpParams = this.addToHttpParamsRecursive(httpParams, value, key);
@@ -75,44 +58,29 @@ export class TrendingService {
     return httpParams;
   }
 
-  private addToHttpParamsRecursive(
-    httpParams: HttpParams,
-    value?: any,
-    key?: string
-  ): HttpParams {
+  private addToHttpParamsRecursive(httpParams: HttpParams, value?: any, key?: string): HttpParams {
     if (value == null) {
       return httpParams;
     }
 
-    if (typeof value === "object") {
+    if (typeof value === 'object') {
       if (Array.isArray(value)) {
-        (value as any[]).forEach(
-          (elem) =>
-            (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key))
-        );
+        (value as any[]).forEach((elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key)));
       } else if (value instanceof Date) {
         if (key != null) {
-          httpParams = httpParams.append(
-            key,
-            (value as Date).toISOString().substr(0, 10)
-          );
+          httpParams = httpParams.append(key, (value as Date).toISOString().substr(0, 10));
         } else {
-          throw Error("key may not be null if value is Date");
+          throw Error('key may not be null if value is Date');
         }
       } else {
         Object.keys(value).forEach(
-          (k) =>
-            (httpParams = this.addToHttpParamsRecursive(
-              httpParams,
-              value[k],
-              key != null ? `${key}.${k}` : k
-            ))
+          (k) => (httpParams = this.addToHttpParamsRecursive(httpParams, value[k], key != null ? `${key}.${k}` : k))
         );
       }
     } else if (key != null) {
       httpParams = httpParams.append(key, value);
     } else {
-      throw Error("key may not be null if value is not object or array");
+      throw Error('key may not be null if value is not object or array');
     }
     return httpParams;
   }
@@ -123,72 +91,49 @@ export class TrendingService {
    * @param reportProgress flag to report request and response progress.
    */
   public trendingGetTrendingCategories(
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<TrendingGetTrendingCategories200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20062>;
   public trendingGetTrendingCategories(
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<TrendingGetTrendingCategories200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20062>>;
   public trendingGetTrendingCategories(
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<TrendingGetTrendingCategories200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20062>>;
   public trendingGetTrendingCategories(
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.get<TrendingGetTrendingCategories200Response>(
-      `${this.configuration.basePath}/Trending/Categories/`,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    return this.httpClient.get<InlineResponse20062>(`${this.configuration.basePath}/Trending/Categories/`, {
+      responseType: <any>responseType,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+      observe: observe,
+      reportProgress: reportProgress
+    });
   }
 
   /**
@@ -201,89 +146,65 @@ export class TrendingService {
   public trendingGetTrendingCategory(
     categoryId: string,
     pageNumber: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<TrendingGetTrendingCategory200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20063>;
   public trendingGetTrendingCategory(
     categoryId: string,
     pageNumber: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<TrendingGetTrendingCategory200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20063>>;
   public trendingGetTrendingCategory(
     categoryId: string,
     pageNumber: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<TrendingGetTrendingCategory200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20063>>;
   public trendingGetTrendingCategory(
     categoryId: string,
     pageNumber: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (categoryId === null || categoryId === undefined) {
-      throw new Error(
-        "Required parameter categoryId was null or undefined when calling trendingGetTrendingCategory."
-      );
+      throw new Error('Required parameter categoryId was null or undefined when calling trendingGetTrendingCategory.');
     }
     if (pageNumber === null || pageNumber === undefined) {
-      throw new Error(
-        "Required parameter pageNumber was null or undefined when calling trendingGetTrendingCategory."
-      );
+      throw new Error('Required parameter pageNumber was null or undefined when calling trendingGetTrendingCategory.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.get<TrendingGetTrendingCategory200Response>(
+    return this.httpClient.get<InlineResponse20063>(
       `${this.configuration.basePath}/Trending/Categories/${encodeURIComponent(
         String(categoryId)
       )}/${encodeURIComponent(String(pageNumber))}/`,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -298,89 +219,69 @@ export class TrendingService {
   public trendingGetTrendingEntryDetail(
     identifier: string,
     trendingEntryType: number,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<TrendingGetTrendingEntryDetail200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20064>;
   public trendingGetTrendingEntryDetail(
     identifier: string,
     trendingEntryType: number,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<TrendingGetTrendingEntryDetail200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20064>>;
   public trendingGetTrendingEntryDetail(
     identifier: string,
     trendingEntryType: number,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<TrendingGetTrendingEntryDetail200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20064>>;
   public trendingGetTrendingEntryDetail(
     identifier: string,
     trendingEntryType: number,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (identifier === null || identifier === undefined) {
       throw new Error(
-        "Required parameter identifier was null or undefined when calling trendingGetTrendingEntryDetail."
+        'Required parameter identifier was null or undefined when calling trendingGetTrendingEntryDetail.'
       );
     }
     if (trendingEntryType === null || trendingEntryType === undefined) {
       throw new Error(
-        "Required parameter trendingEntryType was null or undefined when calling trendingGetTrendingEntryDetail."
+        'Required parameter trendingEntryType was null or undefined when calling trendingGetTrendingEntryDetail.'
       );
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.get<TrendingGetTrendingEntryDetail200Response>(
+    return this.httpClient.get<InlineResponse20064>(
       `${this.configuration.basePath}/Trending/Details/${encodeURIComponent(
         String(trendingEntryType)
       )}/${encodeURIComponent(String(identifier))}/`,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }

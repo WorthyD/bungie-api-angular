@@ -22,8 +22,7 @@ export const BungieMembershipType = {
   NUMBER_3: 3 as BungieMembershipType,
   NUMBER_4: 4 as BungieMembershipType,
   NUMBER_5: 5 as BungieMembershipType,
-  NUMBER_6: 6 as BungieMembershipType,
   NUMBER_10: 10 as BungieMembershipType,
   NUMBER_254: 254 as BungieMembershipType,
-  NUMBER_MINUS_1: -1 as BungieMembershipType,
+  NUMBER_MINUS_1: -1 as BungieMembershipType
 };

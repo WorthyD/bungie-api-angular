@@ -11,7 +11,7 @@
  */
 import { DestinyHistoricalStatsDestinyHistoricalStatsAccountResult } from "./destinyHistoricalStatsDestinyHistoricalStatsAccountResult";
 
-export interface Destiny2GetHistoricalStatsForAccount200Response {
+export interface InlineResponse20054 {
   Response?: DestinyHistoricalStatsDestinyHistoricalStatsAccountResult;
   ErrorCode?: number;
   ThrottleSeconds?: number;

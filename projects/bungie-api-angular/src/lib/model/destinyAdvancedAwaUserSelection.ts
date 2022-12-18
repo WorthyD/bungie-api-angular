@@ -15,5 +15,5 @@ export type DestinyAdvancedAwaUserSelection = 0 | 1 | 2;
 export const DestinyAdvancedAwaUserSelection = {
   NUMBER_0: 0 as DestinyAdvancedAwaUserSelection,
   NUMBER_1: 1 as DestinyAdvancedAwaUserSelection,
-  NUMBER_2: 2 as DestinyAdvancedAwaUserSelection,
+  NUMBER_2: 2 as DestinyAdvancedAwaUserSelection
 };

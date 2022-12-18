@@ -11,10 +11,8 @@
  */
 import { DestinyHistoricalStatsDestinyHistoricalStatsByPeriod } from "./destinyHistoricalStatsDestinyHistoricalStatsByPeriod";
 
-export interface Destiny2GetHistoricalStats200Response {
-  Response?: {
-    [key: string]: DestinyHistoricalStatsDestinyHistoricalStatsByPeriod;
-  };
+export interface InlineResponse20053 {
+  Response?: { [key: string]: DestinyHistoricalStatsDestinyHistoricalStatsByPeriod };
   ErrorCode?: number;
   ThrottleSeconds?: number;
   ErrorStatus?: string;

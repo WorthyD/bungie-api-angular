@@ -14,5 +14,4 @@ import { DictionaryComponentResponseOfuint32AndDestinyItemPerksComponent } from 
 
 export interface DestinyBaseItemComponentSetOfuint32 {
   objectives?: DictionaryComponentResponseOfuint32AndDestinyItemObjectivesComponent;
-  perks?: DictionaryComponentResponseOfuint32AndDestinyItemPerksComponent;
 }

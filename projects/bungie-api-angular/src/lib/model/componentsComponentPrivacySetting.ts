@@ -18,5 +18,5 @@ export type ComponentsComponentPrivacySetting = 0 | 1 | 2;
 export const ComponentsComponentPrivacySetting = {
   NUMBER_0: 0 as ComponentsComponentPrivacySetting,
   NUMBER_1: 1 as ComponentsComponentPrivacySetting,
-  NUMBER_2: 2 as ComponentsComponentPrivacySetting,
+  NUMBER_2: 2 as ComponentsComponentPrivacySetting
 };

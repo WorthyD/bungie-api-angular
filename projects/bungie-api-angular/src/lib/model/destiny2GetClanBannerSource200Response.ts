@@ -10,8 +10,8 @@
  * Do not edit the class manually.
  */
 
-export interface Destiny2GetClanBannerSource200Response {
-  Response?: object;
+export interface InlineResponse20017 {
+  Response?: boolean;
   ErrorCode?: number;
   ThrottleSeconds?: number;
   ErrorStatus?: string;

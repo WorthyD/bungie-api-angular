@@ -20,5 +20,5 @@ export const DestinyActivityGraphNodeHighlightType = {
   NUMBER_1: 1 as DestinyActivityGraphNodeHighlightType,
   NUMBER_2: 2 as DestinyActivityGraphNodeHighlightType,
   NUMBER_3: 3 as DestinyActivityGraphNodeHighlightType,
-  NUMBER_4: 4 as DestinyActivityGraphNodeHighlightType,
+  NUMBER_4: 4 as DestinyActivityGraphNodeHighlightType
 };

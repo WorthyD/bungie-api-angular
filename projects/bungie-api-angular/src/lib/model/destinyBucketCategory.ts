@@ -17,5 +17,5 @@ export const DestinyBucketCategory = {
   NUMBER_1: 1 as DestinyBucketCategory,
   NUMBER_2: 2 as DestinyBucketCategory,
   NUMBER_3: 3 as DestinyBucketCategory,
-  NUMBER_4: 4 as DestinyBucketCategory,
+  NUMBER_4: 4 as DestinyBucketCategory
 };

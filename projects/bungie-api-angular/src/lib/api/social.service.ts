@@ -11,37 +11,24 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional } from "@angular/core";
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpParams,
-  HttpResponse,
-  HttpEvent,
-  HttpParameterCodec,
-  HttpContext,
-} from "@angular/common/http";
-import { CustomHttpParameterCodec } from "../encoder";
-import { Observable } from "rxjs";
+import { Inject, Injectable, Optional } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse, HttpEvent, HttpParameterCodec } from '@angular/common/http';
+import { CustomHttpParameterCodec } from '../encoder';
+import { Observable } from 'rxjs';
 
-// @ts-ignore
-import { GroupV2GetUserClanInviteSetting200Response } from "../model/groupV2GetUserClanInviteSetting200Response";
-// @ts-ignore
-import { SocialGetFriendList200Response } from "../model/socialGetFriendList200Response";
-// @ts-ignore
-import { SocialGetFriendRequestList200Response } from "../model/socialGetFriendRequestList200Response";
-// @ts-ignore
-import { SocialGetPlatformFriendList200Response } from "../model/socialGetPlatformFriendList200Response";
+import { InlineResponse20017 } from '../model/models';
+import { InlineResponse20068 } from '../model/models';
+import { InlineResponse20069 } from '../model/models';
+import { InlineResponse20070 } from '../model/models';
 
-// @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS } from "../variables";
-import { Configuration } from "../configuration";
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
+import { Configuration } from '../configuration';
 
 @Injectable({
   providedIn: "root",
 })
 export class SocialService {
-  protected basePath = "https://www.bungie.net/Platform";
+  protected basePath = 'https://www.bungie.net/Platform';
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
   public encoder: HttpParameterCodec;
@@ -54,8 +41,8 @@ export class SocialService {
     if (configuration) {
       this.configuration = configuration;
     }
-    if (typeof this.configuration.basePath !== "string") {
-      if (typeof basePath !== "string") {
+    if (typeof this.configuration.basePath !== 'string') {
+      if (typeof basePath !== 'string') {
         basePath = this.basePath;
       }
       this.configuration.basePath = basePath;
@@ -63,13 +50,8 @@ export class SocialService {
     this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
   }
 
-  // @ts-ignore
-  private addToHttpParams(
-    httpParams: HttpParams,
-    value: any,
-    key?: string
-  ): HttpParams {
-    if (typeof value === "object" && value instanceof Date === false) {
+  private addToHttpParams(httpParams: HttpParams, value: any, key?: string): HttpParams {
+    if (typeof value === 'object' && value instanceof Date === false) {
       httpParams = this.addToHttpParamsRecursive(httpParams, value);
     } else {
       httpParams = this.addToHttpParamsRecursive(httpParams, value, key);
@@ -77,44 +59,29 @@ export class SocialService {
     return httpParams;
   }
 
-  private addToHttpParamsRecursive(
-    httpParams: HttpParams,
-    value?: any,
-    key?: string
-  ): HttpParams {
+  private addToHttpParamsRecursive(httpParams: HttpParams, value?: any, key?: string): HttpParams {
     if (value == null) {
       return httpParams;
     }
 
-    if (typeof value === "object") {
+    if (typeof value === 'object') {
       if (Array.isArray(value)) {
-        (value as any[]).forEach(
-          (elem) =>
-            (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key))
-        );
+        (value as any[]).forEach((elem) => (httpParams = this.addToHttpParamsRecursive(httpParams, elem, key)));
       } else if (value instanceof Date) {
         if (key != null) {
-          httpParams = httpParams.append(
-            key,
-            (value as Date).toISOString().substr(0, 10)
-          );
+          httpParams = httpParams.append(key, (value as Date).toISOString().substr(0, 10));
         } else {
-          throw Error("key may not be null if value is Date");
+          throw Error('key may not be null if value is Date');
         }
       } else {
         Object.keys(value).forEach(
-          (k) =>
-            (httpParams = this.addToHttpParamsRecursive(
-              httpParams,
-              value[k],
-              key != null ? `${key}.${k}` : k
-            ))
+          (k) => (httpParams = this.addToHttpParamsRecursive(httpParams, value[k], key != null ? `${key}.${k}` : k))
         );
       }
     } else if (key != null) {
       httpParams = httpParams.append(key, value);
     } else {
-      throw Error("key may not be null if value is not object or array");
+      throw Error('key may not be null if value is not object or array');
     }
     return httpParams;
   }
@@ -127,94 +94,65 @@ export class SocialService {
    */
   public socialAcceptFriendRequest(
     membershipId: string,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2GetUserClanInviteSetting200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20017>;
   public socialAcceptFriendRequest(
     membershipId: string,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2GetUserClanInviteSetting200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20017>>;
   public socialAcceptFriendRequest(
     membershipId: string,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2GetUserClanInviteSetting200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20017>>;
   public socialAcceptFriendRequest(
     membershipId: string,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (membershipId === null || membershipId === undefined) {
-      throw new Error(
-        "Required parameter membershipId was null or undefined when calling socialAcceptFriendRequest."
-      );
+      throw new Error('Required parameter membershipId was null or undefined when calling socialAcceptFriendRequest.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.post<GroupV2GetUserClanInviteSetting200Response>(
-      `${
-        this.configuration.basePath
-      }/Social/Friends/Requests/Accept/${encodeURIComponent(
-        String(membershipId)
-      )}/`,
+    return this.httpClient.post<InlineResponse20017>(
+      `${this.configuration.basePath}/Social/Friends/Requests/Accept/${encodeURIComponent(String(membershipId))}/`,
       null,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -227,94 +165,65 @@ export class SocialService {
    */
   public socialDeclineFriendRequest(
     membershipId: string,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2GetUserClanInviteSetting200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20017>;
   public socialDeclineFriendRequest(
     membershipId: string,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2GetUserClanInviteSetting200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20017>>;
   public socialDeclineFriendRequest(
     membershipId: string,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2GetUserClanInviteSetting200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20017>>;
   public socialDeclineFriendRequest(
     membershipId: string,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (membershipId === null || membershipId === undefined) {
-      throw new Error(
-        "Required parameter membershipId was null or undefined when calling socialDeclineFriendRequest."
-      );
+      throw new Error('Required parameter membershipId was null or undefined when calling socialDeclineFriendRequest.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.post<GroupV2GetUserClanInviteSetting200Response>(
-      `${
-        this.configuration.basePath
-      }/Social/Friends/Requests/Decline/${encodeURIComponent(
-        String(membershipId)
-      )}/`,
+    return this.httpClient.post<InlineResponse20017>(
+      `${this.configuration.basePath}/Social/Friends/Requests/Decline/${encodeURIComponent(String(membershipId))}/`,
       null,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -325,82 +234,56 @@ export class SocialService {
    * @param reportProgress flag to report request and response progress.
    */
   public socialGetFriendList(
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<SocialGetFriendList200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20068>;
   public socialGetFriendList(
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<SocialGetFriendList200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20068>>;
   public socialGetFriendList(
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<SocialGetFriendList200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20068>>;
   public socialGetFriendList(
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.get<SocialGetFriendList200Response>(
-      `${this.configuration.basePath}/Social/Friends/`,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    return this.httpClient.get<InlineResponse20068>(`${this.configuration.basePath}/Social/Friends/`, {
+      responseType: <any>responseType,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+      observe: observe,
+      reportProgress: reportProgress
+    });
   }
 
   /**
@@ -409,82 +292,56 @@ export class SocialService {
    * @param reportProgress flag to report request and response progress.
    */
   public socialGetFriendRequestList(
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<SocialGetFriendRequestList200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20069>;
   public socialGetFriendRequestList(
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<SocialGetFriendRequestList200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20069>>;
   public socialGetFriendRequestList(
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<SocialGetFriendRequestList200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20069>>;
   public socialGetFriendRequestList(
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.get<SocialGetFriendRequestList200Response>(
-      `${this.configuration.basePath}/Social/Friends/Requests/`,
-      {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        reportProgress: reportProgress,
-      }
-    );
+    return this.httpClient.get<InlineResponse20069>(`${this.configuration.basePath}/Social/Friends/Requests/`, {
+      responseType: <any>responseType,
+      withCredentials: this.configuration.withCredentials,
+      headers: headers,
+      observe: observe,
+      reportProgress: reportProgress
+    });
   }
 
   /**
@@ -497,91 +354,67 @@ export class SocialService {
   public socialGetPlatformFriendList(
     friendPlatform: number,
     page: string,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<SocialGetPlatformFriendList200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20070>;
   public socialGetPlatformFriendList(
     friendPlatform: number,
     page: string,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<SocialGetPlatformFriendList200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20070>>;
   public socialGetPlatformFriendList(
     friendPlatform: number,
     page: string,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<SocialGetPlatformFriendList200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20070>>;
   public socialGetPlatformFriendList(
     friendPlatform: number,
     page: string,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (friendPlatform === null || friendPlatform === undefined) {
       throw new Error(
-        "Required parameter friendPlatform was null or undefined when calling socialGetPlatformFriendList."
+        'Required parameter friendPlatform was null or undefined when calling socialGetPlatformFriendList.'
       );
     }
     if (page === null || page === undefined) {
-      throw new Error(
-        "Required parameter page was null or undefined when calling socialGetPlatformFriendList."
-      );
+      throw new Error('Required parameter page was null or undefined when calling socialGetPlatformFriendList.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.get<SocialGetPlatformFriendList200Response>(
-      `${
-        this.configuration.basePath
-      }/Social/PlatformFriends/${encodeURIComponent(
+    return this.httpClient.get<InlineResponse20070>(
+      `${this.configuration.basePath}/Social/PlatformFriends/${encodeURIComponent(
         String(friendPlatform)
       )}/${encodeURIComponent(String(page))}/`,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -594,92 +427,65 @@ export class SocialService {
    */
   public socialIssueFriendRequest(
     membershipId: string,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2GetUserClanInviteSetting200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20017>;
   public socialIssueFriendRequest(
     membershipId: string,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2GetUserClanInviteSetting200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20017>>;
   public socialIssueFriendRequest(
     membershipId: string,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2GetUserClanInviteSetting200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20017>>;
   public socialIssueFriendRequest(
     membershipId: string,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (membershipId === null || membershipId === undefined) {
-      throw new Error(
-        "Required parameter membershipId was null or undefined when calling socialIssueFriendRequest."
-      );
+      throw new Error('Required parameter membershipId was null or undefined when calling socialIssueFriendRequest.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.post<GroupV2GetUserClanInviteSetting200Response>(
-      `${this.configuration.basePath}/Social/Friends/Add/${encodeURIComponent(
-        String(membershipId)
-      )}/`,
+    return this.httpClient.post<InlineResponse20017>(
+      `${this.configuration.basePath}/Social/Friends/Add/${encodeURIComponent(String(membershipId))}/`,
       null,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -692,92 +498,65 @@ export class SocialService {
    */
   public socialRemoveFriend(
     membershipId: string,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2GetUserClanInviteSetting200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20017>;
   public socialRemoveFriend(
     membershipId: string,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2GetUserClanInviteSetting200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20017>>;
   public socialRemoveFriend(
     membershipId: string,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2GetUserClanInviteSetting200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20017>>;
   public socialRemoveFriend(
     membershipId: string,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (membershipId === null || membershipId === undefined) {
-      throw new Error(
-        "Required parameter membershipId was null or undefined when calling socialRemoveFriend."
-      );
+      throw new Error('Required parameter membershipId was null or undefined when calling socialRemoveFriend.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.post<GroupV2GetUserClanInviteSetting200Response>(
-      `${
-        this.configuration.basePath
-      }/Social/Friends/Remove/${encodeURIComponent(String(membershipId))}/`,
+    return this.httpClient.post<InlineResponse20017>(
+      `${this.configuration.basePath}/Social/Friends/Remove/${encodeURIComponent(String(membershipId))}/`,
       null,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }
@@ -790,94 +569,65 @@ export class SocialService {
    */
   public socialRemoveFriendRequest(
     membershipId: string,
-    observe?: "body",
+    observe?: 'body',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<GroupV2GetUserClanInviteSetting200Response>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<InlineResponse20017>;
   public socialRemoveFriendRequest(
     membershipId: string,
-    observe?: "response",
+    observe?: 'response',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpResponse<GroupV2GetUserClanInviteSetting200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpResponse<InlineResponse20017>>;
   public socialRemoveFriendRequest(
     membershipId: string,
-    observe?: "events",
+    observe?: 'events',
     reportProgress?: boolean,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
-  ): Observable<HttpEvent<GroupV2GetUserClanInviteSetting200Response>>;
+    options?: { httpHeaderAccept?: '*/*' }
+  ): Observable<HttpEvent<InlineResponse20017>>;
   public socialRemoveFriendRequest(
     membershipId: string,
-    observe: any = "body",
+    observe: any = 'body',
     reportProgress: boolean = false,
-    options?: { httpHeaderAccept?: "*/*"; context?: HttpContext }
+    options?: { httpHeaderAccept?: '*/*' }
   ): Observable<any> {
     if (membershipId === null || membershipId === undefined) {
-      throw new Error(
-        "Required parameter membershipId was null or undefined when calling socialRemoveFriendRequest."
-      );
+      throw new Error('Required parameter membershipId was null or undefined when calling socialRemoveFriendRequest.');
     }
 
-    let localVarHeaders = this.defaultHeaders;
+    let headers = this.defaultHeaders;
 
-    let localVarCredential: string | undefined;
+    let credential: string | undefined;
     // authentication (oauth2) required
-    localVarCredential = this.configuration.lookupCredential("oauth2");
-    if (localVarCredential) {
-      localVarHeaders = localVarHeaders.set(
-        "Authorization",
-        "Bearer " + localVarCredential
-      );
+    credential = this.configuration.lookupCredential('oauth2');
+    if (credential) {
+      headers = headers.set('Authorization', 'Bearer ' + credential);
     }
 
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
+    let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (httpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = ["*/*"];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+      const httpHeaderAccepts: string[] = ['*/*'];
+      httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        "Accept",
-        localVarHttpHeaderAcceptSelected
-      );
+    if (httpHeaderAcceptSelected !== undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
+    let responseType: 'text' | 'json' = 'json';
+    if (httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+      responseType = 'text';
     }
 
-    let responseType_: "text" | "json" | "blob" = "json";
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith("text")) {
-        responseType_ = "text";
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = "json";
-      } else {
-        responseType_ = "json";
-      }
-    }
-
-    return this.httpClient.post<GroupV2GetUserClanInviteSetting200Response>(
-      `${
-        this.configuration.basePath
-      }/Social/Friends/Requests/Remove/${encodeURIComponent(
-        String(membershipId)
-      )}/`,
+    return this.httpClient.post<InlineResponse20017>(
+      `${this.configuration.basePath}/Social/Friends/Requests/Remove/${encodeURIComponent(String(membershipId))}/`,
       null,
       {
-        context: localVarHttpContext,
-        responseType: <any>responseType_,
+        responseType: <any>responseType,
         withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
+        headers: headers,
         observe: observe,
-        reportProgress: reportProgress,
+        reportProgress: reportProgress
       }
     );
   }

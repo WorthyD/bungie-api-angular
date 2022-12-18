@@ -11,7 +11,7 @@
  */
 import { DestinyHistoricalStatsDestinyActivityHistoryResults } from "./destinyHistoricalStatsDestinyActivityHistoryResults";
 
-export interface Destiny2GetActivityHistory200Response {
+export interface InlineResponse20055 {
   Response?: DestinyHistoricalStatsDestinyActivityHistoryResults;
   ErrorCode?: number;
   ThrottleSeconds?: number;

@@ -11,8 +11,8 @@
  */
 import { DestinyMilestonesDestinyMilestone } from "./destinyMilestonesDestinyMilestone";
 
-export interface Destiny2GetClanWeeklyRewardState200Response {
-  Response?: DestinyMilestonesDestinyMilestone;
+export interface InlineResponse20047 {
+  Response?: DestinyResponsesDestinyItemChangeResponse;
   ErrorCode?: number;
   ThrottleSeconds?: number;
   ErrorStatus?: string;

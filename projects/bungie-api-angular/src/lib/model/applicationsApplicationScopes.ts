@@ -42,5 +42,5 @@ export const ApplicationsApplicationScopes = {
   NUMBER_2048: 2048 as ApplicationsApplicationScopes,
   NUMBER_4096: 4096 as ApplicationsApplicationScopes,
   NUMBER_8192: 8192 as ApplicationsApplicationScopes,
-  NUMBER_16384: 16384 as ApplicationsApplicationScopes,
+  NUMBER_16384: 16384 as ApplicationsApplicationScopes
 };

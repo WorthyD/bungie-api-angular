@@ -14,5 +14,4 @@ import { DictionaryComponentResponseOfint64AndDestinyItemObjectivesComponent } f
 
 export interface DestinyBaseItemComponentSetOfint64 {
   objectives?: DictionaryComponentResponseOfint64AndDestinyItemObjectivesComponent;
-  perks?: DictionaryComponentResponseOfint64AndDestinyItemPerksComponent;
 }

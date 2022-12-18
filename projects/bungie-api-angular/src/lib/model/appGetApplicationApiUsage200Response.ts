@@ -11,7 +11,7 @@
  */
 import { ApplicationsApiUsage } from "./applicationsApiUsage";
 
-export interface AppGetApplicationApiUsage200Response {
+export interface InlineResponse200 {
   Response?: ApplicationsApiUsage;
   ErrorCode?: number;
   ThrottleSeconds?: number;
