@@ -2,7 +2,8 @@
   "name": "bungie-api-angular-v2",
   "version": "0.0.0",
   "scripts": {
-    "build": "ng build",
+    "build": "ng build --project=bungie-api-angular",
+    "start": "ng serve --project=library-tester",
     "patch-code-gen": "node patch-code-gen.js",
     "swagger-gen": "openapi-generator-cli generate -g typescript-angular -o projects/bungie-api-angular/src/lib -i https://raw.githubusercontent.com/Bungie-net/api/master/openapi-2.json --skip-validate-spec",
     "prettier": "prettier --write \"projects/bungie-api-angular/**/*.ts\""
@@ -17,6 +18,8 @@
     "@angular/platform-browser": "^14.0.0",
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
+    "json-schema": "^0.4.0",
+    "json-schema-traverse": "^1.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
