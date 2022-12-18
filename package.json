@@ -3,10 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "build": "ng build --project=bungie-api-angular",
-    "start": "ng serve --project=library-tester",
+    "start": "ng serve --project=library-tester --port=4321",
     "patch-code-gen": "node patch-code-gen.js",
     "swagger-gen": "openapi-generator-cli generate -g typescript-angular -o projects/bungie-api-angular/src/lib -i https://raw.githubusercontent.com/Bungie-net/api/master/openapi-2.json --skip-validate-spec",
-    "prettier": "prettier --write \"projects/bungie-api-angular/**/*.ts\""
+    "prettier": "prettier --write \"projects/bungie-api-angular/**/*.ts\"",
+    "package" :"npm i && npm run build && npm publish ./dist/bungie-api-angular --dry",
+    "publish" :"npm i && npm run build && npm publish ./dist/bungie-api-angular"
   },
   "private": true,
   "dependencies": {

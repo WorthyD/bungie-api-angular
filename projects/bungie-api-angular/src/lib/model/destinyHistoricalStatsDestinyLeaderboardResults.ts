@@ -9,20 +9,17 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { {[key:string]:DestinyHistoricalStatsDestinyLeaderboard;} } from './keystringDestinyHistoricalStatsDestinyLeaderboard';
+import { DestinyHistoricalStatsDestinyLeaderboard } from './destinyHistoricalStatsDestinyLeaderboard';
 
+export interface DestinyHistoricalStatsDestinyLeaderboardResults {
+  [key: string]: { [key: string]: DestinyHistoricalStatsDestinyLeaderboard } | any;
 
-export interface DestinyHistoricalStatsDestinyLeaderboardResults { 
-  [key: string]: { [key: string]: DestinyHistoricalStatsDestinyLeaderboard; } | any;
-
-
-    /**
-     * Indicate the membership ID of the account that is the focal point of the provided leaderboards.
-     */
-    focusMembershipId?: number;
-    /**
-     * Indicate the character ID of the character that is the focal point of the provided leaderboards. May be null, in which case any character from the focus membership can appear in the provided leaderboards.
-     */
-    focusCharacterId?: number;
+  /**
+   * Indicate the membership ID of the account that is the focal point of the provided leaderboards.
+   */
+  focusMembershipId?: number;
+  /**
+   * Indicate the character ID of the character that is the focal point of the provided leaderboards. May be null, in which case any character from the focus membership can appear in the provided leaderboards.
+   */
+  focusCharacterId?: number;
 }
-
